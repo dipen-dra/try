@@ -20,7 +20,7 @@ const AuthLayout = ({ children }) => {
             {/* Header */}
             <div className="flex items-center justify-center space-x-3">
               <Droplet className="w-10 h-10 text-white fill-current" />
-              <h1 className="text-4xl font-bold">रक्तदान deu</h1>
+              <h1 className="text-4xl font-bold">रक्तदान</h1>
             </div>
 
             <p className="text-xl font-light text-white/90">

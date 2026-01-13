@@ -18,13 +18,13 @@ const Header = () => {
               <div className="w-10 h-10 flex items-center justify-center transform hover:scale-110 transition-transform duration-300">
                 <img
                   src={logo}
-                  alt="रक्तदान deu Logo"
+                  alt="रक्तदान Logo"
                   className="w-10 h-10"
                 />
               </div>
 
               <span className="text-xl font-bold text-navy-500 hover:text-blood-500 transition-colors duration-300">
-                <span className="text-blood-500">रक्तदान</span> deu
+                <span className="text-blood-500">रक्तदान</span>
               </span>
             </Link>
           </div>
