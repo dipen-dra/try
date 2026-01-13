@@ -1,16 +1,14 @@
 // src/AppRouter.jsx
 
 import { Route, Routes, Navigate } from "react-router-dom";
-import { useContext } from "react";
-import { AuthContext } from "../auth/AuthProvider"; // Adjust path if 
-
+import { GuestRoute, ProtectedRoute, RoleBasedRoute } from "./RouteGuards";
+import { HomeRoute } from "./HomeRoute";
 
 // Import Layouts
-import UserLayout from "../layouts/user/UserLayout"; // <-- Import the new layout
+import UserLayout from "../layouts/user/UserLayout";
 import AdminMainLayout from "../layouts/admin/adminMainLayout";
 
 // Import Pages & Components
-import Homepage from "../pages/Homepage";
 import { LoginPage } from "../pages/LoginPage";
 import SignupPage from "../pages/SignupPage";
 import DonationPage from "../pages/DonationPage";
@@ -33,24 +31,35 @@ import RequestManagement from "../pages/admin/RequestManagement";
 import MessageAdmin from "../pages/admin/MessageAdmin";
 import DonationsManagement from "../pages/admin/DonationsManagement";
 
-// Protected Route HOC
-function ProtectedRoute({ children }) {
-  const { isAuthenticated, loading } = useContext(AuthContext);
-  if (loading) return <div>Loading...</div>; // Or a loading spinner
-  return isAuthenticated ? children : <Navigate to="/login" replace />;
-}
-
 const AppRouter = () => (
   <Routes>
-    {/* --- Public Routes --- */}
-    <Route path="/" element={<Homepage />} />
-    <Route path="/login" element={<LoginPage />} />
-    <Route path="/signup" element={<SignupPage />} />
+    {/* --- Homepage (Smart redirect for authenticated users) --- */}
+    <Route path="/" element={<HomeRoute />} />
+
+    {/* --- Auth Routes (Guest Only - redirects if already logged in) --- */}
+    <Route
+      path="/login"
+      element={
+        <GuestRoute>
+          <LoginPage />
+        </GuestRoute>
+      }
+    />
+    <Route
+      path="/signup"
+      element={
+        <GuestRoute>
+          <SignupPage />
+        </GuestRoute>
+      }
+    />
+
+    {/* --- Donation Routes (Public) --- */}
     <Route path="/donate/:campaignId" element={<DonationPage />} />
     <Route path="/donation/success" element={<DonationSuccessPage />} />
     <Route path="/donation/failure" element={<DonationFailurePage />} />
 
-    {/* --- User Routes (Nested under the new UserLayout) --- */}
+    {/* --- User Routes (Protected - requires authentication) --- */}
     <Route
       path="/user"
       element={
@@ -60,20 +69,20 @@ const AppRouter = () => (
       }
     >
       <Route path="dashboard" element={<UserDashboard />} />
-      <Route path="requests" element={<MyRequest />} /> {/* Path changed to match sidebar */}
+      <Route path="requests" element={<MyRequest />} />
       <Route path="notifications" element={<NotificationsPage />} />
       <Route path="message" element={<UserMessage />} />
       <Route path="mental-health" element={<MentalHealth />} />
       <Route path="settings" element={<SettingsPage />} />
     </Route>
 
-    {/* --- Admin Routes (nested inside a layout) --- */}
+    {/* --- Admin Routes (Role-Based - requires admin role) --- */}
     <Route
       path="/admin"
       element={
-        <ProtectedRoute>
+        <RoleBasedRoute requiredRole="admin">
           <AdminMainLayout />
-        </ProtectedRoute>
+        </RoleBasedRoute>
       }
     >
       <Route index element={<AdminDashboardManagement />} />
@@ -89,4 +98,3 @@ const AppRouter = () => (
 );
 
 export default AppRouter;
-
