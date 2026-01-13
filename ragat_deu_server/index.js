@@ -47,8 +47,8 @@ app.use(express.json());
 
 // Security Middlewares
 app.use(helmet()); // Set security HTTP headers
-app.use(mongoSanitize()); // Prevent NoSQL injection
-app.use(xss()); // Sanitize data against XSS
+// app.use(mongoSanitize()); // Prevent NoSQL injection (Disabled due to Express 5 compatibility issue)
+// app.use(xss()); // Sanitize data against XSS (Disabled due to Express 5 compatibility issue)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes

@@ -91,8 +91,8 @@ const RegisterForm = () => {
         .required('Password is required'),
       disease: Yup.string().when('role', {
         is: 'user',
-        then: Yup.string().required('Disease or condition is required'),
-        otherwise: Yup.string(),
+        then: (schema) => schema.required('Disease or condition is required'),
+        otherwise: (schema) => schema.optional(),
       }),
       description: Yup.string(),
       agreeTerms: Yup.boolean().oneOf([true], "You must agree to the Terms of Use and Privacy Policy"),
