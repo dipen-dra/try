@@ -4,6 +4,7 @@ import { useState } from "react"
 import { X, Upload, FileText, UserIcon, FileBadge, Sparkles, Heart } from "lucide-react"
 import { useAddRequest } from "../../../hooks/useRequest"
 import { toast } from "react-hot-toast"
+import { validateFile } from "../../../utils/fileValidation"
 
 const FileUploadInput = ({ title, file, onFileChange, id, icon, acceptedTypes, required = true }) => (
   <div className="group">
@@ -74,11 +75,21 @@ export default function AddRequest({ isOpen, onClose }) {
 
   const handleFileChange = (e, fileType) => {
     const file = e.target.files[0]
-    if (file) {
-      if (fileType === "userImage") setUserImage(file)
-      else if (fileType === "citizenshipImage") setCitizenshipImage(file)
-      else if (fileType === "supportingDoc") setSupportingDoc(file)
+
+    if (!file) return;
+
+    // Validate file with security checks
+    const validation = validateFile(file, 'document');
+    if (!validation.valid) {
+      toast.error(validation.error);
+      e.target.value = ''; // Clear the input
+      return;
     }
+
+    // File is valid, proceed
+    if (fileType === "userImage") setUserImage(file)
+    else if (fileType === "citizenshipImage") setCitizenshipImage(file)
+    else if (fileType === "supportingDoc") setSupportingDoc(file)
   }
 
   const handleSubmit = async (e) => {

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'; 
+import axios from 'axios';
+import { Camera, Upload } from 'lucide-react';
+import { toast } from 'react-hot-toast';
+import { validateFile } from '../../utils/fileValidation';
 
 // A simple toggle switch component
 const ToggleSwitch = ({ enabled, setEnabled }) => (
@@ -24,11 +27,13 @@ export default function SettingsPage() {
         newPassword: '',
         confirmNewPassword: '',
     });
+    const [profilePicture, setProfilePicture] = useState(null);
+    const [profilePicturePreview, setProfilePicturePreview] = useState(null);
     const [isTwoFactorEnabled, setIsTwoFactorEnabled] = useState(false);
     const [message, setMessage] = useState({ type: '', text: '' });
 
     // ✅ FIX: Changed the base URL to match your index.js setup
-    const API_URL = 'http://localhost:5050/api/auth'; 
+    const API_URL = 'http://localhost:5050/api/auth';
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -59,17 +64,52 @@ export default function SettingsPage() {
         setPassword({ ...password, [e.target.name]: e.target.value });
     };
 
+    const handleProfilePictureChange = (e) => {
+        const file = e.target.files[0];
+
+        if (!file) return;
+
+        // Validate file with security checks
+        const validation = validateFile(file, 'profile');
+        if (!validation.valid) {
+            toast.error(validation.error);
+            e.target.value = ''; // Clear input
+            return;
+        }
+
+        // File is valid, set preview
+        setProfilePicture(file);
+        setProfilePicturePreview(URL.createObjectURL(file));
+        toast.success('Profile picture selected successfully!');
+    };
+
     const handleProfileSubmit = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem('token');
+
         try {
-            // This will now correctly call '/api/auth/me'
-            const res = await axios.put(`${API_URL}/me`, profile, {
-                headers: { Authorization: `Bearer ${token}` },
+            const formData = new FormData();
+            formData.append('name', profile.name);
+            formData.append('email', profile.email);
+            formData.append('contact', profile.contact);
+            formData.append('disease', profile.disease);
+            formData.append('description', profile.description);
+
+            if (profilePicture) {
+                formData.append('profilePicture', profilePicture);
+            }
+
+            const res = await axios.put(`${API_URL}/me`, formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data'
+                },
             });
             setMessage({ type: 'success', text: 'Profile updated successfully!' });
+            toast.success('Profile updated successfully!');
         } catch (error) {
             setMessage({ type: 'error', text: error.response?.data?.message || 'Failed to update profile.' });
+            toast.error(error.response?.data?.message || 'Failed to update profile.');
         }
     };
 
@@ -107,6 +147,43 @@ export default function SettingsPage() {
                 {/* Edit Profile Form */}
                 <form onSubmit={handleProfileSubmit} className="space-y-4 p-6 bg-white border border-gray-200 rounded-lg">
                     <h2 className="text-lg font-semibold text-gray-700">Edit Profile</h2>
+
+                    {/* Profile Picture Upload */}
+                    <div className="flex flex-col items-center space-y-4 pb-6 border-b border-gray-200">
+                        <div className="relative">
+                            <div className="w-32 h-32 rounded-full overflow-hidden bg-gray-100 border-4 border-white shadow-lg">
+                                {profilePicturePreview ? (
+                                    <img
+                                        src={profilePicturePreview}
+                                        alt="Profile Preview"
+                                        className="w-full h-full object-cover"
+                                    />
+                                ) : (
+                                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blood-100 to-blood-200">
+                                        <Camera className="w-12 h-12 text-blood-400" />
+                                    </div>
+                                )}
+                            </div>
+                            <label
+                                htmlFor="profile-picture-upload"
+                                className="absolute bottom-0 right-0 w-10 h-10 bg-blood-500 rounded-full flex items-center justify-center cursor-pointer hover:bg-blood-600 transition-colors shadow-lg border-2 border-white"
+                            >
+                                <Upload className="w-5 h-5 text-white" />
+                            </label>
+                            <input
+                                type="file"
+                                id="profile-picture-upload"
+                                accept=".png,.jpg,.jpeg"
+                                onChange={handleProfilePictureChange}
+                                className="hidden"
+                            />
+                        </div>
+                        <div className="text-center">
+                            <p className="text-sm font-medium text-gray-700">Profile Picture</p>
+                            <p className="text-xs text-gray-500">PNG, JPG or JPEG (Max 5MB)</p>
+                        </div>
+                    </div>
+
                     <div>
                         <label className="block text-sm font-medium text-gray-600">Name</label>
                         <input type="text" name="name" value={profile.name} onChange={handleProfileChange} className="mt-1 block w-full border border-gray-300 rounded-md p-2" />
@@ -115,7 +192,7 @@ export default function SettingsPage() {
                         <label className="block text-sm font-medium text-gray-600">Email</label>
                         <input type="email" name="email" value={profile.email} disabled className="mt-1 block w-full border border-gray-300 rounded-md p-2 bg-gray-100" />
                     </div>
-                     <div>
+                    <div>
                         <label className="block text-sm font-medium text-gray-600">Phone Number</label>
                         <input type="text" name="contact" value={profile.contact} onChange={handleProfileChange} className="mt-1 block w-full border border-gray-300 rounded-md p-2" />
                     </div>
@@ -123,7 +200,7 @@ export default function SettingsPage() {
                         <label className="block text-sm font-medium text-gray-600">Disease</label>
                         <input type="text" name="disease" value={profile.disease} onChange={handleProfileChange} className="mt-1 block w-full border border-gray-300 rounded-md p-2" />
                     </div>
-                     <div>
+                    <div>
                         <label className="block text-sm font-medium text-gray-600">Description</label>
                         <textarea name="description" value={profile.description} onChange={handleProfileChange} rows="3" className="mt-1 block w-full border border-gray-300 rounded-md p-2"></textarea>
                     </div>
@@ -149,7 +226,7 @@ export default function SettingsPage() {
                             <label className="block text-sm font-medium text-gray-600">Confirm New Password</label>
                             <input type="password" name="confirmNewPassword" value={password.confirmNewPassword} onChange={handlePasswordChange} className="mt-1 block w-full border border-gray-300 rounded-md p-2" />
                         </div>
-                         <button type="submit" className="px-4 py-2 bg-black text-white font-semibold rounded-lg shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-75">
+                        <button type="submit" className="px-4 py-2 bg-black text-white font-semibold rounded-lg shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-75">
                             Update Password
                         </button>
                     </form>
