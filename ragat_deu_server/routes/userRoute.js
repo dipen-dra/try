@@ -46,13 +46,15 @@ const {
     changePassword,
     socialLogin, // Ensure socialLogin is exported from your controller
     forgotPassword,
-    resetPassword
+    resetPassword,
+    verify2FA,
+    toggle2FA
 } = require("../controller/userController");
 
 const { authorizeToken, requireAdmin } = require("../middleware/authMiddleware");
 
 // Import the new security middlewares
-const { authLimiter, loginLimiter } = require('../middleware/rateLimiter');
+const { authLimiter, loginLimiter, otpLimiter } = require('../middleware/rateLimiter');
 const verifyRecaptcha = require('../middleware/recaptcha');
 
 
@@ -64,8 +66,15 @@ router.post('/register', [authLimiter], registerUser);
 // User login with rate limiting and reCAPTCHA
 router.post("/login", [loginLimiter], loginUser);
 
+// 2FA Verification (Protected by strict rate limit)
+router.post("/verify-2fa", [otpLimiter], verify2FA);
+
 
 // ## 3. Define Protected User Routes ##
+// Toggle 2FA
+router.put("/toggle-2fa", [authLimiter, authorizeToken], toggle2FA);
+
+router.use(authorizeToken); // Apply auth middleware to all routes below
 
 // Get personal profile information
 router.get('/me', authorizeToken, getMe);

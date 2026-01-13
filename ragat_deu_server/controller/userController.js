@@ -87,6 +87,45 @@ exports.loginUser = async (req, res) => {
         }
 
         // --- FIX: Include user.name/user.email in JWT payload for display on backend ---
+        // 2FA Check
+        if (user.isTwoFactorEnabled) {
+            // Generate 6-digit OTP
+            const otp = Math.floor(100000 + Math.random() * 900000).toString();
+            user.twoFactorOTP = otp;
+            user.twoFactorOTPExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
+
+            await user.save();
+
+            // Check for email credentials
+            if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+                console.error("Backend: Missing EMAIL_USER or EMAIL_PASS environment variables.");
+                return res.status(500).json({ success: false, message: "2FA service not configured properly (Missing Email Credentials)." });
+            }
+
+            // Send OTP Email
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: process.env.EMAIL_USER,
+                    pass: process.env.EMAIL_PASS
+                }
+            });
+
+            await transporter.sendMail({
+                from: process.env.EMAIL_USER,
+                to: user.email,
+                subject: 'Your 2FA Login Code - Raktadan',
+                text: `Your login verification code is: ${otp}. It expires in 10 minutes.`
+            });
+
+            return res.status(200).json({
+                success: true,
+                require2FA: true,
+                message: 'OTP sent to your email',
+                email: user.email
+            });
+        }
+
         const token = jwt.sign(
             {
                 id: user._id,
@@ -107,7 +146,8 @@ exports.loginUser = async (req, res) => {
                 id: user._id,
                 name: user.name,
                 contact: user.contact,
-                email: user.email
+                email: user.email,
+                isTwoFactorEnabled: user.isTwoFactorEnabled
             }
         });
         console.log("Backend: User data sent in response:", {
@@ -425,3 +465,84 @@ exports.socialLogin = async (req, res) => {
         res.status(401).json({ error: 'Invalid social login' });
     }
 };
+
+//  NEW: Verify 2FA OTP
+exports.verify2FA = async (req, res) => {
+    const { email, otp } = req.body;
+
+    try {
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+
+        if (!user.twoFactorOTP || !user.twoFactorOTPExpires) {
+            return res.status(400).json({ success: false, message: 'No OTP request found. Please login again.' });
+        }
+
+        if (user.twoFactorOTP !== otp) {
+            return res.status(400).json({ success: false, message: 'Invalid OTP' });
+        }
+
+        if (Date.now() > user.twoFactorOTPExpires) {
+            return res.status(400).json({ success: false, message: 'OTP expired' });
+        }
+
+        // OTP Valid
+        user.twoFactorOTP = undefined;
+        user.twoFactorOTPExpires = undefined;
+        await user.save();
+
+        const token = jwt.sign(
+            {
+                id: user._id,
+                role: 'user',
+                name: user.name,
+                email: user.email
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: '1d' }
+        );
+
+        res.status(200).json({
+            success: true,
+            message: '2FA Verification Successful',
+            token,
+            user: {
+                id: user._id,
+                name: user.name,
+                contact: user.contact,
+                email: user.email,
+                isTwoFactorEnabled: user.isTwoFactorEnabled
+            }
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+};
+
+//  NEW: Toggle 2FA
+exports.toggle2FA = async (req, res) => {
+    const { enable } = req.body;
+
+    try {
+        const user = await User.findById(req.user.id);
+        if (!user) return res.status(404).json({ success: false, message: 'User not found' });
+
+        user.isTwoFactorEnabled = enable;
+        await user.save();
+
+        res.status(200).json({
+            success: true,
+            message: `Two-Factor Authentication ${enable ? 'enabled' : 'disabled'}`,
+            isTwoFactorEnabled: user.isTwoFactorEnabled
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+};
+

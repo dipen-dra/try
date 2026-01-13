@@ -26,4 +26,15 @@ const loginLimiter = rateLimit({
     }
 });
 
-module.exports = { authLimiter, loginLimiter };
+const otpLimiter = rateLimit({
+    windowMs: 10 * 60 * 1000, // 10 minutes
+    max: 3, // 3 attempts
+    message: {
+        success: false,
+        message: 'Too many invalid OTP attempts. Please try again after 10 minutes.'
+    },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
+module.exports = { authLimiter, loginLimiter, otpLimiter };

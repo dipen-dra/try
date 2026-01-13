@@ -52,6 +52,7 @@ export default function SettingsPage() {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setProfile(res.data.data);
+                setIsTwoFactorEnabled(res.data.data.isTwoFactorEnabled);
             } catch (error) {
                 console.error('Failed to fetch user data', error);
                 setMessage({ type: 'error', text: 'Failed to load profile.' });
@@ -136,6 +137,21 @@ export default function SettingsPage() {
             setPassword({ currentPassword: '', newPassword: '', confirmNewPassword: '' });
         } catch (error) {
             setMessage({ type: 'error', text: error.response?.data?.message || 'Failed to change password.' });
+        }
+    };
+
+    const handleToggle2FA = async (enabled) => {
+        const token = localStorage.getItem('token');
+        try {
+            const res = await axios.put(`${API_URL}/toggle-2fa`, { enable: enabled }, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            setIsTwoFactorEnabled(enabled);
+            toast.success(res.data.message);
+        } catch (error) {
+            console.error(error);
+            toast.error("Failed to update 2FA settings");
+            setIsTwoFactorEnabled(!enabled); // Revert UI on error
         }
     };
 
@@ -297,8 +313,11 @@ export default function SettingsPage() {
                         <h2 className="text-lg font-semibold text-gray-700 mb-4">Two-Factor Authentication</h2>
                         <div className="space-y-4">
                             <div className="flex items-center justify-between">
-                                <p className="text-gray-600">Enable Two-factor authentication</p>
-                                <ToggleSwitch enabled={isTwoFactorEnabled} setEnabled={setIsTwoFactorEnabled} />
+                                <p className="text-gray-600">Enable Two-factor authentication (Email OTP)</p>
+                                <ToggleSwitch
+                                    enabled={isTwoFactorEnabled}
+                                    setEnabled={handleToggle2FA}
+                                />
                             </div>
                             <div className="flex items-center justify-between">
                                 <p className="text-gray-600">Add another e-mail for verification</p>

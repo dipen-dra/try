@@ -49,6 +49,12 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: loginAttempt,
     onSuccess: (data) => {
+      // 2FA Interception
+      if (data.require2FA) {
+        toast.success("Verification code sent to email!");
+        return; // Stop here, let the component handle the rest
+      }
+
       // This runs only after a successful login (either admin or user)
       toast.success(data.message || "Login successful!");
 

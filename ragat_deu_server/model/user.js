@@ -42,7 +42,13 @@ const UserSchema = new mongoose.Schema(
             type: String,
         }],
         resetPasswordToken: String,
-        resetPasswordExpire: Date
+        resetPasswordExpire: Date,
+        isTwoFactorEnabled: {
+            type: Boolean,
+            default: false
+        },
+        twoFactorOTP: String,
+        twoFactorOTPExpires: Date
     },
     { timestamps: true }
 );
