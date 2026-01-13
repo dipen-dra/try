@@ -35,3 +35,5 @@ describe('Badge Component', () => {
     expect(screen.getByTestId('custom-badge')).toBeInTheDocument();
   });
 });
+
+

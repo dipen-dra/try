@@ -79,7 +79,7 @@ const StatsSection = () => {
               className={`text-center group hover:scale-105 transition-all duration-500 hover:bg-white hover:shadow-lg hover:rounded-lg hover:p-6 ${isVisible ? "animate-fadeInUp opacity-100" : "opacity-0 translate-y-[50px]"}`}
               style={{ animationDelay: `${index * 0.2}s` }}
             >
-              <div className="text-4xl font-bold text-green-600 mb-2 group-hover:text-green-700 transition-colors duration-300">
+              <div className="text-4xl font-bold text-blood-600 mb-2 group-hover:text-blood-700 transition-colors duration-300">
                 {index === 0
                   ? "0%"
                   : index === 1
@@ -103,3 +103,5 @@ const StatsSection = () => {
 }
 
 export default StatsSection
+
+

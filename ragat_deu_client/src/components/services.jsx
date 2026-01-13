@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react';
-import { Heart, Users, Shield } from "lucide-react"
+import { Heart, Droplet, Calendar, HandHeart } from "lucide-react"
 import { useEffect, useState } from "react"
 import Card from "./dashboardCard"
 
@@ -27,21 +27,27 @@ const ServicesSection = () => {
   const services = [
     {
       icon: Heart,
-      title: "Request for Donation",
-      description: "Get financial support for your medical emergencies and social causes",
-      color: "bg-red-100 text-red-600",
+      title: "Saves Lives",
+      description: "Every donation can save up to three lives. Your contribution makes a real difference in emergency situations.",
+      color: "bg-blood-100 text-blood-600",
     },
     {
-      icon: Users,
-      title: "Help someone who needs your donation",
-      description: "Contribute to meaningful causes and make a difference in someone's life",
-      color: "bg-blue-100 text-blue-600",
+      icon: Droplet,
+      title: "Free Health Checkup",
+      description: "Get a complimentary health screening including blood pressure, hemoglobin levels, and infectious disease testing.",
+      color: "bg-lightBlue-200 text-lightBlue-700",
     },
     {
-      icon: Shield,
-      title: "All donors with will receive this benefits",
-      description: "Enjoy exclusive benefits and recognition for your generous contributions",
-      color: "bg-green-100 text-green-600",
+      icon: Calendar,
+      title: "Quick & Easy Process",
+      description: "The entire donation process takes less than an hour. Schedule your appointment at your convenience.",
+      color: "bg-navy-100 text-navy-600",
+    },
+    {
+      icon: HandHeart,
+      title: "Helps Others",
+      description: "Join a community of heroes making a difference. Your donation helps patients in need across our community.",
+      color: "bg-blood-100 text-blood-600",
     },
   ]
 
@@ -51,10 +57,13 @@ const ServicesSection = () => {
         <div
           className={`text-center transition-all duration-1000 ${isVisible ? "animate-fadeInUp opacity-100" : "opacity-0 translate-y-[50px]"}`}
         >
-          <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">Get our Free Services</h2>
+          <h2 className="text-3xl font-extrabold text-navy-500 sm:text-4xl">Why Donate Blood?</h2>
+          <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+            Discover the incredible impact your blood donation can have on saving lives and supporting your community.
+          </p>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((service, index) => (
             <Card
               key={index}
@@ -66,7 +75,7 @@ const ServicesSection = () => {
               >
                 <service.icon className="w-6 h-6" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-green-600 transition-colors duration-300">
+              <h3 className="text-lg font-semibold text-navy-500 mb-2 group-hover:text-blood-500 transition-colors duration-300">
                 {service.title}
               </h3>
               <p className="text-gray-600 group-hover:text-gray-700 transition-colors duration-300">
@@ -81,3 +90,5 @@ const ServicesSection = () => {
 }
 
 export default ServicesSection
+
+

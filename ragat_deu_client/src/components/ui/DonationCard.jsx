@@ -17,7 +17,7 @@ const DonationCard = ({
   className = "",
 }) => {
   const urgencyColors = {
-    low: "bg-blue-100 text-blue-800",
+    low: "bg-blood-100 text-blood-800",
     medium: "bg-yellow-100 text-yellow-800",
     high: "bg-red-100 text-red-800",
     critical: "bg-red-600 text-white",
@@ -68,7 +68,7 @@ const DonationCard = ({
           <div className="flex space-x-3">
             <Link
               to={`/dashboard/donations/${id}`}
-              className="flex-1 text-center bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-md transition-colors duration-300"
+              className="flex-1 text-center bg-blood-600 hover:bg-blood-700 text-white py-2 px-4 rounded-md transition-colors duration-300"
             >
               Donate Now
             </Link>
@@ -86,3 +86,5 @@ const DonationCard = ({
 }
 
 export default DonationCard
+
+

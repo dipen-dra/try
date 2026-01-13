@@ -11,10 +11,10 @@ const Buttons = ({
     "font-medium rounded-full transition-all duration-300 hover:scale-105 hover:shadow-lg transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:translate-y-0"
 
   const variants = {
-    primary: "bg-green-500 hover:bg-green-600 text-white",
-    secondary: "bg-gray-800 hover:bg-gray-700 text-white",
-    outline: "border border-gray-300 text-gray-700 bg-white hover:bg-gray-50 hover:border-green-500",
-    ghost: "text-gray-700 hover:text-green-600 hover:bg-green-50",
+    primary: "bg-blood-500 hover:bg-blood-600 text-white",
+    secondary: "bg-navy-500 hover:bg-navy-600 text-white",
+    outline: "border border-gray-300 text-gray-700 bg-white hover:bg-gray-50 hover:border-blood-500",
+    ghost: "text-gray-700 hover:text-blood-600 hover:bg-blood-50",
   }
 
   const sizes = {
@@ -36,3 +36,5 @@ const Buttons = ({
 }
 
 export default Buttons
+
+

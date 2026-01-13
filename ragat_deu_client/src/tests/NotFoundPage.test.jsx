@@ -44,3 +44,5 @@ describe('NotFoundPage Component', () => {
     expect(headings.length).toBeGreaterThanOrEqual(0);
   });
 });
+
+

@@ -177,7 +177,7 @@ const RegisterForm = () => {
         <div className="w-full">
           {/* Header */}
           <div className="text-center mb-6">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 via-emerald-500 to-teal-600 rounded-2xl shadow-xl mb-4 relative overflow-hidden">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blood-500 via-blood-600 to-blood-700 rounded-2xl shadow-xl mb-4 relative overflow-hidden">
               <div className="absolute inset-0 bg-white opacity-20 animate-pulse"></div>
               <CheckCircle className="w-8 h-8 text-white fill-current relative z-10" />
             </div>
@@ -210,8 +210,8 @@ const RegisterForm = () => {
                   key={step.id}
                   className="flex items-center p-3 bg-gradient-to-r from-gray-50 to-white rounded-xl border border-gray-100"
                 >
-                  <div className="flex items-center justify-center w-8 h-8 bg-gradient-to-br from-green-100 to-emerald-100 rounded-lg mr-3">
-                    <Icon className="w-4 h-4 text-green-600" />
+                  <div className="flex items-center justify-center w-8 h-8 bg-gradient-to-br from-blood-100 to-emerald-100 rounded-lg mr-3">
+                    <Icon className="w-4 h-4 text-blood-600" />
                   </div>
                   <div className="flex-1">
                     <p className="text-xs font-medium text-gray-600">{step.title.replace("?", "")}</p>
@@ -220,7 +220,7 @@ const RegisterForm = () => {
                   <button
                     type="button"
                     onClick={() => setCurrentStep(index)}
-                    className="text-green-600 hover:text-green-700 text-xs font-medium"
+                    className="text-blood-600 hover:text-blood-700 text-xs font-medium"
                   >
                     Edit
                   </button>
@@ -243,10 +243,10 @@ const RegisterForm = () => {
                 <div
                   className={`w-4 h-4 rounded-md border-2 transition-all duration-200 ${
                     formik.values.agreeTerms
-                      ? "bg-green-500 border-green-500"
+                      ? "bg-blood-500 border-blood-500"
                       : formik.touched.agreeTerms && formik.errors.agreeTerms
                         ? "border-red-300"
-                        : "border-gray-300 group-hover:border-green-400"
+                        : "border-gray-300 group-hover:border-blood-400"
                   }`}
                 >
                   {formik.values.agreeTerms && (
@@ -266,11 +266,11 @@ const RegisterForm = () => {
               </div>
               <span className="text-sm text-gray-600 leading-relaxed">
                 By creating an account, you agree to the{" "}
-                <Link to="/terms" className="text-green-600 hover:text-green-700 font-medium underline">
+                <Link to="/terms" className="text-blood-600 hover:text-blood-700 font-medium underline">
                   Terms of Use
                 </Link>{" "}
                 and{" "}
-                <Link to="/privacy" className="text-green-600 hover:text-green-700 font-medium underline">
+                <Link to="/privacy" className="text-blood-600 hover:text-blood-700 font-medium underline">
                   Privacy Policy
                 </Link>
                 .
@@ -299,9 +299,9 @@ const RegisterForm = () => {
               type="button"
               onClick={formik.handleSubmit}
               disabled={isPending || !formik.values.agreeTerms}
-              className="flex-1 py-3 px-4 bg-gradient-to-r from-green-500 via-emerald-500 to-teal-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2 group relative overflow-hidden"
+              className="flex-1 py-3 px-4 bg-gradient-to-r from-blood-500 via-blood-600 to-blood-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2 group relative overflow-hidden"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-green-600 via-emerald-600 to-teal-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-blood-600 via-blood-700 to-blood-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <span className="relative z-10">{isPending ? "Creating account..." : "Create Account"}</span>
               {!isPending && (
                 <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform duration-200" />
@@ -318,7 +318,7 @@ const RegisterForm = () => {
               Already have an account?{" "}
               <Link
                 to="/login"
-                className="font-semibold text-green-600 hover:text-green-700 transition-colors duration-200 hover:underline"
+                className="font-semibold text-blood-600 hover:text-blood-700 transition-colors duration-200 hover:underline"
               >
                 Sign in here
               </Link>
@@ -342,13 +342,13 @@ const RegisterForm = () => {
             <span className="text-sm font-medium text-gray-600">
               Step {currentStep + 1} of {steps.length}
             </span>
-            <span className="text-sm font-medium text-green-600">
+            <span className="text-sm font-medium text-blood-600">
               {Math.round(((currentStep + 1) / steps.length) * 100)}%
             </span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div
-              className="bg-gradient-to-r from-green-500 to-emerald-500 h-2 rounded-full transition-all duration-500 ease-out"
+              className="bg-gradient-to-r from-blood-500 to-blood-1000 h-2 rounded-full transition-all duration-500 ease-out"
               style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
             ></div>
           </div>
@@ -356,7 +356,7 @@ const RegisterForm = () => {
 
         {/* Header Section */}
         <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 via-emerald-500 to-teal-600 rounded-2xl shadow-xl mb-4 relative overflow-hidden">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blood-500 via-blood-600 to-blood-700 rounded-2xl shadow-xl mb-4 relative overflow-hidden">
             <div className="absolute inset-0 bg-white opacity-20 animate-pulse"></div>
             <Icon className="w-8 h-8 text-white relative z-10" />
             <div className="absolute -top-1 -right-1">
@@ -377,7 +377,7 @@ const RegisterForm = () => {
                 className={`h-5 w-5 transition-colors duration-200 ${
                   formik.touched[currentStepData.id] && formik.errors[currentStepData.id]
                     ? "text-red-400"
-                    : "text-gray-400 group-focus-within:text-green-500"
+                    : "text-gray-400 group-focus-within:text-blood-500"
                 }`}
               />
             </div>
@@ -394,7 +394,7 @@ const RegisterForm = () => {
                 className={`w-full pl-12 pr-4 py-4 border-2 rounded-2xl transition-all duration-300 bg-white/50 backdrop-blur-sm text-lg ${
                   formik.touched[currentStepData.id] && formik.errors[currentStepData.id]
                     ? "border-red-300 focus:border-red-500 focus:ring-red-200"
-                    : "border-gray-200 focus:border-green-400 focus:ring-green-100 hover:border-gray-300"
+                    : "border-gray-200 focus:border-blood-400 focus:ring-blood-100 hover:border-gray-300"
                 } focus:ring-4 focus:ring-opacity-20 focus:outline-none text-gray-900 placeholder-gray-400`}
               />
             ) : (
@@ -409,7 +409,7 @@ const RegisterForm = () => {
                 className={`w-full pl-12 pr-4 py-4 border-2 rounded-2xl transition-all duration-300 bg-white/50 backdrop-blur-sm text-lg ${
                   formik.touched[currentStepData.id] && formik.errors[currentStepData.id]
                     ? "border-red-300 focus:border-red-500 focus:ring-red-200"
-                    : "border-gray-200 focus:border-green-400 focus:ring-green-100 hover:border-gray-300"
+                    : "border-gray-200 focus:border-blood-400 focus:ring-blood-100 hover:border-gray-300"
                 } focus:ring-4 focus:ring-opacity-20 focus:outline-none text-gray-900 placeholder-gray-400`}
               />
             )}
@@ -428,7 +428,7 @@ const RegisterForm = () => {
                           ? "bg-red-400"
                           : passwordStrength <= 3
                             ? "bg-yellow-400"
-                            : "bg-green-400"
+                            : "bg-blood-400"
                         : "bg-gray-200"
                     }`}
                   />
@@ -442,7 +442,7 @@ const RegisterForm = () => {
                       ? "text-red-600"
                       : passwordStrength <= 3
                         ? "text-yellow-600"
-                        : "text-green-600"
+                        : "text-blood-600"
                   }
                 >
                   {passwordStrength <= 2 ? "Weak" : passwordStrength <= 3 ? "Medium" : "Strong"}
@@ -477,9 +477,9 @@ const RegisterForm = () => {
             type="button"
             onClick={handleNext}
             disabled={!isCurrentStepValid() && currentStepData.id !== "description"}
-            className="flex-1 py-3 px-4 bg-gradient-to-r from-green-500 via-emerald-500 to-teal-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2 group relative overflow-hidden"
+            className="flex-1 py-3 px-4 bg-gradient-to-r from-blood-500 via-blood-600 to-blood-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2 group relative overflow-hidden"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-green-600 via-emerald-600 to-teal-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-blood-600 via-blood-700 to-blood-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <span className="relative z-10">{currentStep === steps.length - 1 ? "Review" : "Next"}</span>
             <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform duration-200" />
           </button>
@@ -491,7 +491,7 @@ const RegisterForm = () => {
             Already have an account?{" "}
             <Link
               to="/login"
-              className="font-semibold text-green-600 hover:text-green-700 transition-colors duration-200 hover:underline"
+              className="font-semibold text-blood-600 hover:text-blood-700 transition-colors duration-200 hover:underline"
             >
               Sign in here
             </Link>
@@ -503,3 +503,5 @@ const RegisterForm = () => {
 }
 
 export default RegisterForm
+
+

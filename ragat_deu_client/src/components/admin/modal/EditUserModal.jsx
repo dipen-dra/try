@@ -206,12 +206,12 @@ export default function EditUserModal({ isOpen, onClose, userId }) {
                               </button>
                             )}
                             {imagePreview && (
-                              <div className="absolute bottom-2 left-2 bg-green-500 text-white px-2 py-1 rounded-full text-xs font-medium">
+                              <div className="absolute bottom-2 left-2 bg-blood-500 text-white px-2 py-1 rounded-full text-xs font-medium">
                                 New Image
                               </div>
                             )}
                             {currentImage && !imagePreview && (
-                              <div className="absolute bottom-2 left-2 bg-blue-500 text-white px-2 py-1 rounded-full text-xs font-medium">
+                              <div className="absolute bottom-2 left-2 bg-blood-500 text-white px-2 py-1 rounded-full text-xs font-medium">
                                 Current Image
                               </div>
                             )}
@@ -245,15 +245,15 @@ export default function EditUserModal({ isOpen, onClose, userId }) {
                       </div>
                       <p className="text-xs text-gray-500 text-center">Supported: JPG, PNG, GIF (Max 5MB)</p>
                       {currentImage && !imagePreview && (
-                        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                          <p className="text-xs text-blue-700 font-medium">✓ user has an existing photo</p>
-                          <p className="text-xs text-blue-600">Upload a new image to replace it</p>
+                        <div className="bg-blood-50 border border-blue-200 rounded-lg p-3">
+                          <p className="text-xs text-blood-700 font-medium">✓ user has an existing photo</p>
+                          <p className="text-xs text-blood-600">Upload a new image to replace it</p>
                         </div>
                       )}
                       {imagePreview && (
-                        <div className="bg-green-50 border border-green-200 rounded-lg p-3">
-                          <p className="text-xs text-green-700 font-medium">✓ New image selected</p>
-                          <p className="text-xs text-green-600">This will replace the current image</p>
+                        <div className="bg-blood-50 border border-green-200 rounded-lg p-3">
+                          <p className="text-xs text-blood-700 font-medium">✓ New image selected</p>
+                          <p className="text-xs text-blood-600">This will replace the current image</p>
                         </div>
                       )}
                     </div>
@@ -354,3 +354,4 @@ export default function EditUserModal({ isOpen, onClose, userId }) {
     </div>
   );
 }
+

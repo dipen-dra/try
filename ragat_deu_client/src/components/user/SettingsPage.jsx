@@ -99,7 +99,7 @@ export default function SettingsPage() {
         <div className="bg-gray-50 p-8 font-sans">
             <h1 className="text-2xl font-bold text-gray-800 mb-6">Settings</h1>
             {message.text && (
-                <div className={`p-4 mb-4 rounded-md text-white ${message.type === 'success' ? 'bg-green-500' : 'bg-red-500'}`}>
+                <div className={`p-4 mb-4 rounded-md text-white ${message.type === 'success' ? 'bg-blood-500' : 'bg-red-500'}`}>
                     {message.text}
                 </div>
             )}
@@ -177,3 +177,4 @@ export default function SettingsPage() {
         </div>
     );
 }
+

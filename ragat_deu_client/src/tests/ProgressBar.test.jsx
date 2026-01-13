@@ -37,3 +37,5 @@ describe('ProgressBar Component', () => {
     expect(progressElement).toHaveClass(); // Should have styling classes
   });
 });
+
+

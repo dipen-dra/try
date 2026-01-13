@@ -52,3 +52,5 @@ describe('FundraiserCard Component', () => {
     expect(cardElement).toHaveClass(); // Should have styling classes
   });
 });
+
+

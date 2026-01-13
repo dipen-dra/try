@@ -11,14 +11,14 @@ export default function NotificationsPage() {
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blood-50 to-indigo-100">
                 <div className="text-xl text-gray-600">Loading notifications...</div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6 lg:p-8 flex flex-col items-center">
+        <div className="min-h-screen bg-gradient-to-br from-blood-50 to-indigo-100 p-6 lg:p-8 flex flex-col items-center">
             {/* Header */}
             <div className="w-full max-w-4xl mb-8 p-6 bg-white rounded-2xl shadow-xl flex items-center justify-between space-x-6">
                 <Link to="/user/dashboard" className="group flex items-center justify-center w-12 h-12 bg-gray-50 rounded-full hover:bg-gray-100 transition-colors">
@@ -26,7 +26,7 @@ export default function NotificationsPage() {
                 </Link>
                 <h1 className="text-3xl font-bold text-gray-900 flex-1 text-center">Your Notifications</h1>
                 <div className="relative">
-                    <Bell className="h-8 w-8 text-blue-600" />
+                    <Bell className="h-8 w-8 text-blood-600" />
                     {unreadCount > 0 && (
                         <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full h-6 w-6 flex items-center justify-center text-xs font-bold">
                             {unreadCount}
@@ -40,7 +40,7 @@ export default function NotificationsPage() {
                 <div className="w-full max-w-4xl mb-6 flex justify-end">
                     <button
                         onClick={markAllAsRead}
-                        className="flex items-center space-x-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm font-semibold"
+                        className="flex items-center space-x-2 px-4 py-2 bg-blood-500 text-white rounded-lg hover:bg-blood-600 transition-colors text-sm font-semibold"
                     >
                         <MailOpen className="h-4 w-4" />
                         <span>Mark All as Read</span>
@@ -76,7 +76,7 @@ export default function NotificationsPage() {
                             {/* Notification Content (Middle - Flexible to be row-like for larger screens) */}
                             <div className="flex-1 flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0 sm:space-x-4">
                                 <div className="flex-1">
-                                    <p className={`font-semibold text-lg ${notif.read ? 'text-gray-700' : 'text-blue-800'}`}>
+                                    <p className={`font-semibold text-lg ${notif.read ? 'text-gray-700' : 'text-blood-800'}`}>
                                         {notif.title}
                                     </p>
                                     <p className={`text-sm ${notif.read ? 'text-gray-500' : 'text-gray-700'}`}>
@@ -92,7 +92,7 @@ export default function NotificationsPage() {
                             {!notif.read && (
                                 <button
                                     onClick={() => markAsRead(notif.id)}
-                                    className="flex-shrink-0 ml-4 p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors"
+                                    className="flex-shrink-0 ml-4 p-2 bg-blood-500 text-white rounded-full hover:bg-blood-600 transition-colors"
                                     title="Mark as Read"
                                 >
                                     <Check className="h-4 w-4" />
@@ -105,3 +105,4 @@ export default function NotificationsPage() {
         </div>
     );
 }
+

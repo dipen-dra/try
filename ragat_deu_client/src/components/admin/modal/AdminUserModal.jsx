@@ -99,7 +99,7 @@ export default function AddUserModal({ isOpen, onClose }) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl min-h-[600px] max-h-[95vh] flex flex-col animate-in fade-in-0 zoom-in-95 duration-300">
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-700 px-8 py-6 text-white relative overflow-hidden flex-shrink-0">
+        <div className="bg-gradient-to-r from-blood-600 to-blood-700 px-8 py-6 text-white relative overflow-hidden flex-shrink-0">
           <div className="absolute inset-0 bg-white opacity-10 transform -skew-y-1"></div>
           <div className="relative flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -108,7 +108,7 @@ export default function AddUserModal({ isOpen, onClose }) {
               </div>
               <div>
                 <h2 className="text-2xl font-bold">Add New user</h2>
-                <p className="text-blue-100 text-sm">Enter user information below</p>
+                <p className="text-blood-100 text-sm">Enter user information below</p>
               </div>
             </div>
             <button
@@ -166,10 +166,10 @@ export default function AddUserModal({ isOpen, onClose }) {
                     />
                     <label
                       htmlFor="image-upload"
-                      className="flex items-center justify-center w-full px-4 py-3 border-2 border-blue-300 border-dashed rounded-xl cursor-pointer hover:bg-blue-50 transition-colors duration-200"
+                      className="flex items-center justify-center w-full px-4 py-3 border-2 border-blood-300 border-dashed rounded-xl cursor-pointer hover:bg-blood-50 transition-colors duration-200"
                     >
-                      <Upload className="h-5 w-5 text-blue-500 mr-2" />
-                      <span className="text-blue-600 font-medium">
+                      <Upload className="h-5 w-5 text-blood-500 mr-2" />
+                      <span className="text-blood-600 font-medium">
                         {imagePreview ? "Change Photo" : "Upload Photo"}
                       </span>
                     </label>
@@ -205,7 +205,7 @@ export default function AddUserModal({ isOpen, onClose }) {
                             className={`w-full pl-12 pr-4 py-3 border-2 rounded-xl transition-all duration-200 resize-none ${
                               hasError
                                 ? "border-red-300 focus:border-red-500 focus:ring-red-200"
-                                : "border-gray-200 focus:border-blue-500 focus:ring-blue-200"
+                                : "border-gray-200 focus:border-blood-500 focus:ring-blue-200"
                             } focus:ring-4 focus:ring-opacity-20 focus:outline-none`}
                           />
                         ) : (
@@ -220,7 +220,7 @@ export default function AddUserModal({ isOpen, onClose }) {
                             className={`w-full pl-12 pr-4 py-3 border-2 rounded-xl transition-all duration-200 ${
                               hasError
                                 ? "border-red-300 focus:border-red-500 focus:ring-red-200"
-                                : "border-gray-200 focus:border-blue-500 focus:ring-blue-200"
+                                : "border-gray-200 focus:border-blood-500 focus:ring-blue-200"
                             } focus:ring-4 focus:ring-opacity-20 focus:outline-none`}
                           />
                         )}
@@ -255,7 +255,7 @@ export default function AddUserModal({ isOpen, onClose }) {
           <button
             type="submit"
             onClick={formik.handleSubmit}
-            className="px-8 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-700 text-white font-semibold hover:from-blue-700 hover:to-indigo-800 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2 shadow-lg hover:shadow-xl"
+            className="px-8 py-3 rounded-xl bg-gradient-to-r from-blood-600 to-blood-700 text-white font-semibold hover:from-blue-700 hover:to-indigo-800 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2 shadow-lg hover:shadow-xl"
             disabled={isLoading}
           >
             {isLoading ? (
@@ -275,3 +275,4 @@ export default function AddUserModal({ isOpen, onClose }) {
     </div>
   );
 }
+

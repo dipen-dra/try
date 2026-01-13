@@ -11,11 +11,11 @@ export default function NotFoundPage() {
         {/* Thematic Illustration Area */}
         <div className="relative inline-block">
           <Stethoscope 
-            className="relative z-10 h-32 w-32 text-blue-500" 
+            className="relative z-10 h-32 w-32 text-blood-500" 
             strokeWidth={1.5} 
           />
           {/* A faint background shape for more visual appeal */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-40 w-40 bg-blue-100 rounded-full -z-0"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-40 w-40 bg-blood-100 rounded-full -z-0"></div>
         </div>
 
         {/* Witty & Thematic Copywriting */}
@@ -32,7 +32,7 @@ export default function NotFoundPage() {
            <p className="text-sm text-gray-500 mb-4">Let's guide you back to the main lobby.</p>
            <Link 
               to="/" 
-              className="inline-block px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-transform transform hover:scale-105"
+              className="inline-block px-8 py-3 bg-blood-600 text-white font-semibold rounded-lg shadow-lg hover:bg-blood-700 focus:outline-none focus:ring-2 focus:ring-blood-500 focus:ring-opacity-50 transition-transform transform hover:scale-105"
             >
               Return to Homepage
             </Link>
@@ -41,3 +41,4 @@ export default function NotFoundPage() {
     </div>
   );
 }
+

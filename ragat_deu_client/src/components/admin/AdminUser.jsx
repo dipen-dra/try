@@ -39,11 +39,11 @@ export default function AdminUser() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
+      <div className="min-h-screen bg-gradient-to-br from-blood-50 to-indigo-100 p-6">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-center h-64">
             <div className="flex flex-col items-center space-y-4">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blood-600"></div>
               <p className="text-gray-600 font-medium">Loading Users...</p>
             </div>
           </div>
@@ -54,7 +54,7 @@ export default function AdminUser() {
 
   if (isError) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
+      <div className="min-h-screen bg-gradient-to-br from-blood-50 to-indigo-100 p-6">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-center h-64">
             <div className="text-center">
@@ -96,13 +96,13 @@ export default function AdminUser() {
   const filteredUsers = users.filter((user) => user.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-gradient-to-br from-blood-50 to-indigo-100">
       <Toaster />
       <div className="max-w-7xl mx-auto p-6">
         <div className="mb-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <div className="bg-blue-600 p-3 rounded-xl shadow-lg">
+              <div className="bg-blood-600 p-3 rounded-xl shadow-lg">
                 <Users className="h-8 w-8 text-white" />
               </div>
               <div>
@@ -112,7 +112,7 @@ export default function AdminUser() {
             </div>
             <button
               onClick={() => setShowAddModal(true)}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl shadow-lg transition-all duration-200 hover:shadow-xl flex items-center"
+              className="bg-blood-600 hover:bg-blood-700 text-white px-6 py-3 rounded-xl shadow-lg transition-all duration-200 hover:shadow-xl flex items-center"
             >
               <Plus className="h-5 w-5 mr-2" />
               Add New User
@@ -134,7 +134,7 @@ export default function AdminUser() {
               placeholder="Search Users..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blood-500 focus:outline-none"
             />
           </div>
         </div>
@@ -147,8 +147,8 @@ export default function AdminUser() {
                   <p className="text-sm font-medium text-gray-600">TotalTen Users</p>
                   <p className="text-3xl font-bold text-gray-900">{pagination.totalCount || users.length}</p>
                 </div>
-                <div className="bg-blue-100 p-3 rounded-full">
-                  <Users className="h-6 w-6 text-blue-600" />
+                <div className="bg-blood-100 p-3 rounded-full">
+                  <Users className="h-6 w-6 text-blood-600" />
                 </div>
               </div>
             </div>
@@ -160,8 +160,8 @@ export default function AdminUser() {
                   <p className="text-sm font-medium text-gray-600">Current Page</p>
                   <p className="text-3xl font-bold text-gray-900">{pagination.page}</p>
                 </div>
-                <div className="bg-green-100 p-3 rounded-full">
-                  <FileText className="h-6 w-6 text-green-600" />
+                <div className="bg-blood-100 p-3 rounded-full">
+                  <FileText className="h-6 w-6 text-blood-600" />
                 </div>
               </div>
             </div>
@@ -188,7 +188,7 @@ export default function AdminUser() {
               className="bg-white shadow-lg border-0 hover:shadow-xl transition-all duration-200 hover:-translate-y-1 rounded-lg overflow-hidden cursor-pointer"
               onClick={() => openDetailModal(user)} // Open detail modal on card click
             >
-              <div className="h-32 bg-gradient-to-r from-blue-100 to-indigo-100 relative">
+              <div className="h-32 bg-gradient-to-r from-blood-100 to-indigo-100 relative">
                 {user.filepath ? (
                   <>
                     <img
@@ -201,7 +201,7 @@ export default function AdminUser() {
                         e.target.nextSibling.style.display = "flex";
                       }}
                     />
-                    <div className="w-full h-full absolute inset-0 items-center justify-center bg-gradient-to-r from-blue-100 to-indigo-100 hidden">
+                    <div className="w-full h-full absolute inset-0 items-center justify-center bg-gradient-to-r from-blood-100 to-indigo-100 hidden">
                       <ImageIcon className="h-12 w-12 text-gray-400" />
                     </div>
                   </>
@@ -211,14 +211,14 @@ export default function AdminUser() {
                   </div>
                 )}
                 <div className="absolute bottom-2 left-2">
-                  <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
+                  <span className="bg-blood-100 text-blood-800 text-xs px-2 py-1 rounded-full">
                     ID: {user._id.slice(-6)}
                   </span>
                 </div>
               </div>
               <div className="p-6">
                 <div className="flex items-center space-x-3 mb-4">
-                  <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-2 rounded-full">
+                  <div className="bg-gradient-to-r from-blood-500 to-purple-600 p-2 rounded-full">
                     <User className="h-5 w-5 text-white" />
                   </div>
                   <div>
@@ -241,7 +241,7 @@ export default function AdminUser() {
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
-                    <Phone className="h-4 w-4 text-green-500 flex-shrink-0" />
+                    <Phone className="h-4 w-4 text-blood-500 flex-shrink-0" />
                     <div>
                       <p className="text-sm font-medium text-gray-700">Contact</p>
                       <p className="text-sm text-gray-600">{user.contact}</p>
@@ -295,7 +295,7 @@ export default function AdminUser() {
               <p className="text-gray-600 mb-6">Get started by adding your first user record.</p>
               <button
                 onClick={() => setShowAddModal(true)}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center mx-auto"
+                className="bg-blood-600 hover:bg-blood-700 text-white px-4 py-2 rounded-md flex items-center mx-auto"
               >
                 <Plus className="h-4 w-4 mr-2" />
                 Add First User
@@ -337,3 +337,4 @@ export default function AdminUser() {
     </div>
   );
 }
+

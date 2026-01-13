@@ -39,7 +39,7 @@ export default function MyRequests() {
       case "pending":
         return "bg-gradient-to-r from-amber-50 to-yellow-50 text-amber-800 border-amber-200 shadow-amber-100"
       case "approved":
-        return "bg-gradient-to-r from-emerald-50 to-green-50 text-emerald-800 border-emerald-200 shadow-emerald-100"
+        return "bg-gradient-to-r from-emerald-50 to-blood-50 text-emerald-800 border-emerald-200 shadow-emerald-100"
       case "declined":
         return "bg-gradient-to-r from-red-50 to-rose-50 text-red-800 border-red-200 shadow-red-100"
       default:
@@ -51,7 +51,7 @@ export default function MyRequests() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 relative overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-72 h-72 bg-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-20 left-20 w-72 h-72 bg-blood-400/20 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-20 right-20 w-72 h-72 bg-purple-400/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
         </div>
         <div className="relative z-10 max-w-6xl mx-auto flex items-center justify-center min-h-screen">
@@ -76,7 +76,7 @@ export default function MyRequests() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-blue-400/20 to-cyan-400/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-blood-400/20 to-cyan-400/20 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
 
@@ -94,7 +94,7 @@ export default function MyRequests() {
               
               <div>
                 <div className="flex items-center space-x-4 mb-2">
-                  <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg">
+                  <div className="w-14 h-14 bg-gradient-to-br from-blood-500 to-blood-600 rounded-2xl flex items-center justify-center shadow-lg">
                     <FileText className="w-7 h-7 text-white" />
                   </div>
                   <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-indigo-800 bg-clip-text text-transparent">
@@ -107,9 +107,9 @@ export default function MyRequests() {
 
             <button
               onClick={() => setShowAddModal(true)}
-              className="group relative bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center space-x-3"
+              className="group relative bg-gradient-to-r from-blood-600 to-blood-600 text-white px-8 py-4 rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center space-x-3"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-indigo-700 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-blood-700 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <Plus className="w-5 h-5 relative z-10 group-hover:rotate-90 transition-transform duration-300" />
               <span className="relative z-10 font-semibold">New Request</span>
               <Sparkles className="w-4 h-4 relative z-10 group-hover:scale-110 transition-transform duration-300" />
@@ -129,8 +129,8 @@ export default function MyRequests() {
         ) : myRequests.length === 0 ? (
           <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20 p-16 text-center">
             <div className="relative mb-8">
-              <div className="w-24 h-24 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-3xl flex items-center justify-center mx-auto">
-                <FileText className="w-12 h-12 text-blue-600" />
+              <div className="w-24 h-24 bg-gradient-to-br from-blood-100 to-indigo-100 rounded-3xl flex items-center justify-center mx-auto">
+                <FileText className="w-12 h-12 text-blood-600" />
               </div>
               <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
                 <Sparkles className="w-4 h-4 text-white" />
@@ -140,7 +140,7 @@ export default function MyRequests() {
             <p className="text-gray-600 mb-8 text-lg">Start your journey by submitting your first medical assistance request.</p>
             <button
               onClick={() => setShowAddModal(true)}
-              className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-2xl hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold"
+              className="bg-gradient-to-r from-blood-600 to-blood-600 text-white px-8 py-4 rounded-2xl hover:shadow-xl hover:scale-105 transition-all duration-300 font-semibold"
             >
               Submit Your First Request
             </button>
@@ -164,7 +164,7 @@ export default function MyRequests() {
                     <div className="flex items-start space-x-4">
                       <div className="relative">
                         {getStatusIcon(request.status)}
-                        <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full opacity-20 blur-sm"></div>
+                        <div className="absolute -inset-1 bg-gradient-to-r from-blood-600 to-purple-600 rounded-full opacity-20 blur-sm"></div>
                       </div>
                       <div className="flex-1">
                         <h3 className="text-xl font-bold text-gray-800 mb-2 group-hover:text-gray-900 transition-colors duration-300">
@@ -177,18 +177,18 @@ export default function MyRequests() {
                           </div>
                           
                           {isAmountModified ? (
-                            <div className="flex items-center space-x-3 bg-gradient-to-r from-green-50 to-emerald-50 rounded-full px-3 py-1">
+                            <div className="flex items-center space-x-3 bg-gradient-to-r from-blood-50 to-blood-100 rounded-full px-3 py-1">
                               <DollarSign className="w-4 h-4 text-gray-500" />
                               <span className="text-red-500 line-through text-sm">
                                 ${Number.parseFloat(request.originalAmount).toLocaleString()}
                               </span>
-                              <TrendingUp className="w-3 h-3 text-green-600" />
-                              <span className="font-bold text-green-600">
+                              <TrendingUp className="w-3 h-3 text-blood-600" />
+                              <span className="font-bold text-blood-600">
                                 ${Number.parseFloat(request.neededAmount).toLocaleString()}
                               </span>
                             </div>
                           ) : (
-                            <div className="flex items-center space-x-2 bg-blue-50 rounded-full px-3 py-1">
+                            <div className="flex items-center space-x-2 bg-blood-50 rounded-full px-3 py-1">
                               <DollarSign className="w-4 h-4" />
                               <span className="font-semibold">
                                 ${Number.parseFloat(request.neededAmount).toLocaleString()}
@@ -257,27 +257,27 @@ export default function MyRequests() {
 
                   {/* File Info */}
                   {request.filename && (
-                    <div className="flex items-center space-x-3 bg-blue-50 rounded-2xl p-4 mb-6">
-                      <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
-                        <FileText className="w-5 h-5 text-blue-600" />
+                    <div className="flex items-center space-x-3 bg-blood-50 rounded-2xl p-4 mb-6">
+                      <div className="w-10 h-10 bg-blood-100 rounded-xl flex items-center justify-center">
+                        <FileText className="w-5 h-5 text-blood-600" />
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-blue-800">Attached Document</p>
-                        <p className="text-sm text-blue-600">{request.filename}</p>
+                        <p className="text-sm font-medium text-blood-800">Attached Document</p>
+                        <p className="text-sm text-blood-600">{request.filename}</p>
                       </div>
                     </div>
                   )}
 
                   {/* Admin Feedback */}
                   {request.feedback && (
-                    <div className="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-2xl p-6 border-l-4 border-indigo-400 shadow-sm">
+                    <div className="bg-gradient-to-r from-indigo-50 to-blood-50 rounded-2xl p-6 border-l-4 border-indigo-400 shadow-sm">
                       <div className="flex items-start space-x-3">
-                        <div className="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                          <Shield className="w-5 h-5 text-indigo-600" />
+                        <div className="w-10 h-10 bg-blood-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                          <Shield className="w-5 h-5 text-blood-600" />
                         </div>
                         <div>
                           <p className="text-sm font-semibold text-indigo-800 mb-2">Admin Feedback</p>
-                          <p className="text-sm text-indigo-700 leading-relaxed">{request.feedback}</p>
+                          <p className="text-sm text-blood-700 leading-relaxed">{request.feedback}</p>
                         </div>
                       </div>
                     </div>
@@ -294,3 +294,5 @@ export default function MyRequests() {
     </div>
   )
 }
+
+

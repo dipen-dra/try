@@ -43,7 +43,7 @@ import React from 'react';
          case 'pending':
            return 'bg-gradient-to-r from-amber-50 to-yellow-50 text-amber-800 border-amber-200';
          case 'approved':
-           return 'bg-gradient-to-r from-emerald-50 to-green-50 text-emerald-800 border-emerald-200';
+           return 'bg-gradient-to-r from-emerald-50 to-blood-50 text-emerald-800 border-emerald-200';
          case 'declined':
            return 'bg-gradient-to-r from-red-50 to-rose-50 text-red-800 border-red-200';
          default:
@@ -55,11 +55,11 @@ import React from 'react';
        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex justify-center items-center z-50 p-4">
          <div className="bg-white rounded-3xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden border border-gray-100 relative">
            {/* Background decoration */}
-           <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-3xl"></div>
-           <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-br from-green-400/20 to-cyan-400/20 rounded-full blur-2xl"></div>
+           <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blood-400/20 to-purple-400/20 rounded-full blur-3xl"></div>
+           <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-br from-blood-400/20 to-cyan-400/20 rounded-full blur-2xl"></div>
 
            {/* Header */}
-           <div className="relative z-10 bg-gradient-to-r from-blue-600 to-indigo-700 px-8 py-6">
+           <div className="relative z-10 bg-gradient-to-r from-blood-600 to-blood-700 px-8 py-6">
              <div className="flex items-center justify-between">
                <div className="flex items-center space-x-4">
                  <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center shadow-lg backdrop-blur-sm">
@@ -67,7 +67,7 @@ import React from 'react';
                  </div>
                  <div>
                    <h2 className="text-2xl font-bold text-white">Patient Details</h2>
-                   <p className="text-blue-100">Complete medical profile and request information</p>
+                   <p className="text-blood-100">Complete medical profile and request information</p>
                  </div>
                </div>
                <button
@@ -84,7 +84,7 @@ import React from 'react';
              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                {/* Left Column - Profile Image & Basic Info */}
                <div className="lg:col-span-1">
-                 <div className="bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl p-6 border border-gray-200">
+                 <div className="bg-gradient-to-br from-gray-50 to-blood-50 rounded-2xl p-6 border border-gray-200">
                    {/* Profile Image */}
                    <div className="text-center mb-6">
                      {userImageUrl ? (
@@ -101,7 +101,7 @@ import React from 'react';
                          <div className="w-32 h-32 rounded-2xl bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center mx-auto hidden">
                            <ImageIcon className="h-12 w-12 text-gray-400" />
                          </div>
-                         <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-3 border-white flex items-center justify-center">
+                         <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-blood-500 rounded-full border-3 border-white flex items-center justify-center">
                            <Camera className="w-4 h-4 text-white" />
                          </div>
                        </div>
@@ -116,14 +116,14 @@ import React from 'react';
                    <div className="space-y-4">
                      <div className="text-center">
                        <h3 className="text-xl font-bold text-gray-900 mb-1">{user.name}</h3>
-                       <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                       <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blood-100 text-blood-800">
                          Patient ID: {user._id.slice(-6)}
                        </span>
                      </div>
 
                      <div className="space-y-3">
                        <div className="flex items-center space-x-3 p-3 bg-white rounded-xl border border-gray-100">
-                         <Phone className="h-5 w-5 text-green-500" />
+                         <Phone className="h-5 w-5 text-blood-500" />
                          <div>
                            <p className="text-sm font-medium text-gray-700">Contact</p>
                            <p className="text-sm text-gray-600">{user.contact || 'Not provided'}</p>
@@ -131,7 +131,7 @@ import React from 'react';
                        </div>
 
                        <div className="flex items-center space-x-3 p-3 bg-white rounded-xl border border-gray-100">
-                         <Mail className="h-5 w-5 text-blue-500" />
+                         <Mail className="h-5 w-5 text-blood-500" />
                          <div>
                            <p className="text-sm font-medium text-gray-700">Email</p>
                            <p className="text-sm text-gray-600">{user.email || 'Not provided'}</p>
@@ -196,18 +196,18 @@ import React from 'react';
 
                  {/* Description */}
                  {user.description && (
-                   <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100">
+                   <div className="bg-gradient-to-r from-blood-50 to-indigo-50 rounded-2xl p-6 border border-blue-100">
                      <div className="flex items-center space-x-3 mb-4">
-                       <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                         <FileText className="w-6 h-6 text-blue-600" />
+                       <div className="w-12 h-12 bg-blood-100 rounded-xl flex items-center justify-center">
+                         <FileText className="w-6 h-6 text-blood-600" />
                        </div>
                        <div>
-                         <h4 className="text-lg font-bold text-blue-800">Patient Description</h4>
-                         <p className="text-sm text-blue-600">Additional information provided</p>
+                         <h4 className="text-lg font-bold text-blood-800">Patient Description</h4>
+                         <p className="text-sm text-blood-600">Additional information provided</p>
                        </div>
                      </div>
                      <div className="bg-white/50 rounded-xl p-4 border border-blue-200">
-                       <p className="text-sm text-blue-800 leading-relaxed">{user.description}</p>
+                       <p className="text-sm text-blood-800 leading-relaxed">{user.description}</p>
                      </div>
                    </div>
                  )}
@@ -241,7 +241,7 @@ import React from 'react';
                                <div className="flex items-start space-x-3">
                                  <div className="relative">
                                    {getStatusIcon(request.status)}
-                                   <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full opacity-20 blur-sm"></div>
+                                   <div className="absolute -inset-1 bg-gradient-to-r from-blood-600 to-purple-600 rounded-full opacity-20 blur-sm"></div>
                                  </div>
                                  <div>
                                    <p className="font-semibold text-teal-800 mb-2">{request.description || 'No description'}</p>
@@ -251,17 +251,17 @@ import React from 'react';
                                        <span>{new Date(request.createdAt).toLocaleDateString() || 'N/A'}</span>
                                      </div>
                                      {isAmountModified ? (
-                                       <div className="flex items-center space-x-3 bg-gradient-to-r from-green-50 to-emerald-50 rounded-full px-3 py-1">
+                                       <div className="flex items-center space-x-3 bg-gradient-to-r from-blood-50 to-blood-100 rounded-full px-3 py-1">
                                          <DollarSign className="w-4 h-4 text-gray-500" />
                                          <span className="text-red-500 line-through text-sm">
                                            ${Number.parseFloat(request.originalAmount).toLocaleString() || '0'}
                                          </span>
-                                         <span className="font-bold text-green-600">
+                                         <span className="font-bold text-blood-600">
                                            ${Number.parseFloat(request.neededAmount).toLocaleString() || '0'}
                                          </span>
                                        </div>
                                      ) : (
-                                       <div className="flex items-center space-x-2 bg-blue-50 rounded-full px-3 py-1">
+                                       <div className="flex items-center space-x-2 bg-blood-50 rounded-full px-3 py-1">
                                          <DollarSign className="w-4 h-4" />
                                          <span className="font-semibold">
                                            ${Number.parseFloat(request.neededAmount).toLocaleString() || '0'}
@@ -297,19 +297,19 @@ import React from 'react';
 
                              {/* Attached Document/Image */}
                              {(request.filename || request.filepath) && (
-                               <div className="flex items-center space-x-3 bg-blue-50 rounded-xl p-3 mb-4">
-                                 <div className="w-8 h-8 bg-blue-100 rounded-xl flex items-center justify-center">
-                                   <ImageIcon className="w-5 h-5 text-blue-600" />
+                               <div className="flex items-center space-x-3 bg-blood-50 rounded-xl p-3 mb-4">
+                                 <div className="w-8 h-8 bg-blood-100 rounded-xl flex items-center justify-center">
+                                   <ImageIcon className="w-5 h-5 text-blood-600" />
                                  </div>
                                  <div>
-                                   <p className="text-sm font-medium text-blue-800">Attached File</p>
-                                   <p className="text-sm text-blue-600">{request.filename || 'Unnamed file'}</p>
+                                   <p className="text-sm font-medium text-blood-800">Attached File</p>
+                                   <p className="text-sm text-blood-600">{request.filename || 'Unnamed file'}</p>
                                    {request.filepath && (
                                      <a
                                        href={getBackendImageUrl(request.filepath)}
                                        target="_blank"
                                        rel="noopener noreferrer"
-                                       className="text-sm text-blue-500 hover:underline"
+                                       className="text-sm text-blood-500 hover:underline"
                                      >
                                        View File
                                      </a>
@@ -320,14 +320,14 @@ import React from 'react';
 
                              {/* Admin Feedback */}
                              {request.feedback && (
-                               <div className="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-xl p-3 border-l-4 border-indigo-400">
+                               <div className="bg-gradient-to-r from-indigo-50 to-blood-50 rounded-xl p-3 border-l-4 border-indigo-400">
                                  <div className="flex items-start space-x-3">
-                                   <div className="w-8 h-8 bg-indigo-100 rounded-xl flex items-center justify-center">
-                                     <Shield className="w-5 h-5 text-indigo-600" />
+                                   <div className="w-8 h-8 bg-blood-100 rounded-xl flex items-center justify-center">
+                                     <Shield className="w-5 h-5 text-blood-600" />
                                    </div>
                                    <div>
                                      <p className="text-sm font-semibold text-indigo-800 mb-1">Admin Feedback</p>
-                                     <p className="text-sm text-indigo-700">{request.feedback}</p>
+                                     <p className="text-sm text-blood-700">{request.feedback}</p>
                                    </div>
                                  </div>
                                </div>
@@ -428,3 +428,4 @@ import React from 'react';
    };
 
    export default UserDetailModal;
+

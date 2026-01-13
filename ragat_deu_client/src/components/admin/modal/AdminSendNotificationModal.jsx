@@ -41,11 +41,12 @@ export default function AdminSendNotificationModal({ isOpen, onClose, token, use
             <label className="block text-sm font-medium mb-1">Body</label>
             <textarea className="w-full border rounded px-3 py-2" value={body} onChange={e => setBody(e.target.value)} required rows={3} />
           </div>
-          <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded font-semibold disabled:opacity-50" disabled={loading}>{loading ? 'Sending...' : 'Send Notification'}</button>
-          {success && <div className="text-green-600 text-sm mt-2">Notification sent!</div>}
+          <button type="submit" className="w-full bg-blood-600 text-white py-2 rounded font-semibold disabled:opacity-50" disabled={loading}>{loading ? 'Sending...' : 'Send Notification'}</button>
+          {success && <div className="text-blood-600 text-sm mt-2">Notification sent!</div>}
           {error && <div className="text-red-600 text-sm mt-2">{error}</div>}
         </form>
       </div>
     </div>
   );
 } 
+

@@ -10,7 +10,7 @@ const FileUploadInput = ({ title, file, onFileChange, id, icon, acceptedTypes, r
     <label htmlFor={id} className="block text-sm font-semibold text-gray-800 mb-3">
       {title} {required && <span className="text-red-500">*</span>}
     </label>
-    <div className="relative border-2 border-dashed border-gray-200 rounded-2xl p-8 text-center hover:border-blue-400 hover:bg-blue-50/30 transition-all duration-300 cursor-pointer group-hover:scale-[1.02]">
+    <div className="relative border-2 border-dashed border-gray-200 rounded-2xl p-8 text-center hover:border-blood-400 hover:bg-blood-50/30 transition-all duration-300 cursor-pointer group-hover:scale-[1.02]">
       <input
         type="file"
         onChange={onFileChange}
@@ -25,12 +25,12 @@ const FileUploadInput = ({ title, file, onFileChange, id, icon, acceptedTypes, r
             <>
               <div className="relative">
                 {icon.selected}
-                <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                <div className="absolute -top-1 -right-1 w-6 h-6 bg-blood-500 rounded-full flex items-center justify-center">
                   <Sparkles className="w-3 h-3 text-white" />
                 </div>
               </div>
               <div className="text-center">
-                <span className="text-sm font-semibold text-green-700 block mb-1">{file.name}</span>
+                <span className="text-sm font-semibold text-blood-700 block mb-1">{file.name}</span>
                 <span className="text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full">Click to change file</span>
               </div>
             </>
@@ -38,7 +38,7 @@ const FileUploadInput = ({ title, file, onFileChange, id, icon, acceptedTypes, r
             <>
               <div className="relative">
                 {icon.default}
-                <div className="absolute inset-0 bg-blue-400/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-blood-400/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
               <div className="text-center">
                 <span className="text-sm font-semibold text-gray-700 block mb-1">Click to upload</span>
@@ -125,7 +125,7 @@ export default function AddRequest({ isOpen, onClose }) {
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-3xl shadow-2xl max-w-4xl w-full max-h-[95vh] overflow-hidden border border-gray-100">
         {/* Header */}
-        <div className="relative bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 p-8 text-white overflow-hidden">
+        <div className="relative bg-gradient-to-r from-blood-600 via-blood-600 to-purple-600 p-8 text-white overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-3xl -translate-y-16 translate-x-16"></div>
           <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full blur-2xl translate-y-12 -translate-x-12"></div>
 
@@ -136,7 +136,7 @@ export default function AddRequest({ isOpen, onClose }) {
               </div>
               <div>
                 <h2 className="text-3xl font-bold mb-2">Submit New Request</h2>
-                <p className="text-blue-100 text-lg">Help us understand your medical assistance needs</p>
+                <p className="text-blood-100 text-lg">Help us understand your medical assistance needs</p>
               </div>
             </div>
             <button
@@ -152,9 +152,9 @@ export default function AddRequest({ isOpen, onClose }) {
         <div className="p-8 max-h-[calc(95vh-200px)] overflow-y-auto">
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Basic Information */}
-            <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-2xl p-6 border border-gray-200">
+            <div className="bg-gradient-to-r from-gray-50 to-blood-50 rounded-2xl p-6 border border-gray-200">
               <h3 className="text-xl font-bold text-gray-800 mb-6 flex items-center space-x-3">
-                <div className="w-8 h-8 bg-blue-500 rounded-xl flex items-center justify-center">
+                <div className="w-8 h-8 bg-blood-500 rounded-xl flex items-center justify-center">
                   <FileText className="w-4 h-4 text-white" />
                 </div>
                 <span>Basic Information</span>
@@ -171,7 +171,7 @@ export default function AddRequest({ isOpen, onClose }) {
                     onChange={handleInputChange}
                     required
                     rows={4}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 bg-white/80 backdrop-blur-sm"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blood-100 focus:border-blood-500 transition-all duration-300 bg-white/80 backdrop-blur-sm"
                     placeholder="Briefly describe your medical assistance request..."
                   />
                 </div>
@@ -193,7 +193,7 @@ export default function AddRequest({ isOpen, onClose }) {
                         required
                         min="0"
                         step="0.01"
-                        className="w-full pl-8 pr-4 py-3 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 bg-white/80 backdrop-blur-sm font-semibold"
+                        className="w-full pl-8 pr-4 py-3 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blood-100 focus:border-blood-500 transition-all duration-300 bg-white/80 backdrop-blur-sm font-semibold"
                         placeholder="0.00"
                       />
                     </div>
@@ -208,7 +208,7 @@ export default function AddRequest({ isOpen, onClose }) {
                       value={formData.condition}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 bg-white/80 backdrop-blur-sm font-semibold"
+                      className="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blood-100 focus:border-blood-500 transition-all duration-300 bg-white/80 backdrop-blur-sm font-semibold"
                     >
                       <option value="moderate">Moderate</option>
                       <option value="critical">Critical</option>
@@ -225,7 +225,7 @@ export default function AddRequest({ isOpen, onClose }) {
                     value={formData.citizen}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 bg-white/80 backdrop-blur-sm font-semibold"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blood-100 focus:border-blood-500 transition-all duration-300 bg-white/80 backdrop-blur-sm font-semibold"
                   >
                     <option value="">Select status...</option>
                     <option value="citizen">Citizen</option>
@@ -245,7 +245,7 @@ export default function AddRequest({ isOpen, onClose }) {
                     onChange={handleInputChange}
                     required
                     rows={5}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 transition-all duration-300 bg-white/80 backdrop-blur-sm"
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blood-100 focus:border-blood-500 transition-all duration-300 bg-white/80 backdrop-blur-sm"
                     placeholder="Please provide a detailed explanation of your situation, medical needs, and how this assistance will help you..."
                   />
                 </div>
@@ -269,7 +269,7 @@ export default function AddRequest({ isOpen, onClose }) {
                   id="user-image-upload"
                   icon={{
                     default: <UserIcon className="h-12 w-12 text-gray-400" />,
-                    selected: <UserIcon className="h-12 w-12 text-green-500" />,
+                    selected: <UserIcon className="h-12 w-12 text-blood-500" />,
                   }}
                   acceptedTypes=".jpg,.jpeg,.png"
                 />
@@ -281,7 +281,7 @@ export default function AddRequest({ isOpen, onClose }) {
                   id="citizenship-image-upload"
                   icon={{
                     default: <FileBadge className="h-12 w-12 text-gray-400" />,
-                    selected: <FileBadge className="h-12 w-12 text-green-500" />,
+                    selected: <FileBadge className="h-12 w-12 text-blood-500" />,
                   }}
                   acceptedTypes=".jpg,.jpeg,.png,.pdf"
                 />
@@ -293,7 +293,7 @@ export default function AddRequest({ isOpen, onClose }) {
                   id="supporting-doc-upload"
                   icon={{
                     default: <FileText className="h-12 w-12 text-gray-400" />,
-                    selected: <FileText className="h-12 w-12 text-green-500" />,
+                    selected: <FileText className="h-12 w-12 text-blood-500" />,
                   }}
                   acceptedTypes=".pdf,.jpg,.jpeg,.png"
                 />
@@ -305,7 +305,7 @@ export default function AddRequest({ isOpen, onClose }) {
               <button
                 type="submit"
                 disabled={addRequestMutation.isPending}
-                className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 px-6 rounded-2xl hover:from-blue-700 hover:to-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 font-bold text-lg shadow-lg hover:shadow-xl hover:scale-[1.02] flex items-center justify-center space-x-3"
+                className="flex-1 bg-gradient-to-r from-blood-600 to-blood-600 text-white py-4 px-6 rounded-2xl hover:from-blue-700 hover:to-blood-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 font-bold text-lg shadow-lg hover:shadow-xl hover:scale-[1.02] flex items-center justify-center space-x-3"
               >
                 {addRequestMutation.isPending ? (
                   <>
@@ -334,3 +334,5 @@ export default function AddRequest({ isOpen, onClose }) {
     </div>
   )
 }
+
+

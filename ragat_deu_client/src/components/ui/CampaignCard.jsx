@@ -37,7 +37,7 @@ const CampaignCard = ({ id, title, description, image, raised, goal, daysLeft, p
 
         <Link
           to={`/dashboard/donations/${id}`}
-          className="block w-full text-center bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-md transition-colors duration-300"
+          className="block w-full text-center bg-blood-600 hover:bg-blood-700 text-white py-2 px-4 rounded-md transition-colors duration-300"
         >
           Donate Now
         </Link>
@@ -47,3 +47,5 @@ const CampaignCard = ({ id, title, description, image, raised, goal, daysLeft, p
 }
 
 export default CampaignCard
+
+

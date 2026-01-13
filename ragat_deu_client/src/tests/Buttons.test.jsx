@@ -19,7 +19,7 @@ describe('Buttons Component', () => {
   it('applies primary variant styling by default', () => {
     render(<Buttons>Primary Button</Buttons>);
     const button = screen.getByRole('button');
-    expect(button).toHaveClass('bg-green-500', 'hover:bg-green-600', 'text-white');
+    expect(button).toHaveClass('bg-blood-500', 'hover:bg-blood-600', 'text-white');
   });
 
   // Test 14: Secondary variant styling
@@ -40,7 +40,7 @@ describe('Buttons Component', () => {
   it('applies ghost variant styling correctly', () => {
     render(<Buttons variant="ghost">Ghost Button</Buttons>);
     const button = screen.getByRole('button');
-    expect(button).toHaveClass('text-gray-700', 'hover:text-green-600', 'hover:bg-green-50');
+    expect(button).toHaveClass('text-gray-700', 'hover:text-blood-600', 'hover:bg-blood-50');
   });
 
   // Test 17: Small size styling
@@ -109,3 +109,5 @@ describe('Buttons Component', () => {
     expect(button).toHaveClass('font-medium', 'rounded-full', 'transition-all', 'duration-300');
   });
 });
+
+

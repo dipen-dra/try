@@ -18,7 +18,7 @@ const MessageContent = ({ message }) => {
         case 'image': return <img src={fileUrl} alt={message.fileName} className="max-w-xs rounded-lg cursor-pointer" onClick={() => window.open(fileUrl)} />;
         case 'audio': return <audio controls src={fileUrl} className="w-full" />;
         case 'video': return <video controls src={fileUrl} className="max-w-xs rounded-lg" />;
-        case 'document': return <a href={fileUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-2 bg-gray-100 text-black rounded-lg hover:bg-gray-200"><FileText className="h-6 w-6 text-blue-500" /><span>{message.fileName || 'Download'}</span></a>;
+        case 'document': return <a href={fileUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-2 bg-gray-100 text-black rounded-lg hover:bg-gray-200"><FileText className="h-6 w-6 text-blood-500" /><span>{message.fileName || 'Download'}</span></a>;
         default: return <div>{message.message}</div>;
     }
 };
@@ -153,7 +153,7 @@ export default function UserMessage() {
             {call?.isReceivingCall && !callAccepted && (
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-lg shadow-2xl z-50 flex flex-col items-center gap-4">
                     <h3 className="text-lg font-semibold">{call.name} is calling...</h3>
-                    <button onClick={answerCall} className="p-3 bg-green-500 text-white rounded-full"><PhoneIncoming /></button>
+                    <button onClick={answerCall} className="p-3 bg-blood-500 text-white rounded-full"><PhoneIncoming /></button>
                 </div>
             )}
             {stream && (
@@ -164,15 +164,15 @@ export default function UserMessage() {
                 </div>
             )}
             <header className="flex items-center justify-between p-4 bg-white shadow-md">
-                <div className="flex items-center gap-3"><MessageSquareText className="h-8 w-8 text-green-600" /><h1 className="text-xl font-bold">Chat with Admin</h1></div>
+                <div className="flex items-center gap-3"><MessageSquareText className="h-8 w-8 text-blood-600" /><h1 className="text-xl font-bold">Chat with Admin</h1></div>
                 <button onClick={startCall} className="p-2 rounded-full hover:bg-gray-200" title="Start Video Call"><Video/></button>
             </header>
             <main className="flex-1 p-4 overflow-y-auto">
                 <div className="flex flex-col gap-4">
                     {messages.map((msg) => (
                         <div key={msg._id} className={`flex ${msg.sender._id === user.id ? 'justify-end' : 'justify-start'}`}>
-                            <div className={`max-w-[70%] p-3 rounded-lg shadow ${msg.sender._id === user.id ? 'bg-green-600 text-white' : 'bg-white text-black'}`}>
-                                {msg.sender._id !== user.id && (<div className="font-bold text-sm mb-1 text-green-700">{msg.sender.name || 'Admin'}</div>)}
+                            <div className={`max-w-[70%] p-3 rounded-lg shadow ${msg.sender._id === user.id ? 'bg-blood-600 text-white' : 'bg-white text-black'}`}>
+                                {msg.sender._id !== user.id && (<div className="font-bold text-sm mb-1 text-blood-700">{msg.sender.name || 'Admin'}</div>)}
                                 <MessageContent message={msg} />
                                 <div className="text-xs text-right mt-1 opacity-70">{new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
                             </div>
@@ -186,10 +186,11 @@ export default function UserMessage() {
                     <input ref={fileInputRef} type="file" onChange={handleFileUpload} className="hidden"/>
                     <button onClick={() => fileInputRef.current.click()} className="p-3 rounded-full hover:bg-gray-200"><Paperclip /></button>
                     <input type="text" value={text} onChange={(e) => setText(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()} placeholder="Type a message..." className="flex-1 p-3 rounded-full border"/>
-                    {recordingStatus === "recording" ? (<button onClick={stopRecording} className="p-3 bg-red-500 text-white rounded-full animate-pulse"><StopCircle /></button>) : (<button onClick={startRecording} className="p-3 bg-blue-500 text-white rounded-full"><Mic /></button>)}
-                    <button onClick={handleSendMessage} className="p-3 bg-green-600 text-white rounded-full"><Send /></button>
+                    {recordingStatus === "recording" ? (<button onClick={stopRecording} className="p-3 bg-red-500 text-white rounded-full animate-pulse"><StopCircle /></button>) : (<button onClick={startRecording} className="p-3 bg-blood-500 text-white rounded-full"><Mic /></button>)}
+                    <button onClick={handleSendMessage} className="p-3 bg-blood-600 text-white rounded-full"><Send /></button>
                 </div>
             </footer>
         </div>
     );
 }
+

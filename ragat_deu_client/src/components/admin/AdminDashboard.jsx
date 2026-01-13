@@ -39,7 +39,7 @@ export default function AdminDashboard() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/50 flex items-center justify-center">
         <div className="flex flex-col items-center space-y-4">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blood-600"></div>
           <p className="text-gray-600 font-medium">Loading dashboard...</p>
         </div>
       </div>
@@ -90,7 +90,7 @@ export default function AdminDashboard() {
       changeType: "positive",
       icon: Users,
       color: "blue",
-      bgGradient: "from-blue-500 to-blue-600",
+      bgGradient: "from-blood-500 to-blood-600",
     },
     {
       title: "Total Records",
@@ -112,7 +112,7 @@ export default function AdminDashboard() {
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
           <div className="space-y-2">
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl flex items-center justify-center shadow-lg">
+              <div className="w-12 h-12 bg-gradient-to-br from-blood-600 to-blood-700 rounded-2xl flex items-center justify-center shadow-lg">
                 <BarChart3 className="w-6 h-6 text-white" />
               </div>
               <div>
@@ -133,7 +133,7 @@ export default function AdminDashboard() {
                 })}
               </span>
             </div>
-            <button className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-xl">
+            <button className="bg-gradient-to-r from-blood-600 to-blood-600 text-white px-4 py-2 rounded-xl hover:from-blue-700 hover:to-blood-700 transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-xl">
               <Download className="w-4 h-4" />
               <span className="font-medium">Export</span>
             </button>
@@ -153,7 +153,7 @@ export default function AdminDashboard() {
                     <div className={`w-12 h-12 bg-gradient-to-br ${stat.bgGradient} rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                       <IconComponent className="w-6 h-6 text-white" />
                     </div>
-                    <div className={`flex items-center space-x-1 px-2 py-1 rounded-full text-xs font-semibold ${stat.changeType === "positive" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
+                    <div className={`flex items-center space-x-1 px-2 py-1 rounded-full text-xs font-semibold ${stat.changeType === "positive" ? "bg-blood-100 text-blood-700" : "bg-red-100 text-red-700"}`}>
                       <TrendingUp className="w-3 h-3" />
                       <span>{stat.change}</span>
                     </div>
@@ -174,9 +174,9 @@ export default function AdminDashboard() {
           <div className="grid grid-cols-1 gap-4">
             <Link
               to="/admin/user"
-              className="group flex items-center space-x-3 p-4 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 hover:from-blue-100 hover:to-indigo-100 transition-all duration-200 hover:shadow-md"
+              className="group flex items-center space-x-3 p-4 rounded-xl bg-gradient-to-r from-blood-50 to-indigo-50 border border-blue-100 hover:from-blood-100 hover:to-indigo-100 transition-all duration-200 hover:shadow-md"
             >
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
+              <div className="w-10 h-10 bg-gradient-to-br from-blood-500 to-blood-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
                 <Users className="w-5 h-5 text-white" />
               </div>
               <div className="flex-1">
@@ -235,7 +235,7 @@ export default function AdminDashboard() {
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-200/50 p-6 shadow-sm">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold text-gray-900 flex items-center space-x-2">
-              <Users className="w-5 h-5 text-blue-500" />
+              <Users className="w-5 h-5 text-blood-500" />
               <span>Recent users</span>
             </h2>
           </div>
@@ -243,8 +243,8 @@ export default function AdminDashboard() {
             {recentusers.length > 0 ? (
               recentusers.map((user) => (
                 <div key={user._id} className="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50 transition-colors group">
-                  <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center">
-                    <span className="text-blue-700 font-semibold text-sm">{user.name?.charAt(0)?.toUpperCase() || "P"}</span>
+                  <div className="w-10 h-10 bg-gradient-to-br from-blood-100 to-blue-200 rounded-full flex items-center justify-center">
+                    <span className="text-blood-700 font-semibold text-sm">{user.name?.charAt(0)?.toUpperCase() || "P"}</span>
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="font-semibold text-gray-900 truncate">{user.name}</p>
@@ -268,7 +268,7 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        <button className="bg-blue-600 text-white px-4 py-2 rounded font-semibold mb-4" onClick={() => setShowNotifModal(true)}>
+        <button className="bg-blood-600 text-white px-4 py-2 rounded font-semibold mb-4" onClick={() => setShowNotifModal(true)}>
           Send Notification to All Users
         </button>
         <AdminSendNotificationModal isOpen={showNotifModal} onClose={() => setShowNotifModal(false)} token={token} userId={null} />
@@ -277,3 +277,5 @@ export default function AdminDashboard() {
     </div>
   )
 }
+
+

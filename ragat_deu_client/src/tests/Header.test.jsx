@@ -117,3 +117,4 @@ describe('Header Component', () => {
     expect(header).toHaveClass('sticky', 'top-0', 'z-50');
   });
 });
+

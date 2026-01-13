@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'; // Make sure you have react-router-dom 
 const ProgressBar = ({ progress }) => (
   <div className="w-full bg-gray-200 rounded-full h-1.5 my-4">
     <div
-      className="bg-green-500 h-1.5 rounded-full transition-all duration-500"
+      className="bg-blood-500 h-1.5 rounded-full transition-all duration-500"
       style={{ width: `${progress}%` }}
     ></div>
   </div>
@@ -51,7 +51,7 @@ const FundraiserCard = ({ id, title, image, raised, goal, donors, formatCurrency
         <div className="space-y-2 text-sm mb-5">
           <div className="flex justify-between">
             <span className="text-gray-500">Raised:</span>
-            <span className="font-bold text-green-600">{formatCurrency(raised)}</span>
+            <span className="font-bold text-blood-600">{formatCurrency(raised)}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-gray-500">Goal:</span>
@@ -76,3 +76,4 @@ const FundraiserCard = ({ id, title, image, raised, goal, donors, formatCurrency
 };
 
 export default FundraiserCard;
+

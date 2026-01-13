@@ -47,3 +47,5 @@ describe('Services Component', () => {
     expect(servicesSection).toContainHTML('svg');
   });
 });
+
+

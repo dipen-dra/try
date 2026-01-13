@@ -46,3 +46,5 @@ describe('Hero Component', () => {
     expect(heroElement).toHaveClass(); // Should have styling classes
   });
 });
+
+

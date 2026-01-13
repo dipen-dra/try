@@ -45,3 +45,5 @@ describe('Footer Component', () => {
     expect(footer).toHaveClass(); // Should have some CSS classes
   });
 });
+
+

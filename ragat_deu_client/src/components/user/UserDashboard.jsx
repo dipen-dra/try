@@ -11,10 +11,10 @@ export default function UserDashboard() {
       icon: MessageSquare,
       title: "My Requests",
       description: "Track your medical assistance requests",
-      color: "from-blue-500 to-blue-600",
-      hoverColor: "hover:from-blue-600 hover:to-blue-700",
-      iconBg: "bg-blue-100",
-      iconColor: "text-blue-600"
+      color: "from-blood-500 to-blood-600",
+      hoverColor: "hover:from-blood-600 hover:to-blood-700",
+      iconBg: "bg-blood-100",
+      iconColor: "text-blood-600"
     },
     {
       to: "/user/notifications",
@@ -41,10 +41,10 @@ export default function UserDashboard() {
       icon: Smile,
       title: "Mental Health Corner",
       description: "Access wellness resources",
-      color: "from-green-500 to-emerald-500",
-      hoverColor: "hover:from-green-600 hover:to-emerald-600",
-      iconBg: "bg-green-100",
-      iconColor: "text-green-600"
+      color: "from-blood-500 to-blood-1000",
+      hoverColor: "hover:from-blood-600 hover:to-emerald-600",
+      iconBg: "bg-blood-100",
+      iconColor: "text-blood-600"
     },
     {
       to: "/user/settings",
@@ -62,7 +62,7 @@ export default function UserDashboard() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blood-400/20 to-purple-400/20 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-pink-400/20 to-orange-400/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-indigo-400/10 to-cyan-400/10 rounded-full blur-3xl animate-pulse delay-500"></div>
       </div>
@@ -74,7 +74,7 @@ export default function UserDashboard() {
             <div className="mb-6 lg:mb-0">
               <div className="flex items-center space-x-4 mb-4">
                 <div className="relative">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/25">
+                  <div className="w-16 h-16 bg-gradient-to-br from-blood-500 to-blood-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/25">
                     <LayoutDashboard className="w-8 h-8 text-white" />
                   </div>
                   <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
@@ -91,7 +91,7 @@ export default function UserDashboard() {
             </div>
             
             <div className="flex items-center space-x-4 bg-white/70 backdrop-blur-sm rounded-2xl px-6 py-4 shadow-lg border border-white/20">
-              <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
+              <div className="w-12 h-12 bg-gradient-to-br from-blood-500 to-purple-600 rounded-xl flex items-center justify-center">
                 <Calendar className="w-6 h-6 text-white" />
               </div>
               <div>
@@ -154,7 +154,7 @@ export default function UserDashboard() {
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
             <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center">
+              <div className="w-12 h-12 bg-gradient-to-br from-blood-500 to-emerald-600 rounded-xl flex items-center justify-center">
                 <Heart className="w-6 h-6 text-white" />
               </div>
               <div>
@@ -166,7 +166,7 @@ export default function UserDashboard() {
           
           <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-lg">
             <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl flex items-center justify-center">
+              <div className="w-12 h-12 bg-gradient-to-br from-blood-500 to-cyan-600 rounded-xl flex items-center justify-center">
                 <MessageSquare className="w-6 h-6 text-white" />
               </div>
               <div>
@@ -192,3 +192,5 @@ export default function UserDashboard() {
     </div>
   )
 }
+
+

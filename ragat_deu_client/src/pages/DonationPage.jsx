@@ -124,7 +124,7 @@ const DonationPage = () => {
       <div className="text-center py-20">
         <h2 className="text-2xl font-bold text-red-600">Error: {error}</h2>
         <p className="text-gray-500 mt-2">Could not load the campaign details.</p>
-        <a href="/" className="mt-4 inline-block bg-green-600 text-white px-6 py-2 rounded-lg">
+        <a href="/" className="mt-4 inline-block bg-blood-600 text-white px-6 py-2 rounded-lg">
           Go to Homepage
         </a>
       </div>
@@ -150,7 +150,7 @@ const DonationPage = () => {
                   key={val}
                   onClick={() => setAmount(val)}
                   className={`px-4 py-3 rounded-lg border-2 font-semibold transition-all ${
-                    amount == val ? 'bg-green-600 text-white border-green-600' : 'bg-white text-gray-700 border-gray-300 hover:border-green-500'
+                    amount == val ? 'bg-blood-600 text-white border-blood-600' : 'bg-white text-gray-700 border-gray-300 hover:border-blood-500'
                   }`}
                 >
                   {formatCurrency(val)}
@@ -165,7 +165,7 @@ const DonationPage = () => {
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 required
-                className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500"
+                className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-blood-500 focus:border-blood-500"
               />
             </div>
           </div>
@@ -182,7 +182,7 @@ const DonationPage = () => {
                 onChange={(e) => setName(e.target.value)}
                 disabled={isAnonymous}
                 required={!isAnonymous}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-blood-500 focus:border-blood-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
               />
             </div>
           </div>
@@ -198,7 +198,7 @@ const DonationPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-blood-500 focus:border-blood-500"
               />
             </div>
           </div>
@@ -213,7 +213,7 @@ const DonationPage = () => {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 required
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-blood-500 focus:border-blood-500"
               />
             </div>
           </div>
@@ -225,7 +225,7 @@ const DonationPage = () => {
               type="checkbox"
               checked={isAnonymous}
               onChange={(e) => setIsAnonymous(e.target.checked)}
-              className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
+              className="h-4 w-4 text-blood-600 border-gray-300 rounded focus:ring-blood-500"
             />
             <label htmlFor="anonymous" className="ml-2 block text-sm text-gray-900">
               Make my donation anonymous
@@ -248,3 +248,4 @@ const DonationPage = () => {
 };
 
 export default DonationPage;
+

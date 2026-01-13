@@ -4,9 +4,9 @@ import { LayoutDashboard, Users, UserPlus, LogOut, GitPullRequest, MessageCircle
 
 export default function Sidebar() {
   const linkClasses =
-    "flex items-center space-x-3 px-4 py-3 text-gray-600 hover:text-gray-900 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 rounded-xl transition-all duration-200 group"
+    "flex items-center space-x-3 px-4 py-3 text-gray-600 hover:text-gray-900 hover:bg-gradient-to-r hover:from-blood-50 hover:to-indigo-50 rounded-xl transition-all duration-200 group"
 
-  const activeClasses = "bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg transform scale-[1.02]"
+  const activeClasses = "bg-gradient-to-r from-blood-500 to-blood-600 text-white shadow-lg transform scale-[1.02]"
 
   return (
     <aside className="w-72 min-h-screen bg-gradient-to-b from-gray-50 to-white border-r border-gray-200 shadow-xl flex flex-col justify-between">
@@ -34,7 +34,7 @@ export default function Sidebar() {
             <NavLink to="/admin" end className={({ isActive }) => `${linkClasses} ${isActive ? activeClasses : ""}`}>
               <div className="relative">
                 <LayoutDashboard className="w-5 h-5 transition-transform group-hover:scale-110" />
-                <div className="absolute -inset-1 bg-blue-400 rounded-full opacity-0 group-hover:opacity-20 transition-opacity"></div>
+                <div className="absolute -inset-1 bg-blood-400 rounded-full opacity-0 group-hover:opacity-20 transition-opacity"></div>
               </div>
               <span className="font-medium">Dashboard</span>
             </NavLink>
@@ -42,7 +42,7 @@ export default function Sidebar() {
             <NavLink to="/admin/user" className={({ isActive }) => `${linkClasses} ${isActive ? activeClasses : ""}`}>
               <div className="relative">
                 <Users className="w-5 h-5 transition-transform group-hover:scale-110" />
-                <div className="absolute -inset-1 bg-green-400 rounded-full opacity-0 group-hover:opacity-20 transition-opacity"></div>
+                <div className="absolute -inset-1 bg-blood-400 rounded-full opacity-0 group-hover:opacity-20 transition-opacity"></div>
               </div>
               <span className="font-medium">Users</span>
             </NavLink>
@@ -83,9 +83,9 @@ export default function Sidebar() {
         </div>
 
         {/* Additional Info Section */}
-        <div className="mt-12 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border border-blue-100">
+        <div className="mt-12 p-4 bg-gradient-to-br from-blood-50 to-indigo-50 rounded-2xl border border-blue-100">
           <div className="text-center">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-3">
+            <div className="w-12 h-12 bg-gradient-to-br from-blood-500 to-blood-600 rounded-full flex items-center justify-center mx-auto mb-3">
               <span className="text-white font-bold text-lg">HC</span>
             </div>
             <p className="text-xs text-gray-600 font-medium">Managing care with compassion</p>
@@ -116,3 +116,5 @@ export default function Sidebar() {
     </aside>
   )
 }
+
+

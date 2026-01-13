@@ -1,4 +1,4 @@
-const DiseaseCard = ({ title, count, color = "bg-blue-500", image, className = "" }) => {
+const DiseaseCard = ({ title, count, color = "bg-blood-500", image, className = "" }) => {
   return (
     <div className={`relative overflow-hidden rounded-lg shadow-sm ${className}`}>
       <div className="absolute inset-0 bg-gradient-to-r from-black to-transparent opacity-60 z-10"></div>
@@ -20,3 +20,5 @@ const DiseaseCard = ({ title, count, color = "bg-blue-500", image, className = "
 }
 
 export default DiseaseCard
+
+

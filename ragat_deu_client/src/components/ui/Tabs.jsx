@@ -17,7 +17,7 @@ const Tabs = ({ tabs, defaultTab = 0, className = "" }) => {
                 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm
                 ${
                   activeTab === index
-                    ? "border-green-500 text-green-600"
+                    ? "border-blood-500 text-blood-600"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                 }
               `}
@@ -33,3 +33,5 @@ const Tabs = ({ tabs, defaultTab = 0, className = "" }) => {
 }
 
 export default Tabs
+
+

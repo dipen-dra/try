@@ -48,7 +48,7 @@ const PasswordInput = ({
           required={required}
           className={`w-full px-3 py-2 pr-10 border ${
             error ? "border-red-500" : "border-gray-300"
-          } rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 ${className}`}
+          } rounded-md shadow-sm focus:outline-none focus:ring-blood-500 focus:border-blood-500 ${className}`}
           {...props}
         />
         <button
@@ -67,7 +67,7 @@ const PasswordInput = ({
             <div key={index} className="flex items-center text-xs">
               <div
                 className={`w-2 h-2 rounded-full mr-2 ${
-                  value && req.regex.test(value) ? "bg-green-500" : "bg-gray-300"
+                  value && req.regex.test(value) ? "bg-blood-500" : "bg-gray-300"
                 }`}
               ></div>
               <span className="text-gray-600">{req.text}</span>
@@ -80,3 +80,5 @@ const PasswordInput = ({
 }
 
 export default PasswordInput
+
+

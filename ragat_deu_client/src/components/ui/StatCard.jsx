@@ -3,7 +3,7 @@ const StatCard = ({ title, value, icon: Icon, change, changeType = "increase", c
     <div className={`bg-white p-6 rounded-lg shadow-sm border border-gray-100 ${className}`}>
       <div className="flex items-center">
         <div className="flex-shrink-0">
-          <div className="flex items-center justify-center h-12 w-12 rounded-md bg-green-100 text-green-600">
+          <div className="flex items-center justify-center h-12 w-12 rounded-md bg-blood-100 text-blood-600">
             <Icon className="h-6 w-6" />
           </div>
         </div>
@@ -18,7 +18,7 @@ const StatCard = ({ title, value, icon: Icon, change, changeType = "increase", c
       </div>
       {change && (
         <div className="mt-4">
-          <div className={`flex items-center text-sm ${changeType === "increase" ? "text-green-600" : "text-red-600"}`}>
+          <div className={`flex items-center text-sm ${changeType === "increase" ? "text-blood-600" : "text-red-600"}`}>
             <span>{change}</span>
             <span className="ml-1">{changeType === "increase" ? "increase" : "decrease"}</span>
           </div>
@@ -29,3 +29,5 @@ const StatCard = ({ title, value, icon: Icon, change, changeType = "increase", c
 }
 
 export default StatCard
+
+

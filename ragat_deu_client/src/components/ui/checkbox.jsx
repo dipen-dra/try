@@ -9,7 +9,7 @@ const Checkbox = ({ id, label, checked, onChange, className = "", ...props }) =>
           type="checkbox"
           checked={checked}
           onChange={onChange}
-          className="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
+          className="w-4 h-4 text-blood-600 border-gray-300 rounded focus:ring-blood-500"
           {...props}
         />
       </div>
@@ -23,3 +23,5 @@ const Checkbox = ({ id, label, checked, onChange, className = "", ...props }) =>
 }
 
 export default Checkbox
+
+

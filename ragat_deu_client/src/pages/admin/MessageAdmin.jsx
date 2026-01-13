@@ -6,3 +6,5 @@ export default function MessageAdmin() {
     <div><AdminMessage/></div>
   )
 }
+
+
