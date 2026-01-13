@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-hot-toast';
 import { CreditCard, User, Mail, Phone } from 'lucide-react';
 
 const formatCurrency = (amount) => {
@@ -48,7 +49,7 @@ const DonationPage = () => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await fetch(`${backendUrl}/api/campaigns/${campaignId}`);
+        const response = await fetch(`${backendUrl} /api/campaigns / ${campaignId} `);
         if (!response.ok) throw new Error('Campaign not found');
         const data = await response.json();
         setCampaign(data);
@@ -66,12 +67,12 @@ const DonationPage = () => {
     try {
       const amountInPaisa = Number(amount) * 100;
       const response = await axios.post(
-        `${backendUrl}/api/donations/khalti-payment-initiate`,
+        `${backendUrl} /api/donations / khalti - payment - initiate`,
         {
-          return_url: `${window.location.origin}/donation/success`,
+          return_url: `${window.location.origin} /donation/success`,
           website_url: window.location.origin,
           amount: amountInPaisa,
-          purchase_order_id: `Order_${campaignId}_${Date.now()}`,
+          purchase_order_id: `Order_${campaignId}_${Date.now()} `,
           purchase_order_name: campaign.title,
           customer_info: {
             name: isAnonymous ? 'Anonymous' : name,
@@ -84,12 +85,12 @@ const DonationPage = () => {
       if (response.data.payment_url) {
         window.location.href = response.data.payment_url; // Redirect to Khalti payment page
       } else {
-        navigate(`/donation/failure?message=${response.data.message || 'Failed to initiate payment'}`);
+        navigate(`/ donation / failure ? message = ${response.data.message || 'Failed to initiate payment'} `);
       }
     } catch (error) {
       console.error('Error initiating payment:', error);
       const errorMessage = error.response?.data?.message || 'Payment initiation failed';
-      navigate(`/donation/failure?message=${errorMessage}`);
+      navigate(`/ donation / failure ? message = ${errorMessage} `);
     }
   };
 
@@ -97,19 +98,19 @@ const DonationPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!amount || Number(amount) < 10) {
-      alert('Please enter an amount of at least ₹10.');
+      toast.error('Please enter an amount of at least ₹10.');
       return;
     }
     if (!isAnonymous && !name.trim()) {
-      alert('Please enter your name or choose to donate anonymously.');
+      toast.error('Please enter your name or choose to donate anonymously.');
       return;
     }
-    if (!email.trim() || !/\S+@\S+\.\S+/.test(email)) {
-      alert('Please enter a valid email address.');
+    if (!email.trim() || !/^\S+@\S+\.\S+$/.test(email)) {
+      toast.error('Please enter a valid email address.');
       return;
     }
     if (!phone.trim() || !/^\d{10}$/.test(phone)) {
-      alert('Please enter a valid 10-digit phone number.');
+      toast.error('Please enter a valid 10-digit phone number.');
       return;
     }
 
@@ -149,9 +150,8 @@ const DonationPage = () => {
                   type="button"
                   key={val}
                   onClick={() => setAmount(val)}
-                  className={`px-4 py-3 rounded-lg border-2 font-semibold transition-all ${
-                    amount == val ? 'bg-blood-600 text-white border-blood-600' : 'bg-white text-gray-700 border-gray-300 hover:border-blood-500'
-                  }`}
+                  className={`px - 4 py - 3 rounded - lg border - 2 font - semibold transition - all ${amount == val ? 'bg-blood-600 text-white border-blood-600' : 'bg-white text-gray-700 border-gray-300 hover:border-blood-500'
+                    } `}
                 >
                   {formatCurrency(val)}
                 </button>

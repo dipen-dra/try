@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import { useLogin } from "../../hooks/useLoginUserTan";
 import { Droplet, Mail, Lock } from "lucide-react";
 import ReCAPTCHA from "react-google-recaptcha";
+import { toast } from 'react-hot-toast';
 
 const LoginForm = () => {
     const { mutate: attemptLogin, isPending } = useLogin();
@@ -20,7 +21,7 @@ const LoginForm = () => {
         onSubmit: (values) => {
             const recaptchaToken = recaptchaRef.current.getValue();
             if (!recaptchaToken) {
-                alert("Please complete the reCAPTCHA verification.");
+                toast.error("Please complete the reCAPTCHA verification.");
                 return;
             }
 
