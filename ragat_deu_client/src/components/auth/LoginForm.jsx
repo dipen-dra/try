@@ -4,12 +4,14 @@ import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useLogin } from "../../hooks/useLoginUserTan";
-import { Droplet, Mail, Lock } from "lucide-react";
+import { Droplet, Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { toast } from 'react-hot-toast';
 
 const LoginForm = () => {
     const { mutate: attemptLogin, isPending } = useLogin();
+    const [showPassword, setShowPassword] = useState(false);
     const recaptchaRef = useRef(null);
 
     const formik = useFormik({
@@ -66,12 +68,19 @@ const LoginForm = () => {
                     <div className="relative">
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"><Lock className="h-4 w-4 text-gray-400" /></div>
                         <input
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             name="password"
                             {...formik.getFieldProps('password')}
                             placeholder="Enter your password"
-                            className="w-full pl-10 pr-3 py-3 border-2 rounded-xl"
+                            className="w-full pl-10 pr-10 py-3 border-2 rounded-xl"
                         />
+                        <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                        >
+                            {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                        </button>
                     </div>
                     {formik.touched.password && formik.errors.password && <div className="text-red-600 text-xs mt-1">{formik.errors.password}</div>}
                 </div>

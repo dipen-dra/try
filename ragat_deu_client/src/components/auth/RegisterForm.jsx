@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useRegisterUserTan as useRegister } from '../../hooks/useRegisterUserTan';
-import { User, Mail, Phone, Lock, Heart, FileText, Droplet, CheckCircle, ArrowLeft, ArrowRight, Sparkles } from 'lucide-react';
+import { User, Mail, Phone, Lock, Heart, FileText, Droplet, CheckCircle, ArrowLeft, ArrowRight, Sparkles, Eye, EyeOff } from 'lucide-react';
 import PasswordStrengthMeter from './PasswordStrengthMeter';
 import AuthLayout from "../AuthLayout"
 
@@ -13,6 +13,7 @@ const RegisterForm = () => {
   const navigate = useNavigate()
   const [currentStep, setCurrentStep] = useState(0)
   const [isPending, setIsPending] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   // Steps configuration
   const steps = [
@@ -231,15 +232,22 @@ const RegisterForm = () => {
                   <div className="relative">
                     <Lock className="absolute top-3 left-3 text-blood-400" size={20} />
                     <input
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       name="password"
                       placeholder="Password"
-                      className={`w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blood-500 transition-all ${formik.touched.password && formik.errors.password
+                      className={`w-full pl-10 pr-10 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blood-500 transition-all ${formik.touched.password && formik.errors.password
                         ? 'border-red-500 bg-red-50'
                         : 'border-gray-300 hover:border-blood-300'
                         }`}
                       {...formik.getFieldProps('password')}
                     />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute top-2.5 right-3 text-gray-400 hover:text-gray-600"
+                    >
+                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </button>
                   </div>
                   {formik.touched.password && formik.errors.password && (
                     <div className="text-red-500 text-xs mt-1 ml-2">{formik.errors.password}</div>
@@ -393,19 +401,30 @@ const RegisterForm = () => {
                   } focus:ring-4 focus:ring-opacity-20 focus:outline-none text-gray-900 placeholder-gray-400`}
               />
             ) : (
-              <input
-                type={currentStepData.type}
-                name={currentStepData.id}
-                value={formik.values[currentStepData.id]}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                onKeyPress={handleKeyPress}
-                placeholder={currentStepData.placeholder}
-                className={`w-full pl-12 pr-4 py-4 border-2 rounded-2xl transition-all duration-300 bg-white/50 backdrop-blur-sm text-lg ${formik.touched[currentStepData.id] && formik.errors[currentStepData.id]
-                  ? "border-red-300 focus:border-red-500 focus:ring-red-200"
-                  : "border-gray-200 focus:border-blood-400 focus:ring-blood-100 hover:border-gray-300"
-                  } focus:ring-4 focus:ring-opacity-20 focus:outline-none text-gray-900 placeholder-gray-400`}
-              />
+              <div className="relative">
+                <input
+                  type={currentStepData.id === 'password' && showPassword ? "text" : currentStepData.type}
+                  name={currentStepData.id}
+                  value={formik.values[currentStepData.id]}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  onKeyPress={handleKeyPress}
+                  placeholder={currentStepData.placeholder}
+                  className={`w-full pl-12 pr-10 py-4 border-2 rounded-2xl transition-all duration-300 bg-white/50 backdrop-blur-sm text-lg ${formik.touched[currentStepData.id] && formik.errors[currentStepData.id]
+                    ? "border-red-300 focus:border-red-500 focus:ring-red-200"
+                    : "border-gray-200 focus:border-blood-400 focus:ring-blood-100 hover:border-gray-300"
+                    } focus:ring-4 focus:ring-opacity-20 focus:outline-none text-gray-900 placeholder-gray-400`}
+                />
+                {currentStepData.id === 'password' && (
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  >
+                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  </button>
+                )}
+              </div>
             )}
           </div>
 

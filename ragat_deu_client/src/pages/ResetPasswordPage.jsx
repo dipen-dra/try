@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-import { Lock, ArrowRight, Loader2, KeyRound } from 'lucide-react';
+import { Lock, ArrowRight, Loader2, KeyRound, Eye, EyeOff } from 'lucide-react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import PasswordStrengthMeter from '../components/auth/PasswordStrengthMeter';
 
@@ -10,6 +10,8 @@ export default function ResetPasswordPage() {
     const navigate = useNavigate();
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const backendUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:5050";
@@ -58,14 +60,21 @@ export default function ResetPasswordPage() {
                         </label>
                         <div className="relative">
                             <input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 required
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-4 focus:ring-blood-100 focus:border-blood-500 transition-all outline-none"
+                                className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-4 focus:ring-blood-100 focus:border-blood-500 transition-all outline-none"
                                 placeholder="••••••••"
                             />
                             <Lock className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-3 top-3.5 text-gray-400 hover:text-gray-600"
+                            >
+                                {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                            </button>
                         </div>
 
                         {/* Strength Meter */}
@@ -79,14 +88,21 @@ export default function ResetPasswordPage() {
                         </label>
                         <div className="relative">
                             <input
-                                type="password"
+                                type={showConfirmPassword ? "text" : "password"}
                                 required
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
-                                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-4 focus:ring-blood-100 focus:border-blood-500 transition-all outline-none"
+                                className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-xl focus:ring-4 focus:ring-blood-100 focus:border-blood-500 transition-all outline-none"
                                 placeholder="••••••••"
                             />
                             <Lock className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
+                            <button
+                                type="button"
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                className="absolute right-3 top-3.5 text-gray-400 hover:text-gray-600"
+                            >
+                                {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                            </button>
                         </div>
                     </div>
 

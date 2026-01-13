@@ -4,7 +4,7 @@ import { Camera, Upload } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { validateFile } from '../../utils/fileValidation';
 
-import { User, Mail, Phone, Lock, Heart, FileText, Droplet, CheckCircle, ArrowLeft, ArrowRight, Sparkles } from 'lucide-react';
+import { User, Mail, Phone, Lock, Heart, FileText, Droplet, CheckCircle, ArrowLeft, ArrowRight, Sparkles, Eye, EyeOff } from 'lucide-react';
 import PasswordStrengthMeter from '../auth/PasswordStrengthMeter'; // Import Strength Meter
 const ToggleSwitch = ({ enabled, setEnabled }) => (
     <button
@@ -28,6 +28,9 @@ export default function SettingsPage() {
         newPassword: '',
         confirmNewPassword: '',
     });
+    const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+    const [showNewPassword, setShowNewPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [profilePicture, setProfilePicture] = useState(null);
     const [profilePicturePreview, setProfilePicturePreview] = useState(null);
     const [isTwoFactorEnabled, setIsTwoFactorEnabled] = useState(false);
@@ -223,11 +226,41 @@ export default function SettingsPage() {
                         <h2 className="text-lg font-semibold text-gray-700">Change Password</h2>
                         <div>
                             <label className="block text-sm font-medium text-gray-600">Current Password</label>
-                            <input type="password" name="currentPassword" value={password.currentPassword} onChange={handlePasswordChange} className="mt-1 block w-full border border-gray-300 rounded-md p-2" />
+                            <div className="relative">
+                                <input
+                                    type={showCurrentPassword ? "text" : "password"}
+                                    name="currentPassword"
+                                    value={password.currentPassword}
+                                    onChange={handlePasswordChange}
+                                    className="mt-1 block w-full border border-gray-300 rounded-md p-2 pr-10"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 mt-1"
+                                >
+                                    {showCurrentPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                </button>
+                            </div>
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-600">New Password</label>
-                            <input type="password" name="newPassword" value={password.newPassword} onChange={handlePasswordChange} className="mt-1 block w-full border border-gray-300 rounded-md p-2" />
+                            <div className="relative">
+                                <input
+                                    type={showNewPassword ? "text" : "password"}
+                                    name="newPassword"
+                                    value={password.newPassword}
+                                    onChange={handlePasswordChange}
+                                    className="mt-1 block w-full border border-gray-300 rounded-md p-2 pr-10"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowNewPassword(!showNewPassword)}
+                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 mt-1"
+                                >
+                                    {showNewPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                </button>
+                            </div>
                             {/* Password Strength Meter */}
                             {password.newPassword && (
                                 <div className="mt-2">
@@ -237,7 +270,22 @@ export default function SettingsPage() {
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-600">Confirm New Password</label>
-                            <input type="password" name="confirmNewPassword" value={password.confirmNewPassword} onChange={handlePasswordChange} className="mt-1 block w-full border border-gray-300 rounded-md p-2" />
+                            <div className="relative">
+                                <input
+                                    type={showConfirmPassword ? "text" : "password"}
+                                    name="confirmNewPassword"
+                                    value={password.confirmNewPassword}
+                                    onChange={handlePasswordChange}
+                                    className="mt-1 block w-full border border-gray-300 rounded-md p-2 pr-10"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 mt-1"
+                                >
+                                    {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                </button>
+                            </div>
                         </div>
                         <button type="submit" className="px-4 py-2 bg-black text-white font-semibold rounded-lg shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-opacity-75">
                             Update Password
