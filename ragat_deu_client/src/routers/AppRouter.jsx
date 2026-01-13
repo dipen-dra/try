@@ -4,7 +4,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import { GuestRoute, ProtectedRoute, RoleBasedRoute } from "./RouteGuards";
 import ResetPasswordPage from '../pages/ResetPasswordPage.jsx';
 import ForgotPasswordPage from '../pages/ForgotPasswordPage.jsx';
-import HomeRoute from './HomeRoute.jsx';
+import { HomeRoute } from './HomeRoute.jsx';
 
 // Import Layouts
 import UserLayout from "../layouts/user/UserLayout";

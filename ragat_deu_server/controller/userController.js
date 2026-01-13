@@ -213,9 +213,10 @@ exports.changePassword = async (req, res) => {
 // Forgot Password
 exports.forgotPassword = async (req, res) => {
     const { email } = req.body;
+    let user;
 
     try {
-        const user = await User.findOne({ email });
+        user = await User.findOne({ email });
 
         if (!user) {
             return res.status(404).json({ success: false, message: "User not found" });
@@ -246,13 +247,12 @@ exports.forgotPassword = async (req, res) => {
             <a href=${resetUrl} clicktracking=off>${resetUrl}</a>
             <p>If you did not make this request, please ignore this email.</p>
         `;
-
         // Send Email
         const transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
-                user: "saurabprasai31@gmail.com", // Keeping existing email if valid, or needs update
-                pass: "yrjo llpl yzcq zqme", // App password
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS,
             },
         });
 
@@ -266,9 +266,11 @@ exports.forgotPassword = async (req, res) => {
         res.status(200).json({ success: true, message: "Email sent" });
 
     } catch (error) {
-        user.resetPasswordToken = undefined;
-        user.resetPasswordExpire = undefined;
-        await user.save();
+        if (user) {
+            user.resetPasswordToken = undefined;
+            user.resetPasswordExpire = undefined;
+            await user.save({ validateBeforeSave: false });
+        }
         console.error("Forgot Password Error:", error);
         res.status(500).json({ success: false, message: "Email could not be sent" });
     }

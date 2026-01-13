@@ -4,8 +4,8 @@ import { useState } from "react"
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useRegister } from '../../hooks/useRegisterUserTan';
-import { User, Mail, Phone, Lock, Heart, FileText, Droplet } from 'lucide-react';
+import { useRegisterUserTan as useRegister } from '../../hooks/useRegisterUserTan';
+import { User, Mail, Phone, Lock, Heart, FileText, Droplet, CheckCircle, ArrowLeft, ArrowRight, Sparkles } from 'lucide-react';
 import PasswordStrengthMeter from './PasswordStrengthMeter';
 import AuthLayout from "../AuthLayout"
 

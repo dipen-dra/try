@@ -25,7 +25,7 @@ export default function ResetPasswordPage() {
         setLoading(true);
 
         try {
-            const response = await axios.put(`${backendUrl}/api/user/reset-password/${token}`, { password });
+            const response = await axios.put(`${backendUrl}/api/auth/reset-password/${token}`, { password });
             if (response.data.success) {
                 toast.success("Password reset successfully! Login with new password.");
                 navigate('/login');
