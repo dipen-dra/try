@@ -242,7 +242,7 @@ exports.forgotPassword = async (req, res) => {
 
         const message = `
             <h1>Password Reset Request</h1>
-            <p>You requested a password reset for your Hope Care account.</p>
+            <p>You requested a password reset for your रक्तदान account.</p>
             <p>Please click the link below to reset your password:</p>
             <a href=${resetUrl} clicktracking=off>${resetUrl}</a>
             <p>If you did not make this request, please ignore this email.</p>
@@ -257,7 +257,7 @@ exports.forgotPassword = async (req, res) => {
         });
 
         await transporter.sendMail({
-            from: "Hope Care <noreply@hopecare.com>",
+            from: "रक्तदान <noreply@raktadan.com>",
             to: user.email,
             subject: "Password Reset Request",
             html: message,

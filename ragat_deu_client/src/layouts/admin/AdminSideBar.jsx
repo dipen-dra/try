@@ -27,7 +27,7 @@ export default function Sidebar() {
             <span className="text-2xl">H</span>
           </div>
           <div>
-            <h1 className="text-xl font-bold text-gray-800">Hope Care</h1>
+            <h1 className="text-xl font-bold text-gray-800">रक्तदान</h1>
             <p className="text-sm text-gray-500 font-medium">Admin Portal</p>
           </div>
         </div>
@@ -118,7 +118,7 @@ export default function Sidebar() {
 
         {/* Footer */}
         <div className="mt-4 pt-4 border-t border-gray-200">
-          <p className="text-xs text-gray-400 text-center">© 2024 Hope Care</p>
+          <p className="text-xs text-gray-400 text-center">© 2024 रक्तदान</p>
         </div>
       </div>
     </aside>
