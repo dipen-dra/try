@@ -46,7 +46,9 @@ app.use(cors());
 app.use(express.json());
 
 // Security Middlewares
-app.use(helmet()); // Set security HTTP headers
+app.use(helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" }
+})); // Set security HTTP headers with CORS policy
 // app.use(mongoSanitize()); // Prevent NoSQL injection (Disabled due to Express 5 compatibility issue)
 // app.use(xss()); // Sanitize data against XSS (Disabled due to Express 5 compatibility issue)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));

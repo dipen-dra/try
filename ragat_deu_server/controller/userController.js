@@ -2,8 +2,8 @@ const User = require("../model/user")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const crypto = require("crypto");
-const nodemailer = require("nodemailer");
 const { validatePassword } = require("../utils/passwordValidator");
+const nodemailer = require("nodemailer");
 const { OAuth2Client } = require('google-auth-library');
 const fetch = require('node-fetch');
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_CLIENT_ID';
@@ -157,7 +157,13 @@ exports.updateMe = async (req, res) => {
     try {
         // Add photoUrl to update object
         const updateData = { name, description, contact, disease };
-        if (photoUrl) updateData.photoUrl = photoUrl;
+
+        // Handle file upload if present
+        if (req.file) {
+            updateData.photoUrl = `/uploads/profiles/${req.file.filename}`;
+        } else if (photoUrl) {
+            updateData.photoUrl = photoUrl;
+        }
 
         const user = await User.findByIdAndUpdate(
             req.user.id,
@@ -196,6 +202,38 @@ exports.changePassword = async (req, res) => {
         const isMatch = await bcrypt.compare(currentPassword, user.password);
         if (!isMatch) {
             return res.status(401).json({ success: false, message: 'Incorrect current password' });
+        }
+
+        // 1. Validate Password Strength
+        const { isValid, message } = validatePassword(newPassword); // Ensure validatePassword is imported
+        if (!isValid) {
+            return res.status(400).json({ success: false, message });
+        }
+
+        // 2. Check Password History (Prevent reuse of last 3 passwords)
+        let isReused = false;
+        for (const oldHash of user.passwordHistory || []) {
+            const match = await bcrypt.compare(newPassword, oldHash.password);
+            if (match) {
+                isReused = true;
+                break;
+            }
+        }
+
+        if (isReused) {
+            return res.status(400).json({
+                success: false,
+                message: "You cannot reuse any of your last 3 passwords."
+            });
+        }
+
+        // 3. Update Password History
+        if (!user.passwordHistory) user.passwordHistory = [];
+        user.passwordHistory.push({ password: user.password, changedAt: Date.now() });
+
+        // Keep only last 3 passwords
+        if (user.passwordHistory.length > 3) {
+            user.passwordHistory.shift();
         }
 
         // Hash the new password and save it

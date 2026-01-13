@@ -4,7 +4,8 @@ import { Camera, Upload } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 import { validateFile } from '../../utils/fileValidation';
 
-// A simple toggle switch component
+import { User, Mail, Phone, Lock, Heart, FileText, Droplet, CheckCircle, ArrowLeft, ArrowRight, Sparkles } from 'lucide-react';
+import PasswordStrengthMeter from '../auth/PasswordStrengthMeter'; // Import Strength Meter
 const ToggleSwitch = ({ enabled, setEnabled }) => (
     <button
         onClick={() => setEnabled(!enabled)}
@@ -158,6 +159,12 @@ export default function SettingsPage() {
                                         alt="Profile Preview"
                                         className="w-full h-full object-cover"
                                     />
+                                ) : profile.photoUrl ? (
+                                    <img
+                                        src={`http://localhost:5050${profile.photoUrl}`}
+                                        alt="Profile"
+                                        className="w-full h-full object-cover"
+                                    />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blood-100 to-blood-200">
                                         <Camera className="w-12 h-12 text-blood-400" />
@@ -221,6 +228,12 @@ export default function SettingsPage() {
                         <div>
                             <label className="block text-sm font-medium text-gray-600">New Password</label>
                             <input type="password" name="newPassword" value={password.newPassword} onChange={handlePasswordChange} className="mt-1 block w-full border border-gray-300 rounded-md p-2" />
+                            {/* Password Strength Meter */}
+                            {password.newPassword && (
+                                <div className="mt-2">
+                                    <PasswordStrengthMeter password={password.newPassword} />
+                                </div>
+                            )}
                         </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-600">Confirm New Password</label>

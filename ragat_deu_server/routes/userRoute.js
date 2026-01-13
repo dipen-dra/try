@@ -1,5 +1,38 @@
 const express = require("express");
 const router = express.Router();
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+
+// Configure Multer for Profile Pictures
+const profileUploadDir = path.join(__dirname, '..', 'uploads', 'profiles');
+if (!fs.existsSync(profileUploadDir)) {
+    fs.mkdirSync(profileUploadDir, { recursive: true });
+}
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, profileUploadDir);
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, 'profile-' + uniqueSuffix + path.extname(file.originalname));
+    }
+});
+
+const uploadProfile = multer({
+    storage: storage,
+    limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+    fileFilter: (req, file, cb) => {
+        const filetypes = /jpeg|jpg|png/;
+        const mimetype = filetypes.test(file.mimetype);
+        const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+        if (mimetype && extname) {
+            return cb(null, true);
+        }
+        cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+    }
+});
 
 // ## 1. Import Controllers and All Middlewares ##
 const {
@@ -38,7 +71,7 @@ router.post("/login", [authLimiter], loginUser);
 router.get('/me', authorizeToken, getMe);
 
 // Update personal profile information
-router.put('/me', authorizeToken, updateMe);
+router.put('/me', authorizeToken, uploadProfile.single('profilePicture'), updateMe);
 
 // Password Management (Secure)
 router.post("/change-password", authorizeToken, changePassword);
