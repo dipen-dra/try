@@ -20,6 +20,9 @@ const socketController = require('./controller/socketController');
 const notificationService = require('./services/notificationServices');
 const publicCampaignsRoute = require('./routes/publicCampaigns');
 const donationRoutes = require('./routes/donationRoutes');
+const xss = require('xss-clean');
+const helmet = require('helmet');
+const mongoSanitize = require('express-mongo-sanitize');
 
 const app = express();
 const server = http.createServer(app);
@@ -28,7 +31,7 @@ const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
         origin: "http://localhost:5173", //
-        methods: ['GET','POST','PUT']
+        methods: ['GET', 'POST', 'PUT']
     }
 });
 
@@ -41,6 +44,11 @@ connectDB();
 // Middlewares
 app.use(cors());
 app.use(express.json());
+
+// Security Middlewares
+app.use(helmet()); // Set security HTTP headers
+app.use(mongoSanitize()); // Prevent NoSQL injection
+app.use(xss()); // Sanitize data against XSS
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
