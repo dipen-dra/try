@@ -17,14 +17,14 @@ const UserSchema = new mongoose.Schema(
         },
         role: {
             type: String,
-            enum: ['user', 'admin'], 
-            default: 'user'        
+            enum: ['user', 'admin'],
+            default: 'user'
         },
 
 
         disease: {
             type: String,
-            required: function() { return this.role === 'user'; }
+            required: function () { return this.role === 'user'; }
         },
         description: {
             type: String
@@ -32,12 +32,17 @@ const UserSchema = new mongoose.Schema(
         contact: {
             type: String,
             unique: true,
-            required: function() { return this.role === 'user'; }
+            required: function () { return this.role === 'user'; }
         },
         filepath: {
             type: String
         },
-        photoUrl: { type: String, default: "" }
+        photoUrl: { type: String, default: "" },
+        passwordHistory: [{
+            type: String,
+        }],
+        resetPasswordToken: String,
+        resetPasswordExpire: Date
     },
     { timestamps: true }
 );

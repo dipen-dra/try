@@ -1,6 +1,9 @@
-const User=require("../model/user")
-const bcrypt=require("bcrypt")
-const jwt=require("jsonwebtoken")
+const User = require("../model/user")
+const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
+const crypto = require("crypto");
+const nodemailer = require("nodemailer");
+const { validatePassword } = require("../utils/passwordValidator");
 const { OAuth2Client } = require('google-auth-library');
 const fetch = require('node-fetch');
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_CLIENT_ID';
@@ -8,17 +11,24 @@ const client = new OAuth2Client(GOOGLE_CLIENT_ID);
 
 
 // Create user (register)
-exports.registerUser=async(req, res) =>{
-    const { name,email, disease, description, contact, password } = req.body;
+// Create user (register)
+exports.registerUser = async (req, res) => {
+    const { name, email, disease, description, contact, password } = req.body;
     try {
-        const existingEmail = await User.findOne( {
+        // Validate password strength
+        const passwordValidation = validatePassword(password);
+        if (!passwordValidation.isValid) {
+            return res.status(400).json({ success: false, message: passwordValidation.message });
+        }
+
+        const existingEmail = await User.findOne({
             email: email
         });
         if (existingEmail) {
             return res.status(400).json({ success: false, message: "User with this email already exists" });
         }
 
-        const existingContact = await User.findOne( {
+        const existingContact = await User.findOne({
             contact: contact
         });
         if (existingContact) {
@@ -33,7 +43,8 @@ exports.registerUser=async(req, res) =>{
             disease,
             description,
             contact,
-            password: hashedPassword // store hashed password
+            password: hashedPassword, // store hashed password
+            passwordHistory: [hashedPassword] // Initialize history with first password
         });
 
         await newUser.save();
@@ -104,13 +115,13 @@ exports.loginUser = async (req, res) => {
 
 
 // Get all approved users (for donor dashboard)
-exports.getApprovedUser=async(req, res)=> {
+exports.getApprovedUser = async (req, res) => {
     const users = await find({ isApproved: true });
     res.status(200).json({ success: true, data: users });
 }
 
 // Admin: Approve user
-exports.approveUser=async(req, res) =>{
+exports.approveUser = async (req, res) => {
     const user = await findById(req.params.id);
     if (!user) return res.status(404).json({ success: false, message: "User not found" });
     user.isApproved = true;
@@ -119,7 +130,7 @@ exports.approveUser=async(req, res) =>{
 }
 
 // Admin: Delete user
-exports.deleteUser=async(req, res) =>{
+exports.deleteUser = async (req, res) => {
     await findByIdAndDelete(req.params.id);
     res.json({ success: true, message: "User deleted" });
 }
@@ -196,6 +207,140 @@ exports.changePassword = async (req, res) => {
     } catch (error) {
         console.error("Error changing password:", error);
         res.status(500).json({ success: false, message: 'Server error while changing password' });
+    }
+};
+
+// Forgot Password
+exports.forgotPassword = async (req, res) => {
+    const { email } = req.body;
+
+    try {
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+
+        // Generate Reset Token
+        const resetToken = crypto.randomBytes(20).toString("hex");
+
+        // Hash and store token
+        user.resetPasswordToken = crypto
+            .createHash("sha256")
+            .update(resetToken)
+            .digest("hex");
+
+        // Set expiry (1 hour)
+        user.resetPasswordExpire = Date.now() + 60 * 60 * 1000;
+
+        await user.save();
+
+        // Create reset URL
+        // In local dev: http://localhost:5173/reset-password/:token
+        const resetUrl = `http://localhost:5173/reset-password/${resetToken}`;
+
+        const message = `
+            <h1>Password Reset Request</h1>
+            <p>You requested a password reset for your Hope Care account.</p>
+            <p>Please click the link below to reset your password:</p>
+            <a href=${resetUrl} clicktracking=off>${resetUrl}</a>
+            <p>If you did not make this request, please ignore this email.</p>
+        `;
+
+        // Send Email
+        const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: "saurabprasai31@gmail.com", // Keeping existing email if valid, or needs update
+                pass: "yrjo llpl yzcq zqme", // App password
+            },
+        });
+
+        await transporter.sendMail({
+            from: "Hope Care <noreply@hopecare.com>",
+            to: user.email,
+            subject: "Password Reset Request",
+            html: message,
+        });
+
+        res.status(200).json({ success: true, message: "Email sent" });
+
+    } catch (error) {
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
+        await user.save();
+        console.error("Forgot Password Error:", error);
+        res.status(500).json({ success: false, message: "Email could not be sent" });
+    }
+};
+
+// Reset Password
+exports.resetPassword = async (req, res) => {
+    // Get token from URL params
+    const resetPasswordToken = crypto
+        .createHash("sha256")
+        .update(req.params.resetToken)
+        .digest("hex");
+
+    try {
+        const user = await User.findOne({
+            resetPasswordToken,
+            resetPasswordExpire: { $gt: Date.now() },
+        });
+
+        if (!user) {
+            return res.status(400).json({ success: false, message: "Invalid or expired token" });
+        }
+
+        const { password } = req.body;
+
+        // Validate new password strength
+        const passwordValidation = validatePassword(password);
+        if (!passwordValidation.isValid) {
+            return res.status(400).json({ success: false, message: passwordValidation.message });
+        }
+
+        // Check password history (reuse check)
+        // Check if new password matches any of the last 3 passwords
+        // user.passwordHistory is an array of hashes
+        if (user.passwordHistory && user.passwordHistory.length > 0) {
+            for (let i = 0; i < user.passwordHistory.length; i++) {
+                const isMatch = await bcrypt.compare(password, user.passwordHistory[i]);
+                if (isMatch) {
+                    return res.status(400).json({
+                        success: false,
+                        message: "For security, you cannot reuse any of your last 3 passwords."
+                    });
+                }
+            }
+        }
+
+        // Hash new password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Update password
+        user.password = hashedPassword;
+
+        // Update history
+        if (!user.passwordHistory) user.passwordHistory = [];
+        user.passwordHistory.push(hashedPassword);
+
+        // Keep only last 3
+        if (user.passwordHistory.length > 3) {
+            user.passwordHistory.shift(); // Remove oldest
+        }
+
+        // Clear reset fields
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
+
+        await user.save();
+
+        res.status(200).json({ success: true, message: "Password updated successfully" });
+
+    } catch (error) {
+        console.error("Reset Password Error:", error);
+        res.status(500).json({ success: false, message: "Server error" });
     }
 };
 

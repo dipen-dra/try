@@ -2,7 +2,9 @@
 
 import { Route, Routes, Navigate } from "react-router-dom";
 import { GuestRoute, ProtectedRoute, RoleBasedRoute } from "./RouteGuards";
-import { HomeRoute } from "./HomeRoute";
+import ResetPasswordPage from '../pages/ResetPasswordPage.jsx';
+import ForgotPasswordPage from '../pages/ForgotPasswordPage.jsx';
+import HomeRoute from './HomeRoute.jsx';
 
 // Import Layouts
 import UserLayout from "../layouts/user/UserLayout";
@@ -50,6 +52,22 @@ const AppRouter = () => (
       element={
         <GuestRoute>
           <SignupPage />
+        </GuestRoute>
+      }
+    />
+    <Route
+      path="/forgot-password"
+      element={
+        <GuestRoute>
+          <ForgotPasswordPage />
+        </GuestRoute>
+      }
+    />
+    <Route
+      path="/reset-password/:token"
+      element={
+        <GuestRoute>
+          <ResetPasswordPage />
         </GuestRoute>
       }
     />

@@ -1,10 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import { useNavigate, Link } from "react-router-dom"
-import { useFormik } from "formik"
-import * as Yup from "yup"
-import { Heart, Mail, User, Lock, ArrowRight, ArrowLeft, Sparkles, Phone, FileText, CheckCircle } from "lucide-react"
+import { Link, useNavigate } from 'react-router-dom';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { useRegister } from '../../hooks/useRegisterUserTan';
+import { User, Mail, Phone, Lock, Heart, FileText, Droplet } from 'lucide-react';
+import PasswordStrengthMeter from './PasswordStrengthMeter';
 import AuthLayout from "../AuthLayout"
 
 const RegisterForm = () => {
@@ -76,20 +78,23 @@ const RegisterForm = () => {
     },
     validationSchema: Yup.object({
       name: Yup.string().min(3, "Full name must be at least 3 characters").required("Full name is required"),
-      email: Yup.string().email("Invalid email address").required("Email is required"),
+      email: Yup.string().email('Invalid email address').required('Email is required'),
       contact: Yup.string()
-        .matches(/^[0-9]+$/, "Contact must be only digits")
-        .min(10, "Contact must be at least 10 digits")
-        .required("Contact number is required"),
-      disease: Yup.string().required("Disease or condition is required"),
-      description: Yup.string(),
+        .matches(/^[0-9]{10}$/, 'Contact number must be exactly 10 digits')
+        .required('Contact number is required'),
       password: Yup.string()
-        .min(8, "Password must be at least 8 characters")
-        .matches(/[A-Z]/, "Password must contain an uppercase letter")
-        .matches(/[a-z]/, "Password must contain a lowercase letter")
-        .matches(/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/, "Password must contain a special character")
-        .matches(/[0-9]/, "Password must contain a number")
-        .required("Password is required"),
+        .min(8, 'Password must be at least 8 characters')
+        .matches(/[A-Z]/, 'Must contain at least one uppercase letter')
+        .matches(/[a-z]/, 'Must contain at least one lowercase letter')
+        .matches(/[0-9]/, 'Must contain at least one number')
+        .matches(/[^A-Za-z0-9]/, 'Must contain at least one special character')
+        .required('Password is required'),
+      disease: Yup.string().when('role', {
+        is: 'user',
+        then: Yup.string().required('Disease or condition is required'),
+        otherwise: Yup.string(),
+      }),
+      description: Yup.string(),
       agreeTerms: Yup.boolean().oneOf([true], "You must agree to the Terms of Use and Privacy Policy"),
     }),
     onSubmit: async (values) => {
@@ -125,16 +130,6 @@ const RegisterForm = () => {
     },
   })
 
-  const getPasswordStrength = (password) => {
-    let strength = 0
-    if (password.length >= 8) strength++
-    if (/[A-Z]/.test(password)) strength++
-    if (/[a-z]/.test(password)) strength++
-    if (/[0-9]/.test(password)) strength++
-    if (/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password)) strength++
-    return strength
-  }
-
   const handleNext = () => {
     const currentField = steps[currentStep].id
 
@@ -167,8 +162,6 @@ const RegisterForm = () => {
     if (currentField === "description") return true // Optional field
     return !formik.errors[currentField] && formik.values[currentField]
   }
-
-  const passwordStrength = getPasswordStrength(formik.values.password)
 
   // Summary step (after all input steps)
   if (currentStep === steps.length) {
@@ -233,37 +226,39 @@ const RegisterForm = () => {
           <div className="mb-6">
             <label className="flex items-start space-x-3 cursor-pointer group">
               <div className="relative mt-0.5">
-                <input
-                  type="checkbox"
-                  name="agreeTerms"
-                  checked={formik.values.agreeTerms}
-                  onChange={formik.handleChange}
-                  className="sr-only"
-                />
-                <div
-                  className={`w-4 h-4 rounded-md border-2 transition-all duration-200 ${
-                    formik.values.agreeTerms
-                      ? "bg-blood-500 border-blood-500"
-                      : formik.touched.agreeTerms && formik.errors.agreeTerms
-                        ? "border-red-300"
-                        : "border-gray-300 group-hover:border-blood-400"
-                  }`}
-                >
-                  {formik.values.agreeTerms && (
-                    <svg
-                      className="w-2.5 h-2.5 text-white absolute top-0.5 left-0.5"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
+                {/* Password Field */}
+                <div>
+                  <div className="relative">
+                    <Lock className="absolute top-3 left-3 text-blood-400" size={20} />
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="Password"
+                      className={`w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blood-500 transition-all ${formik.touched.password && formik.errors.password
+                        ? 'border-red-500 bg-red-50'
+                        : 'border-gray-300 hover:border-blood-300'
+                        }`}
+                      {...formik.getFieldProps('password')}
+                    />
+                  </div>
+                  {formik.touched.password && formik.errors.password && (
+                    <div className="text-red-500 text-xs mt-1 ml-2">{formik.errors.password}</div>
+                  )}
+
+                  {/* Password Strength Meter */}
+                  {formik.values.password && (
+                    <PasswordStrengthMeter password={formik.values.password} />
                   )}
                 </div>
               </div>
+              <input
+                type="checkbox"
+                name="agreeTerms"
+                checked={formik.values.agreeTerms}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className="form-checkbox h-4 w-4 text-blood-600 transition duration-150 ease-in-out rounded-md border-gray-300 focus:ring-blood-500"
+              />
               <span className="text-sm text-gray-600 leading-relaxed">
                 By creating an account, you agree to the{" "}
                 <Link to="/terms" className="text-blood-600 hover:text-blood-700 font-medium underline">
@@ -276,16 +271,18 @@ const RegisterForm = () => {
                 .
               </span>
             </label>
-            {formik.touched.agreeTerms && formik.errors.agreeTerms && (
-              <div className="flex items-center space-x-1 text-red-600 text-xs mt-2">
-                <div className="w-1 h-1 bg-red-500 rounded-full"></div>
-                <span>{formik.errors.agreeTerms}</span>
-              </div>
-            )}
-          </div>
+            {
+              formik.touched.agreeTerms && formik.errors.agreeTerms && (
+                <div className="flex items-center space-x-1 text-red-600 text-xs mt-2">
+                  <div className="w-1 h-1 bg-red-500 rounded-full"></div>
+                  <span>{formik.errors.agreeTerms}</span>
+                </div>
+              )
+            }
+          </div >
 
           {/* Action Buttons */}
-          <div className="flex space-x-3">
+          < div className="flex space-x-3" >
             <button
               type="button"
               onClick={handlePrevious}
@@ -310,10 +307,10 @@ const RegisterForm = () => {
                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin relative z-10"></div>
               )}
             </button>
-          </div>
+          </div >
 
           {/* Login Link */}
-          <div className="text-center mt-4 pt-4 border-t border-gray-100">
+          < div className="text-center mt-4 pt-4 border-t border-gray-100" >
             <p className="text-gray-600 text-sm">
               Already have an account?{" "}
               <Link
@@ -323,9 +320,9 @@ const RegisterForm = () => {
                 Sign in here
               </Link>
             </p>
-          </div>
-        </div>
-      </AuthLayout>
+          </div >
+        </div >
+      </AuthLayout >
     )
   }
 
@@ -374,11 +371,10 @@ const RegisterForm = () => {
           <div className="relative group">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
               <Icon
-                className={`h-5 w-5 transition-colors duration-200 ${
-                  formik.touched[currentStepData.id] && formik.errors[currentStepData.id]
-                    ? "text-red-400"
-                    : "text-gray-400 group-focus-within:text-blood-500"
-                }`}
+                className={`h-5 w-5 transition-colors duration-200 ${formik.touched[currentStepData.id] && formik.errors[currentStepData.id]
+                  ? "text-red-400"
+                  : "text-gray-400 group-focus-within:text-blood-500"
+                  }`}
               />
             </div>
 
@@ -391,11 +387,10 @@ const RegisterForm = () => {
                 onKeyPress={handleKeyPress}
                 placeholder={currentStepData.placeholder}
                 rows="4"
-                className={`w-full pl-12 pr-4 py-4 border-2 rounded-2xl transition-all duration-300 bg-white/50 backdrop-blur-sm text-lg ${
-                  formik.touched[currentStepData.id] && formik.errors[currentStepData.id]
-                    ? "border-red-300 focus:border-red-500 focus:ring-red-200"
-                    : "border-gray-200 focus:border-blood-400 focus:ring-blood-100 hover:border-gray-300"
-                } focus:ring-4 focus:ring-opacity-20 focus:outline-none text-gray-900 placeholder-gray-400`}
+                className={`w-full pl-12 pr-4 py-4 border-2 rounded-2xl transition-all duration-300 bg-white/50 backdrop-blur-sm text-lg ${formik.touched[currentStepData.id] && formik.errors[currentStepData.id]
+                  ? "border-red-300 focus:border-red-500 focus:ring-red-200"
+                  : "border-gray-200 focus:border-blood-400 focus:ring-blood-100 hover:border-gray-300"
+                  } focus:ring-4 focus:ring-opacity-20 focus:outline-none text-gray-900 placeholder-gray-400`}
               />
             ) : (
               <input
@@ -406,50 +401,13 @@ const RegisterForm = () => {
                 onBlur={formik.handleBlur}
                 onKeyPress={handleKeyPress}
                 placeholder={currentStepData.placeholder}
-                className={`w-full pl-12 pr-4 py-4 border-2 rounded-2xl transition-all duration-300 bg-white/50 backdrop-blur-sm text-lg ${
-                  formik.touched[currentStepData.id] && formik.errors[currentStepData.id]
-                    ? "border-red-300 focus:border-red-500 focus:ring-red-200"
-                    : "border-gray-200 focus:border-blood-400 focus:ring-blood-100 hover:border-gray-300"
-                } focus:ring-4 focus:ring-opacity-20 focus:outline-none text-gray-900 placeholder-gray-400`}
+                className={`w-full pl-12 pr-4 py-4 border-2 rounded-2xl transition-all duration-300 bg-white/50 backdrop-blur-sm text-lg ${formik.touched[currentStepData.id] && formik.errors[currentStepData.id]
+                  ? "border-red-300 focus:border-red-500 focus:ring-red-200"
+                  : "border-gray-200 focus:border-blood-400 focus:ring-blood-100 hover:border-gray-300"
+                  } focus:ring-4 focus:ring-opacity-20 focus:outline-none text-gray-900 placeholder-gray-400`}
               />
             )}
           </div>
-
-          {/* Password Strength Indicator */}
-          {currentStepData.id === "password" && formik.values.password && (
-            <div className="mt-4">
-              <div className="flex space-x-1 mb-2">
-                {[1, 2, 3, 4, 5].map((level) => (
-                  <div
-                    key={level}
-                    className={`h-1.5 flex-1 rounded-full transition-colors duration-300 ${
-                      level <= passwordStrength
-                        ? passwordStrength <= 2
-                          ? "bg-red-400"
-                          : passwordStrength <= 3
-                            ? "bg-yellow-400"
-                            : "bg-blood-400"
-                        : "bg-gray-200"
-                    }`}
-                  />
-                ))}
-              </div>
-              <p className="text-sm text-gray-600">
-                Password strength:{" "}
-                <span
-                  className={
-                    passwordStrength <= 2
-                      ? "text-red-600"
-                      : passwordStrength <= 3
-                        ? "text-yellow-600"
-                        : "text-blood-600"
-                  }
-                >
-                  {passwordStrength <= 2 ? "Weak" : passwordStrength <= 3 ? "Medium" : "Strong"}
-                </span>
-              </p>
-            </div>
-          )}
 
           {/* Error Message */}
           {formik.touched[currentStepData.id] && formik.errors[currentStepData.id] && (

@@ -11,7 +11,9 @@ const {
     getMe,
     updateMe,
     changePassword,
-    socialLogin // Ensure socialLogin is exported from your controller
+    socialLogin, // Ensure socialLogin is exported from your controller
+    forgotPassword,
+    resetPassword
 } = require("../controller/userController");
 
 const { authorizeToken, requireAdmin } = require("../middleware/authMiddleware");
@@ -29,10 +31,6 @@ router.post('/register', [authLimiter], registerUser);
 // User login with rate limiting and reCAPTCHA
 router.post("/login", [authLimiter], loginUser);
 
-// Social login (Google/Facebook) - reCAPTCHA is not typically used here
-// as these providers have their own security.
-router.post('/social-login', socialLogin);
-
 
 // ## 3. Define Protected User Routes ##
 
@@ -42,8 +40,13 @@ router.get('/me', authorizeToken, getMe);
 // Update personal profile information
 router.put('/me', authorizeToken, updateMe);
 
-// Change password for the logged-in user
-router.put('/changepassword', authorizeToken, changePassword);
+// Password Management (Secure)
+router.post("/change-password", authorizeToken, changePassword);
+router.post("/forgot-password", forgotPassword);
+router.put("/reset-password/:resetToken", resetPassword);
+
+// Social Login
+router.post('/social-login', socialLogin);
 
 // Donor: see all approved users
 router.get('/approved', authorizeToken, getApprovedUser);
