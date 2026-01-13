@@ -73,7 +73,17 @@ exports.loginUser = async (req, res) => {
         console.log("Backend: Password match result:", isMatch); // Added
         if (!isMatch) {
             console.log("Backend: Invalid credentials for user:", email); // Added
-            return res.status(401).json({ success: false, message: "Invalid credentials" });
+
+            // Calculate remaining attempts if rate limiter is active
+            let attemptsMessage = "Invalid credentials";
+            if (req.rateLimit) {
+                const attemptsLeft = req.rateLimit.limit - req.rateLimit.current;
+                if (attemptsLeft > 0) {
+                    attemptsMessage += `. ${attemptsLeft} attempts remaining before 10 min ban.`;
+                }
+            }
+
+            return res.status(401).json({ success: false, message: attemptsMessage });
         }
 
         // --- FIX: Include user.name/user.email in JWT payload for display on backend ---

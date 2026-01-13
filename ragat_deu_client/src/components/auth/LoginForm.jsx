@@ -109,6 +109,13 @@ const LoginForm = () => {
                     {isPending ? "Signing you in..." : "Sign In"}
                 </button>
             </form>
+            {/* Display General Error Message (e.g., Rate Limit Warning) */}
+            {formik.errors.general && (
+                <div className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-xl relative text-sm text-center">
+                    <span className="block sm:inline">{formik.errors.general}</span>
+                </div>
+            )}
+
             <div className="text-center mt-6 pt-4 border-t">
                 <p>New to our community? <Link to="/signup" className="font-semibold text-blood-600 hover:text-blood-700">Join us today</Link></p>
             </div>

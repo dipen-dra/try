@@ -52,7 +52,7 @@ const {
 const { authorizeToken, requireAdmin } = require("../middleware/authMiddleware");
 
 // Import the new security middlewares
-const authLimiter = require('../middleware/rateLimiter');
+const { authLimiter, loginLimiter } = require('../middleware/rateLimiter');
 const verifyRecaptcha = require('../middleware/recaptcha');
 
 
@@ -62,7 +62,7 @@ const verifyRecaptcha = require('../middleware/recaptcha');
 router.post('/register', [authLimiter], registerUser);
 
 // User login with rate limiting and reCAPTCHA
-router.post("/login", [authLimiter], loginUser);
+router.post("/login", [loginLimiter], loginUser);
 
 
 // ## 3. Define Protected User Routes ##
