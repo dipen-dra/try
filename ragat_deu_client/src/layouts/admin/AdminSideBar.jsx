@@ -1,8 +1,18 @@
-import { NavLink } from "react-router-dom"
+import { useNavigate, NavLink } from "react-router-dom"
 import { LayoutDashboard, Users, UserPlus, LogOut, GitPullRequest, MessageCircleHeart, DollarSign } from "lucide-react"
+import { useAuth } from "../../hooks/useAuth"
 
 
 export default function Sidebar() {
+  const { logout } = useAuth()
+  const navigate = useNavigate()
+
+  const handleLogout = (e) => {
+    e.preventDefault()
+    logout()
+    navigate("/login")
+  }
+
   const linkClasses =
     "flex items-center space-x-3 px-4 py-3 text-gray-600 hover:text-gray-900 hover:bg-gradient-to-r hover:from-blood-50 hover:to-indigo-50 rounded-xl transition-all duration-200 group"
 
@@ -95,18 +105,16 @@ export default function Sidebar() {
 
       {/* Sign Out Section */}
       <div className="p-6 border-t border-gray-200 bg-gradient-to-r from-gray-50 to-white">
-        <NavLink
-          to="/login"
-          className={({ isActive }) =>
-            `${linkClasses} ${isActive ? activeClasses : ""} hover:bg-gradient-to-r hover:from-red-50 hover:to-pink-50 hover:text-red-600`
-          }
+        <button
+          onClick={handleLogout}
+          className={`${linkClasses} w-full hover:bg-gradient-to-r hover:from-red-50 hover:to-pink-50 hover:text-red-600`}
         >
           <div className="relative">
             <LogOut className="w-5 h-5 transition-transform group-hover:scale-110" />
             <div className="absolute -inset-1 bg-red-400 rounded-full opacity-0 group-hover:opacity-20 transition-opacity"></div>
           </div>
           <span className="font-medium">Sign Out</span>
-        </NavLink>
+        </button>
 
         {/* Footer */}
         <div className="mt-4 pt-4 border-t border-gray-200">
