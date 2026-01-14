@@ -12,6 +12,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from "react";
 import { AuthContext } from "../../auth/AuthProvider";
+import { GoogleLogin } from '@react-oauth/google';
 
 const LoginForm = () => {
     const { mutate: attemptLogin, isPending, data: loginResponse } = useLogin();
@@ -139,6 +140,35 @@ const LoginForm = () => {
                         </div>
                         <h1 className="text-3xl font-bold text-navy-500">Welcome Back</h1>
                         <p className="text-gray-500">Continue your journey of saving lives</p>
+                    </div>
+
+                    {/* Google Login Button */}
+                    <div className="flex justify-center mb-6">
+                        <GoogleLogin
+                            onSuccess={async (credentialResponse) => {
+                                try {
+                                    const res = await axios.post('http://localhost:5050/api/auth/google-login', {
+                                        token: credentialResponse.credential
+                                    });
+                                    toast.success("Google Login Successful!");
+                                    login(res.data.user, res.data.token);
+                                    navigate("/user/dashboard");
+                                } catch (error) {
+                                    console.error("Google Login Failed", error);
+                                    toast.error(error.response?.data?.message || "Google Login failed");
+                                }
+                            }}
+                            onError={() => {
+                                toast.error("Google Login Failed");
+                            }}
+                            useOneTap
+                        />
+                    </div>
+
+                    <div className="relative flex py-2 items-center">
+                        <div className="flex-grow border-t border-gray-200"></div>
+                        <span className="flex-shrink-0 mx-4 text-gray-400 text-sm">Or sign in with email</span>
+                        <div className="flex-grow border-t border-gray-200"></div>
                     </div>
 
                     <form onSubmit={formik.handleSubmit} className="space-y-4">

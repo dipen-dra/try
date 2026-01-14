@@ -24,7 +24,7 @@
     "express": "^5.1.0",
     "express-mongo-sanitize": "^2.2.0",
     "express-rate-limit": "^8.0.1",
-    "google-auth-library": "^10.1.0",
+    "google-auth-library": "^10.5.0",
     "helmet": "^8.1.0",
     "json2csv": "^6.0.0-alpha.2",
     "jsonwebtoken": "^9.0.2",
@@ -40,6 +40,8 @@
     "uuid": "^11.1.0",
     "uuidv4": "^6.2.13",
     "web-push": "^3.6.7",
+    "winston": "^3.19.0",
+    "winston-daily-rotate-file": "^5.0.0",
     "xss-clean": "^0.1.4"
   },
   "repository": {

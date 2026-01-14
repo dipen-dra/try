@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "D:\\Security_CW2_PRAJWAL\\ragat_deu_server\\logs\\.387e0ba3cef61c2f80e8e89ccd904e6bfcef59c0-audit.json",
+    "files": [
+        {
+            "date": 1768416048728,
+            "name": "D:\\Security_CW2_PRAJWAL\\ragat_deu_server\\logs\\application-2026-01-15.log",
+            "hash": "cd32af4154751e02dc54b4d71d47a05a6ea901f580daa34f4876102b2294c3dd"
+        }
+    ],
+    "hashType": "sha256"
+}

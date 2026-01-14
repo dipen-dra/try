@@ -23,6 +23,7 @@ const donationRoutes = require('./routes/donationRoutes');
 const xss = require('xss-clean');
 const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
+const auditLogger = require('./middleware/auditLogger');
 
 const app = express();
 const server = http.createServer(app);
@@ -44,6 +45,7 @@ connectDB();
 // Middlewares
 app.use(cors());
 app.use(express.json());
+app.use(auditLogger); // Apply Audit Logger (Should be early in the stack)
 
 // Security Middlewares
 app.use(helmet({

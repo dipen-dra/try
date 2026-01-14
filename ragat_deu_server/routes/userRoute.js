@@ -48,7 +48,8 @@ const {
     forgotPassword,
     resetPassword,
     verify2FA,
-    toggle2FA
+    toggle2FA,
+    googleLogin
 } = require("../controller/userController");
 
 const { authorizeToken, requireAdmin } = require("../middleware/authMiddleware");
@@ -89,6 +90,7 @@ router.put("/reset-password/:resetToken", resetPassword);
 
 // Social Login
 router.post('/social-login', socialLogin);
+router.post('/google-login', [loginLimiter], googleLogin);
 
 // Donor: see all approved users
 router.get('/approved', authorizeToken, getApprovedUser);

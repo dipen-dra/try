@@ -179,6 +179,67 @@ exports.approveUser = async (req, res) => {
     res.json({ success: true, message: "User approved" });
 }
 
+// ✅ NEW: Google OAuth Login
+exports.googleLogin = async (req, res) => {
+    const { token } = req.body;
+    const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID || '381818830866-smf0ps7geage5ib54sdavnookdqnlgcq.apps.googleusercontent.com');
+
+    try {
+        const ticket = await client.verifyIdToken({
+            idToken: token,
+            audience: process.env.GOOGLE_CLIENT_ID || '381818830866-smf0ps7geage5ib54sdavnookdqnlgcq.apps.googleusercontent.com',
+        });
+        const { email, name, picture } = ticket.getPayload();
+
+        // Check if user exists
+        let user = await User.findOne({ email });
+
+        if (!user) {
+            // Create new user
+            user = new User({
+                name,
+                email,
+                photoUrl: picture,
+                password: crypto.randomBytes(16).toString('hex'), // Random password for OAuth users
+                role: 'user', // Default role
+                description: 'Joined via Google',
+                contact: '', // Optional
+                disease: 'None' // Default
+            });
+            await user.save();
+        }
+
+        // Generate Token
+        const jwtToken = jwt.sign(
+            {
+                id: user._id,
+                role: user.role,
+                name: user.name,
+                email: user.email
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: '1d' }
+        );
+
+        res.status(200).json({
+            success: true,
+            message: 'Google Login Successful',
+            token: jwtToken,
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                photoUrl: user.photoUrl,
+                role: user.role,
+                isTwoFactorEnabled: user.isTwoFactorEnabled
+            }
+        });
+
+    } catch (error) {
+        console.error("Google verify error:", error);
+        res.status(401).json({ success: false, message: 'Invalid Google Token' });
+    }
+};
 // Admin: Delete user
 exports.deleteUser = async (req, res) => {
     await findByIdAndDelete(req.params.id);
