@@ -35,10 +35,8 @@ exports.getChatHistory = async (req, res) => {
 
 // --- NEW FUNCTION TO GET CONVERSATION LIST FOR ADMIN ---
 exports.getConversations = async (req, res) => {
-    const adminId = process.env.ADMIN_ID;
-    if (req.user.id !== adminId) {
-        return res.status(403).json({ success: false, message: "Forbidden." });
-    }
+    // Role check is already handled by requireAdmin middleware
+    const adminId = req.user.id;
 
     try {
         const userIds = await Chat.distinct('sender', { receiver: adminId });
