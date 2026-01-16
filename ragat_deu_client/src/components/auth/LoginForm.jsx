@@ -53,8 +53,13 @@ const LoginForm = () => {
             });
 
             toast.success("Verification successful!");
+            toast.success("Verification successful!");
             login(res.data.user, res.data.token);
-            navigate("/user/dashboard");
+            if (res.data.user.role === 'admin') {
+                navigate("/admin");
+            } else {
+                navigate("/user/dashboard");
+            }
 
         } catch (error) {
             console.error(error);
@@ -151,8 +156,13 @@ const LoginForm = () => {
                                         token: credentialResponse.credential
                                     });
                                     toast.success("Google Login Successful!");
+                                    toast.success("Google Login Successful!");
                                     login(res.data.user, res.data.token);
-                                    navigate("/user/dashboard");
+                                    if (res.data.user.role === 'admin') {
+                                        navigate("/admin");
+                                    } else {
+                                        navigate("/user/dashboard");
+                                    }
                                 } catch (error) {
                                     console.error("Google Login Failed", error);
                                     toast.error(error.response?.data?.message || "Google Login failed");

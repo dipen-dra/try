@@ -27,7 +27,8 @@ const loginAttempt = async ({ email, password }) => {
 
       // ----- THE FIX IS HERE -----
       // We spread `userRes` directly, because it's already the data object.
-      return { ...userRes, role: 'user' };
+      // And we use the role from the response, defaulting to 'user' only if missing.
+      return { ...userRes, role: userRes.user?.role || 'user' };
       // --------------------------
 
     } catch (userError) {

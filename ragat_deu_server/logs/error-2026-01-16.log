@@ -1,0 +1,10 @@
+[2026-01-16 19:19:59] [ERROR]: GET /api/notifications 401 10ms - IP: 127.0.0.1 - User: Unauthenticated
+[2026-01-16 19:20:10] [ERROR]: POST /api/auth/admin/login 401 1ms - IP: 127.0.0.1 - User: Unauthenticated
+[2026-01-16 19:39:58] [ERROR]: POST /api/auth/admin/login 401 3ms - IP: 127.0.0.1 - User: Unauthenticated
+[2026-01-16 19:41:09] [ERROR]: POST /api/auth/admin/login 401 1ms - IP: 127.0.0.1 - User: Unauthenticated
+[2026-01-16 19:42:46] [ERROR]: POST /api/auth/admin/login 401 1ms - IP: 127.0.0.1 - User: Unauthenticated
+[2026-01-16 19:43:03] [ERROR]: POST /api/auth/admin/login 401 0ms - IP: 127.0.0.1 - User: Unauthenticated
+[2026-01-16 19:43:25] [ERROR]: POST /api/auth/admin/login 401 2ms - IP: 127.0.0.1 - User: Unauthenticated
+[2026-01-16 19:44:29] [ERROR]: POST /api/auth/admin/login 401 0ms - IP: 127.0.0.1 - User: Unauthenticated
+[2026-01-16 19:44:56] [ERROR]: POST /api/auth/admin/login 401 3ms - IP: 127.0.0.1 - User: Unauthenticated
+[2026-01-16 19:46:23] [ERROR]: POST /api/auth/admin/login 401 1ms - IP: 127.0.0.1 - User: Unauthenticated

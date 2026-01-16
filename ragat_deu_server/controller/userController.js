@@ -129,7 +129,7 @@ exports.loginUser = async (req, res) => {
         const token = jwt.sign(
             {
                 id: user._id,
-                role: "user",
+                role: user.role,
                 name: user.name,
                 email: user.email
             },
@@ -147,6 +147,7 @@ exports.loginUser = async (req, res) => {
                 name: user.name,
                 contact: user.contact,
                 email: user.email,
+                role: user.role, // Added role
                 isTwoFactorEnabled: user.isTwoFactorEnabled
             }
         });
@@ -573,8 +574,10 @@ exports.verify2FA = async (req, res) => {
             user: {
                 id: user._id,
                 name: user.name,
+                name: user.name,
                 contact: user.contact,
                 email: user.email,
+                role: user.role, // Added role
                 isTwoFactorEnabled: user.isTwoFactorEnabled
             }
         });
