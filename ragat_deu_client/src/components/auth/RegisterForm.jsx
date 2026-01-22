@@ -224,56 +224,67 @@ const RegisterForm = () => {
           </div>
 
           {/* Terms Agreement */}
+          {/* Create Password Section */}
           <div className="mb-6">
-            <label className="flex items-start space-x-3 cursor-pointer group">
-              <div className="relative mt-0.5">
-                {/* Password Field */}
-                <div>
-                  <div className="relative">
-                    <Lock className="absolute top-3 left-3 text-blood-400" size={20} />
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      name="password"
-                      placeholder="Password"
-                      className={`w-full pl-10 pr-10 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blood-500 transition-all ${formik.touched.password && formik.errors.password
-                        ? 'border-red-500 bg-red-50'
-                        : 'border-gray-300 hover:border-blood-300'
-                        }`}
-                      {...formik.getFieldProps('password')}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute top-2.5 right-3 text-gray-400 hover:text-gray-600"
-                    >
-                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                    </button>
-                  </div>
-                  {formik.touched.password && formik.errors.password && (
-                    <div className="text-red-500 text-xs mt-1 ml-2">{formik.errors.password}</div>
-                  )}
-
-                  {/* Password Strength Meter */}
-                  {formik.values.password && (
-                    <PasswordStrengthMeter password={formik.values.password} />
-                  )}
-                </div>
-              </div>
+            <h3 className="text-sm font-medium text-gray-700 mb-3 ml-1">Create your password</h3>
+            <div className="relative">
+              <Lock className="absolute top-3 left-3 text-blood-400" size={20} />
               <input
-                type="checkbox"
-                name="agreeTerms"
-                checked={formik.values.agreeTerms}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                className="form-checkbox h-4 w-4 text-blood-600 transition duration-150 ease-in-out rounded-md border-gray-300 focus:ring-blood-500"
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Choose a strong password"
+                className={`w-full pl-10 pr-10 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blood-500 transition-all ${formik.touched.password && formik.errors.password
+                  ? 'border-red-500 bg-red-50'
+                  : 'border-gray-300 hover:border-blood-300'
+                  }`}
+                {...formik.getFieldProps('password')}
               />
-              <span className="text-sm text-gray-600 leading-relaxed">
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 focus:outline-none"
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
+
+            {/* Error Message */}
+            {formik.touched.password && formik.errors.password && (
+              <div className="flex items-center space-x-2 text-red-500 text-xs mt-2 ml-1">
+                <div className="w-1 h-1 bg-red-500 rounded-full"></div>
+                <span>{formik.errors.password}</span>
+              </div>
+            )}
+
+            {/* Password Strength Meter */}
+            <div className="mt-3">
+              {formik.values.password && (
+                <PasswordStrengthMeter password={formik.values.password} />
+              )}
+            </div>
+          </div>
+
+          {/* Terms Agreement */}
+          <div className="mb-8">
+            <label className="flex items-start space-x-3 cursor-pointer group">
+              <div className="relative mt-1">
+                <input
+                  type="checkbox"
+                  name="agreeTerms"
+                  checked={formik.values.agreeTerms}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  className="peer h-5 w-5 cursor-pointer appearance-none rounded-md border-2 border-gray-300 transition-all text-blood-600 focus:ring-blood-500 checked:bg-blood-600 checked:border-blood-600"
+                />
+                <CheckCircle className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white opacity-0 pointer-events-none peer-checked:opacity-100 transition-opacity" />
+              </div>
+              <span className="text-sm text-gray-600 leading-relaxed select-none">
                 By creating an account, you agree to the{" "}
-                <Link to="/terms" className="text-blood-600 hover:text-blood-700 font-medium underline">
+                <Link to="/terms" className="text-blood-600 hover:text-blood-700 font-medium underline decoration-blood-200 underline-offset-2 hover:decoration-blood-600 transition-all">
                   Terms of Use
                 </Link>{" "}
                 and{" "}
-                <Link to="/privacy" className="text-blood-600 hover:text-blood-700 font-medium underline">
+                <Link to="/privacy" className="text-blood-600 hover:text-blood-700 font-medium underline decoration-blood-200 underline-offset-2 hover:decoration-blood-600 transition-all">
                   Privacy Policy
                 </Link>
                 .
@@ -281,13 +292,13 @@ const RegisterForm = () => {
             </label>
             {
               formik.touched.agreeTerms && formik.errors.agreeTerms && (
-                <div className="flex items-center space-x-1 text-red-600 text-xs mt-2">
+                <div className="flex items-center space-x-2 text-red-600 text-xs mt-2 ml-8">
                   <div className="w-1 h-1 bg-red-500 rounded-full"></div>
                   <span>{formik.errors.agreeTerms}</span>
                 </div>
               )
             }
-          </div >
+          </div>
 
           {/* Action Buttons */}
           < div className="flex space-x-3" >
