@@ -7,5 +7,9 @@ export default defineConfig({
   define: {
     // This is still needed for the 'simple-peer' video call library
     'global': 'globalThis',
+  },
+  server: {
+    host: '127.0.0.1',
+    port: 5173,
   }
 });

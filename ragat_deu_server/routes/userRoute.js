@@ -24,13 +24,26 @@ const uploadProfile = multer({
     storage: storage,
     limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
     fileFilter: (req, file, cb) => {
+        // Double Extension Check (Strict)
+        if (file.originalname.split('.').length > 2) {
+            return cb(new Error('Double extension found'));
+        }
+
         const filetypes = /jpeg|jpg|png/;
         const mimetype = filetypes.test(file.mimetype);
         const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-        if (mimetype && extname) {
-            return cb(null, true);
+
+        // 1. Check Extension
+        if (!extname) {
+            return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
         }
-        cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+
+        // 2. Check MIME Type
+        if (!mimetype) {
+            return cb(new Error('Invalid MIME type detected'));
+        }
+
+        return cb(null, true);
     }
 });
 
@@ -49,7 +62,8 @@ const {
     resetPassword,
     verify2FA,
     toggle2FA,
-    googleLogin
+    googleLogin,
+    getAuditLogs // Import the new function
 } = require("../controller/userController");
 
 const { authorizeToken, requireAdmin } = require("../middleware/authMiddleware");
@@ -70,6 +84,15 @@ router.post("/login", [loginLimiter], loginUser);
 // 2FA Verification (Protected by strict rate limit)
 router.post("/verify-2fa", [otpLimiter], verify2FA);
 
+// Social Login - PUBLIC
+router.post('/social-login', socialLogin);
+router.post('/google-login', [loginLimiter], googleLogin);
+
+// Password Management - PUBLIC
+// router.post("/change-password", authorizeToken, changePassword); // Keep change-password protected
+router.post("/forgot-password", forgotPassword);
+router.put("/reset-password/:resetToken", resetPassword);
+
 
 // ## 3. Define Protected User Routes ##
 // Toggle 2FA
@@ -85,12 +108,7 @@ router.put('/me', authorizeToken, uploadProfile.single('profilePicture'), update
 
 // Password Management (Secure)
 router.post("/change-password", authorizeToken, changePassword);
-router.post("/forgot-password", forgotPassword);
-router.put("/reset-password/:resetToken", resetPassword);
 
-// Social Login
-router.post('/social-login', socialLogin);
-router.post('/google-login', [loginLimiter], googleLogin);
 
 // Donor: see all approved users
 router.get('/approved', authorizeToken, getApprovedUser);
@@ -103,6 +121,9 @@ router.put('/:id/approve', authorizeToken, requireAdmin, approveUser);
 
 // Admin: delete a user
 router.delete('/:id', authorizeToken, requireAdmin, deleteUser);
+
+// Admin: View Audit Logs
+router.get('/logs', authorizeToken, requireAdmin, getAuditLogs);
 
 
 module.exports = router;

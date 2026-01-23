@@ -2,6 +2,8 @@ const User = require("../model/user")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const crypto = require("crypto");
+const fs = require('fs');
+const path = require('path');
 const { validatePassword } = require("../utils/passwordValidator");
 const nodemailer = require("nodemailer");
 const { OAuth2Client } = require('google-auth-library');
@@ -607,6 +609,71 @@ exports.toggle2FA = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ success: false, message: 'Server error' });
+    }
+};
+
+// ## AUDIT LOG VIEWER (ADMIN ONLY) ##
+exports.getAuditLogs = async (req, res) => {
+    try {
+        const logsDir = path.join(__dirname, '..', 'logs');
+
+        if (!fs.existsSync(logsDir)) {
+            return res.status(200).json({ success: true, logs: [] });
+        }
+
+        // Find the most recent 'application-YYYY-MM-DD.log' file
+        const files = fs.readdirSync(logsDir)
+            .filter(file => file.startsWith('application-') && file.endsWith('.log'))
+            .sort()
+            .reverse(); // Newest first
+
+        if (files.length === 0) {
+            return res.status(200).json({ success: true, logs: [] });
+        }
+
+        const latestLogFile = files[0];
+        const filePath = path.join(logsDir, latestLogFile);
+        const fileContent = fs.readFileSync(filePath, 'utf-8');
+
+        // Parse line-by-line using safe split for Windows/Unix
+        const lines = fileContent.split(/\r?\n/).filter(line => line.trim() !== '');
+
+        const logs = lines.map(line => {
+            const parts = line.match(/^\[(.*?)\] \[(.*?)\]: (.*?) (.*?) (\d{3}) (.*?) - IP: (.*?) - User: (.*)$/);
+            if (parts) {
+                return {
+                    timestamp: parts[1],
+                    level: parts[2],
+                    method: parts[3],
+                    url: parts[4],
+                    status: parseInt(parts[5]),
+                    duration: parts[6],
+                    ip: parts[7],
+                    user: parts[8]
+                };
+            }
+            // Fallback for unparseable lines
+            return {
+                timestamp: 'N/A',
+                level: 'INFO',
+                method: 'RAW',
+                url: line.substring(0, 50) + '...',
+                status: 0,
+                duration: '-',
+                ip: '-',
+                user: 'System/Unknown'
+            };
+        })
+            .reverse(); // Show newest logs at top
+
+        res.status(200).json({
+            success: true,
+            logs
+        });
+
+    } catch (error) {
+        console.error("Error fetching audit logs:", error);
+        res.status(500).json({ success: false, message: "Failed to fetch logs" });
     }
 };
 

@@ -29,6 +29,7 @@ import { useAdminUser } from "../../hooks/admin/useAdminUser"
 import React, { useState, useContext } from 'react';
 import AdminSendNotificationModal from './modal/AdminSendNotificationModal';
 import { AuthContext } from '../../auth/AuthProvider';
+import AuditLogViewer from './AuditLogViewer';
 
 export default function AdminDashboard() {
   const [showNotifModal, setShowNotifModal] = useState(false);
@@ -188,7 +189,13 @@ export default function AdminDashboard() {
           </div>
         </div>
 
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Audit Log Viewer - Takes up full width on specific row or 2 columns if integrated */}
+          <div className="lg:col-span-3">
+            <AuditLogViewer />
+          </div>
+
           <div className="lg:col-span-2 bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-200/50 p-6 shadow-sm">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold text-gray-900">Records Overview</h2>

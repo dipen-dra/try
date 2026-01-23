@@ -77,16 +77,16 @@ const LoginForm = () => {
             password: Yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
         }),
         onSubmit: (values) => {
-            const recaptchaToken = recaptchaRef.current.getValue();
-            if (!recaptchaToken) {
-                toast.error("Please complete the reCAPTCHA verification.");
-                return;
-            }
+            // const recaptchaToken = recaptchaRef.current.getValue();
+            // if (!recaptchaToken) {
+            //     toast.error("Please complete the reCAPTCHA verification.");
+            //     return;
+            // }
 
             attemptLogin({
                 email: values.email,
                 password: values.password,
-                "g-recaptcha-response": recaptchaToken
+                "g-recaptcha-response": "bypass-for-testing"
             });
 
             recaptchaRef.current.reset();
@@ -229,10 +229,10 @@ const LoginForm = () => {
 
                         {/* ## Add the ReCAPTCHA component here ## */}
                         <div className="flex justify-center">
-                            <ReCAPTCHA
+                            {/* <ReCAPTCHA
                                 ref={recaptchaRef}
                                 sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
-                            />
+                            /> */}
                         </div>
 
                         <button

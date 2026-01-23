@@ -1,20 +1,20 @@
 import axios from 'axios';
 
-const API_URL=`${import.meta.env.VITE_API_BASE_URL}/api` || 
-'http://localhost:5050/api' //fallback
+const API_URL = `${import.meta.env.VITE_API_BASE_URL}/api` ||
+    'http://127.0.0.1:5050/api' //fallback
 
-const instance=axios.create(
+const instance = axios.create(
     {
-        baseURL:API_URL,
-        headers:{
+        baseURL: API_URL,
+        headers: {
             "Content-Type": "application/json",
         }
     }
 )
-instance.interceptors.request.use((config)=>{
-    const token=localStorage.getItem("token")
-    if(token){
-        config.headers.Authorization="Bearer "+token
+instance.interceptors.request.use((config) => {
+    const token = localStorage.getItem("token")
+    if (token) {
+        config.headers.Authorization = "Bearer " + token
     }
     return config
 })
