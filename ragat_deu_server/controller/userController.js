@@ -206,7 +206,7 @@ exports.googleLogin = async (req, res) => {
                 password: crypto.randomBytes(16).toString('hex'), // Random password for OAuth users
                 role: 'user', // Default role
                 description: 'Joined via Google',
-                contact: '', // Optional
+                contact: `GOOGLE_${email}`, // Placeholder to satisfy unique/required constraint
                 disease: 'None' // Default
             });
             await user.save();
