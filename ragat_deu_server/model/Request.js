@@ -22,29 +22,37 @@ const RequestSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        neededAmount:{
-            type:Number,
+        neededAmount: {
+            type: Number,
         },
-        originalAmount:{
-            type:Number,
+        originalAmount: {
+            type: Number,
         },
-        condition:{
-            type:String,
-            enum:["critical", "moderate"],
-            default:"moderate"
+        raisedAmount: {
+            type: Number,
+            default: 0
         },
-        inDepthStory:{
-            type:String
+        donorsCount: {
+            type: Number,
+            default: 0
         },
-        citizen:{
-            type:String
+        condition: {
+            type: String,
+            enum: ["critical", "moderate"],
+            default: "moderate"
+        },
+        inDepthStory: {
+            type: String
+        },
+        citizen: {
+            type: String
         },
         description: {
             type: String
         },
         uploadedBy: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User', 
+            ref: 'User',
             required: true
         },
         status: {

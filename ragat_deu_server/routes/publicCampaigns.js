@@ -19,9 +19,8 @@ router.get('/', async (req, res) => {
             description: campaign.description,
             userImage: campaign.userImage,
             goalAmount: campaign.neededAmount,
-            // You will replace these hardcoded values later when you have a donation system
-            raisedAmount: 0,
-            donors: 0,
+            raisedAmount: campaign.raisedAmount || 0,
+            donors: campaign.donorsCount || 0,
         }));
 
         res.json(publicCampaigns);
@@ -49,9 +48,8 @@ router.get('/:id', async (req, res) => {
             description: campaign.description,
             userImage: campaign.userImage,
             goalAmount: campaign.neededAmount,
-            // These will also be calculated later
-            raisedAmount: 0,
-            donors: 0,
+            raisedAmount: campaign.raisedAmount || 0,
+            donorsCount: campaign.donorsCount || 0,
         };
 
         res.json(campaignDetails);
