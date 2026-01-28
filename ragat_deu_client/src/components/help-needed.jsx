@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { AlertTriangle } from "lucide-react";
 
 // Import the new card component
-import FundraiserCard from "../components/FundraiserCard"; 
+import FundraiserCard from "../components/FundraiserCard";
 import Badge from "../components/Badge"; // Assuming you have this component
 
 // --- Helper Functions ---
@@ -60,7 +60,7 @@ const HelpNeededSection = () => {
     const element = document.getElementById("help-needed-section");
     if (element) observer.observe(element);
     return () => {
-      if(element) observer.unobserve(element);
+      if (element) observer.unobserve(element);
     }
   }, []);
 
@@ -88,31 +88,37 @@ const HelpNeededSection = () => {
   }, []);
 
   return (
-    <section id="help-needed-section" className="py-16 bg-gray-50">
+    <section id="help-needed-section" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
-          className={`text-center mb-12 transition-all duration-1000 ${isVisible ? "animate-fadeInUp opacity-100" : "opacity-0 translate-y-[50px]"}`}
+          className={`text-center mb-16 transition-all duration-1000 ${isVisible ? "animate-fadeInUp opacity-100" : "opacity-0 translate-y-[50px]"}`}
         >
-          <Badge variant="primary" className="mb-4 animate-pulse">
-            Donate
-          </Badge>
-          <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">Your Help is Needed</h2>
+          <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-blood-50 border border-blood-100 mb-6">
+            <span className="flex h-2 w-2 rounded-full bg-blood-500 mr-2 animate-pulse"></span>
+            <span className="text-xs font-bold text-blood-600 uppercase tracking-widest">Active Campaigns</span>
+          </div>
+          <h2 className="text-4xl font-black text-gray-900 sm:text-5xl mb-4 tracking-tight">
+            Your Help is <span className="text-blood-600">Needed</span>
+          </h2>
+          <p className="max-w-2xl mx-auto text-lg text-gray-500 font-medium">
+            Join our community of donors and help save lives today. Every contribution, no matter how small, brings hope to those in need.
+          </p>
         </div>
-        
+
         {isLoading ? (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[...Array(4)].map((_, i) => <FundraiserSkeletonCard key={i} />)}
           </div>
         ) : isError ? (
-           <div className="text-center py-10 px-4 bg-red-50 rounded-lg border border-red-200">
-             <AlertTriangle className="mx-auto h-12 w-12 text-red-400" />
-             <h3 className="mt-2 text-lg font-medium text-red-800">Failed to load campaigns</h3>
-             <p className="mt-1 text-sm text-red-700">Please try refreshing the page.</p>
-           </div>
+          <div className="text-center py-10 px-4 bg-red-50 rounded-lg border border-red-200">
+            <AlertTriangle className="mx-auto h-12 w-12 text-red-400" />
+            <h3 className="mt-2 text-lg font-medium text-red-800">Failed to load campaigns</h3>
+            <p className="mt-1 text-sm text-red-700">Please try refreshing the page.</p>
+          </div>
         ) : campaigns.length === 0 ? (
           <div className="text-center py-10 px-4 bg-gray-100 rounded-lg">
-             <h3 className="mt-2 text-lg font-medium text-gray-800">No Active Campaigns</h3>
-             <p className="mt-1 text-sm text-gray-600">There are currently no campaigns needing help. Please check back later!</p>
+            <h3 className="mt-2 text-lg font-medium text-gray-800">No Active Campaigns</h3>
+            <p className="mt-1 text-sm text-gray-600">There are currently no campaigns needing help. Please check back later!</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">

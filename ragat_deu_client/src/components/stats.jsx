@@ -9,26 +9,26 @@ const StatsSection = () => {
   const stats = [
     {
       number: "0%",
-      label: "Platform charge",
-      description: "contrary to popular belief, Lorem Ipsum is not simply random text.",
+      label: "Platform Charge",
+      description: "100% of your donation goes directly to the fundraising campaign.",
       finalValue: 0,
     },
     {
       number: "12+ Lakh",
-      label: "Donations given",
-      description: "contrary to popular belief, Lorem Ipsum is not simply random text.",
+      label: "Donations Given",
+      description: "Providing life-saving support to thousands of patients across the region.",
       finalValue: 12,
     },
     {
       number: "16+ Lakh",
       label: "Active Donors",
-      description: "contrary to popular belief, Lorem Ipsum is not simply random text.",
+      description: "A growing community of compassionate individuals making a real impact.",
       finalValue: 16,
     },
     {
       number: "2000+",
-      label: "Success stories",
-      description: "contrary to popular belief, Lorem Ipsum is not simply random text.",
+      label: "Success Stories",
+      description: "Lives saved and families supported through our collective efforts.",
       finalValue: 2000,
     },
   ]
