@@ -3,7 +3,7 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import Button from "./buttons"
 import { ChevronDown, X, Menu } from "lucide-react"
-import logo from "../assets/images/logo-blood-drop.png"
+import logo from "../assets/images/dayalu_haat.png"
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -17,14 +17,13 @@ const Header = () => {
             <Link to="/" className="flex items-center space-x-2">
               <div className="w-10 h-10 flex items-center justify-center transform hover:scale-110 transition-transform duration-300">
                 <img
-                  src={logo}
-                  alt="रक्तदान Logo"
+                  alt="दयालु हात Logo"
                   className="w-10 h-10"
                 />
               </div>
 
               <span className="text-xl font-bold text-navy-500 hover:text-blood-500 transition-colors duration-300">
-                <span className="text-blood-500">रक्तदान</span>
+                <span className="text-blood-500">दयालु हात</span>
               </span>
             </Link>
           </div>

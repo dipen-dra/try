@@ -24,6 +24,11 @@
             "date": 1769105751726,
             "name": "D:\\Security_CW2_PRAJWAL\\ragat_deu_server\\logs\\application-2026-01-23.log",
             "hash": "966291dfb2304f7c6264680a23cb0c2c0d61e1fdf710f0eb4340f9ff15846d7b"
+        },
+        {
+            "date": 1769618615966,
+            "name": "D:\\Security_CW2_PRAJWAL\\ragat_deu_server\\logs\\application-2026-01-28.log",
+            "hash": "6b87de06467713cb4355211cc8552f5f8919dc2e2dc74e8d86c7853249031971"
         }
     ],
     "hashType": "sha256"

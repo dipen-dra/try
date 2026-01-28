@@ -8,7 +8,7 @@ const { validatePassword } = require("../utils/passwordValidator");
 const nodemailer = require("nodemailer");
 const { OAuth2Client } = require('google-auth-library');
 const fetch = require('node-fetch');
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_CLIENT_ID';
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '533154754344-itat24vhf004fiaqdvugam8jpfr1i81t.apps.googleusercontent.com';
 const client = new OAuth2Client(GOOGLE_CLIENT_ID);
 
 
@@ -116,7 +116,7 @@ exports.loginUser = async (req, res) => {
             await transporter.sendMail({
                 from: process.env.EMAIL_USER,
                 to: user.email,
-                subject: 'Your 2FA Login Code - Raktadan',
+                subject: 'Your 2FA Login Code - दयालु हात',
                 text: `Your login verification code is: ${otp}. It expires in 10 minutes.`
             });
 
@@ -185,12 +185,12 @@ exports.approveUser = async (req, res) => {
 // ✅ NEW: Google OAuth Login
 exports.googleLogin = async (req, res) => {
     const { token } = req.body;
-    const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID || '381818830866-smf0ps7geage5ib54sdavnookdqnlgcq.apps.googleusercontent.com');
+    const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID || '533154754344-itat24vhf004fiaqdvugam8jpfr1i81t.apps.googleusercontent.com');
 
     try {
         const ticket = await client.verifyIdToken({
             idToken: token,
-            audience: process.env.GOOGLE_CLIENT_ID || '381818830866-smf0ps7geage5ib54sdavnookdqnlgcq.apps.googleusercontent.com',
+            audience: process.env.GOOGLE_CLIENT_ID || '533154754344-itat24vhf004fiaqdvugam8jpfr1i81t.apps.googleusercontent.com',
         });
         const { email, name, picture } = ticket.getPayload();
 
@@ -394,7 +394,7 @@ exports.forgotPassword = async (req, res) => {
 
         const message = `
             <h1>Password Reset Request</h1>
-            <p>You requested a password reset for your रक्तदान account.</p>
+            <p>You requested a password reset for your दयालु हात account.</p>
             <p>Please click the link below to reset your password:</p>
             <a href=${resetUrl} clicktracking=off>${resetUrl}</a>
             <p>If you did not make this request, please ignore this email.</p>
@@ -409,7 +409,7 @@ exports.forgotPassword = async (req, res) => {
         });
 
         await transporter.sendMail({
-            from: "रक्तदान <noreply@raktadan.com>",
+            from: "दयालु हात <noreply@dayaluhaat.com>",
             to: user.email,
             subject: "Password Reset Request",
             html: message,
@@ -635,7 +635,7 @@ exports.getAuditLogs = async (req, res) => {
         const filePath = path.join(logsDir, latestLogFile);
         const fileContent = fs.readFileSync(filePath, 'utf-8');
 
-        // Parse line-by-line using safe split for Windows/Unix
+
         const lines = fileContent.split(/\r?\n/).filter(line => line.trim() !== '');
 
         const logs = lines.map(line => {

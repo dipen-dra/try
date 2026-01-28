@@ -24,10 +24,10 @@ export default function Sidebar() {
         {/* Logo Section */}
         <div className="flex items-center space-x-4 mb-12 p-4 bg-white rounded-2xl shadow-md border border-gray-100">
           <div className="bg-gradient-to-br from-red-500 to-pink-600 text-white rounded-xl p-3 shadow-lg">
-            <span className="text-2xl">H</span>
+            <span className="text-2xl font-bold">D</span>
           </div>
           <div>
-            <h1 className="text-xl font-bold text-gray-800">रक्तदान</h1>
+            <h1 className="text-xl font-bold text-gray-800">दयालु हात</h1>
             <p className="text-sm text-gray-500 font-medium">Admin Portal</p>
           </div>
         </div>
@@ -96,7 +96,7 @@ export default function Sidebar() {
         <div className="mt-12 p-4 bg-gradient-to-br from-blood-50 to-indigo-50 rounded-2xl border border-blue-100">
           <div className="text-center">
             <div className="w-12 h-12 bg-gradient-to-br from-blood-500 to-blood-600 rounded-full flex items-center justify-center mx-auto mb-3">
-              <span className="text-white font-bold text-lg">HC</span>
+              <span className="text-white font-bold text-lg">DH</span>
             </div>
             <p className="text-xs text-gray-600 font-medium">Managing care with compassion</p>
           </div>
@@ -118,7 +118,7 @@ export default function Sidebar() {
 
         {/* Footer */}
         <div className="mt-4 pt-4 border-t border-gray-200">
-          <p className="text-xs text-gray-400 text-center">© 2024 रक्तदान</p>
+          <p className="text-xs text-gray-400 text-center">© 2024 दयालु हात</p>
         </div>
       </div>
     </aside>

@@ -41,7 +41,7 @@ export default function UserSidebar() {
     <>
       <div className="w-64 min-h-screen bg-white border-r border-gray-200 p-6 shadow-sm flex flex-col justify-between">
         <div>
-          <div className="text-2xl font-bold text-blood-600 mb-8">User Panel</div>
+          <div className="text-2xl font-bold text-blood-600 mb-8">दयालु हात User Panel</div>
           <nav className="space-y-2">
             {menuItems.map((item) => {
               const Icon = item.icon;
@@ -51,11 +51,10 @@ export default function UserSidebar() {
                 <Link
                   key={item.name}
                   to={item.path}
-                  className={`flex items-center space-x-3 px-4 py-2 rounded-lg font-medium transition-all ${
-                    isActive
+                  className={`flex items-center space-x-3 px-4 py-2 rounded-lg font-medium transition-all ${isActive
                       ? "bg-blood-50 text-blood-600"
                       : "text-gray-700 hover:bg-gray-50"
-                  } relative`}
+                    } relative`}
                 >
                   <Icon className="w-5 h-5" />
                   <span>{item.name}</span>

@@ -11,7 +11,7 @@ const Footer = () => {
               <Droplet className="w-10 h-10 text-blood-500 fill-blood-500" />
             </div>
             <span className="text-xl font-bold text-navy-500 hover:text-blood-500 transition-colors duration-300">
-              <span className="text-blood-500">रक्तदान</span>
+              <span className="text-blood-500">दयालु हात</span>
             </span>
           </div>
 
@@ -87,7 +87,7 @@ const Footer = () => {
 
           {/* Copyright */}
           <p className="text-center text-gray-500 text-sm animate-fadeInUp" style={{ animationDelay: "0.6s" }}>
-            © 2024 रक्तदान. All rights reserved. Saving lives, one donation at a time.
+            © 2024 दयालु हात. All rights reserved. Saving lives, one donation at a time.
           </p>
         </div>
       </div>
