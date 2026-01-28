@@ -8,12 +8,18 @@ import { useRegisterUserTan as useRegister } from '../../hooks/useRegisterUserTa
 import { User, Mail, Phone, Lock, Heart, FileText, Droplet, CheckCircle, ArrowLeft, ArrowRight, Sparkles, Eye, EyeOff } from 'lucide-react';
 import PasswordStrengthMeter from './PasswordStrengthMeter';
 import AuthLayout from "../AuthLayout"
+import { GoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
+import { useContext } from 'react';
+import { AuthContext } from "../../auth/AuthProvider";
 
 const RegisterForm = () => {
   const navigate = useNavigate()
   const [currentStep, setCurrentStep] = useState(0)
   const [isPending, setIsPending] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
+  const { login } = useContext(AuthContext);
 
   // Steps configuration
   const steps = [
@@ -367,6 +373,46 @@ const RegisterForm = () => {
               className="bg-gradient-to-r from-blood-500 to-blood-1000 h-2 rounded-full transition-all duration-500 ease-out"
               style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
             ></div>
+          </div>
+        </div>
+
+        {/* Google Registration Section */}
+        <div className="mb-8">
+          <div className="flex justify-center mb-6">
+            <GoogleLogin
+              onSuccess={async (credentialResponse) => {
+                try {
+                  const res = await axios.post('http://localhost:5050/api/auth/google-login', {
+                    token: credentialResponse.credential
+                  });
+                  toast.success("Registration via Google Successful!");
+                  login(res.data.user, res.data.token);
+                  if (res.data.user.role === 'admin') {
+                    navigate("/admin");
+                  } else {
+                    navigate("/user/dashboard");
+                  }
+                } catch (error) {
+                  console.error("Google Registration Failed", error);
+                  toast.error(error.response?.data?.message || "Google Registration failed");
+                }
+              }}
+              onError={() => {
+                toast.error("Google Sign-in failed");
+              }}
+              text="continue_with"
+              shape="pill"
+            />
+          </div>
+
+          {/* Separator */}
+          <div className="relative mb-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-200"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-4 bg-white text-gray-500 font-light italic">Or register with email</span>
+            </div>
           </div>
         </div>
 
