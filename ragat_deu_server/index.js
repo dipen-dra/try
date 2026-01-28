@@ -51,11 +51,29 @@ app.use(helmet({
     contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
-            scriptSrc: ["'self'", "'unsafe-inline'"],
-            styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+            scriptSrc: [
+                "'self'",
+                "'unsafe-inline'",
+                "https://www.google.com/recaptcha/",
+                "https://www.gstatic.com/recaptcha/",
+                "https://accounts.google.com/gsi/client"
+            ],
+            styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://accounts.google.com/gsi/style"],
             fontSrc: ["'self'", "https://fonts.gstatic.com"],
             imgSrc: ["'self'", "data:", "https:"],
-            connectSrc: ["'self'", "http://localhost:5173", "http://127.0.0.1:5173"]
+            connectSrc: [
+                "'self'",
+                "http://localhost:5173",
+                "http://127.0.0.1:5173",
+                "https://accounts.google.com/gsi/",
+                "https://www.google.com/recaptcha/"
+            ],
+            frameSrc: [
+                "'self'",
+                "https://www.google.com/recaptcha/",
+                "https://recaptcha.google.com/recaptcha/",
+                "https://accounts.google.com/gsi/"
+            ],
         }
     }
 }));
