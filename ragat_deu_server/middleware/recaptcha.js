@@ -2,7 +2,6 @@ const axios = require('axios');
 
 const verifyRecaptcha = async (req, res, next) => {
     const recaptchaToken = req.body['g-recaptcha-response'];
-    console.log(recaptchaToken)
 
     if (!recaptchaToken) {
         return res.status(400).json({ success: false, message: 'reCAPTCHA token is required.' });
@@ -12,6 +11,7 @@ const verifyRecaptcha = async (req, res, next) => {
         const secretKey = process.env.RECAPTCHA_SECRET_KEY;
         const verificationURL = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}&remoteip=${req.ip}`;
         const response = await axios.post(verificationURL);
+
         if (response.data.success) {
             next();
         } else {

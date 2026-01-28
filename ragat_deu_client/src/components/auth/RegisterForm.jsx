@@ -9,10 +9,11 @@ import { User, Mail, Phone, Lock, Heart, FileText, Droplet, CheckCircle, ArrowLe
 import PasswordStrengthMeter from './PasswordStrengthMeter';
 import AuthLayout from "../AuthLayout"
 import { GoogleLogin } from '@react-oauth/google';
+import { useContext, useRef } from 'react';
+import { AuthContext } from "../../auth/AuthProvider";
+import ReCAPTCHA from "react-google-recaptcha";
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-import { useContext } from 'react';
-import { AuthContext } from "../../auth/AuthProvider";
 
 const RegisterForm = () => {
   const navigate = useNavigate()
@@ -20,6 +21,7 @@ const RegisterForm = () => {
   const [isPending, setIsPending] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const { login } = useContext(AuthContext);
+  const recaptchaRef = useRef(null);
 
   // Steps configuration
   const steps = [
@@ -109,28 +111,32 @@ const RegisterForm = () => {
       try {
         const { agreeTerms, ...payload } = values
 
-        // Replace with your actual API endpoint
-        const response = await fetch("http://localhost:5050/api/auth/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
+        const recaptchaToken = recaptchaRef.current?.getValue();
+        if (!recaptchaToken) {
+          toast.error("Please complete the reCAPTCHA verification.");
+          setIsPending(false);
+          return;
+        }
+
+        // Use axios to match login flow
+        const response = await axios.post("http://localhost:5050/api/auth/register", {
+          ...payload,
+          "g-recaptcha-response": recaptchaToken
         })
 
-        const data = await response.json()
-
-        if (response.ok && data.success) {
+        if (response.data.success) {
           navigate("/login")
         } else {
-          if (data.message?.includes("already exists")) {
-            formik.setErrors({ general: "A user with this email or contact number already exists." })
-          } else {
-            formik.setErrors({ general: data.message || "Registration failed" })
-          }
+          // This part might not be hit if axios throws on 400
+          formik.setErrors({ general: response.data.message || "Registration failed" })
         }
       } catch (error) {
-        formik.setErrors({ general: error.message || "Registration failed" })
+        const errorMsg = error.response?.data?.message || error.message || "Registration failed"
+        if (errorMsg.includes("already exists")) {
+          formik.setErrors({ general: "A user with this email or contact number already exists." })
+        } else {
+          formik.setErrors({ general: errorMsg })
+        }
       } finally {
         setIsPending(false)
       }
@@ -304,6 +310,14 @@ const RegisterForm = () => {
                 </div>
               )
             }
+          </div>
+
+          {/* reCAPTCHA component */}
+          <div className="flex justify-center mb-6">
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+            />
           </div>
 
           {/* Action Buttons */}

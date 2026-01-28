@@ -83,6 +83,9 @@ const xss = require('xss');
 const sanitizeHtml = (middlewareReq, middlewareRes, middlewareNext) => {
     if (middlewareReq.body) {
         for (const key in middlewareReq.body) {
+            // Skip sanitization for reCAPTCHA token as it's a signed string
+            if (key === 'g-recaptcha-response') continue;
+
             if (typeof middlewareReq.body[key] === 'string') {
                 middlewareReq.body[key] = xss(middlewareReq.body[key]);
             }
