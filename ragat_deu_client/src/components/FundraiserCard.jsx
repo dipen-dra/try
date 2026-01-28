@@ -35,7 +35,7 @@ const FundraiserCard = ({ id, title, image, raised, goal, donors, formatCurrency
 
       {/* Content Section */}
       <div className="p-6 flex flex-col flex-grow">
-        <h3 className="text-xl font-bold text-gray-900 mb-4 line-clamp-2 min-h-[3.5rem] group-hover:text-blood-600 transition-colors">
+        <h3 className="text-xl font-bold text-gray-900 mb-4 line-clamp-1 group-hover:text-blood-600 transition-colors" title={title}>
           {title}
         </h3>
 
@@ -72,11 +72,11 @@ const FundraiserCard = ({ id, title, image, raised, goal, donors, formatCurrency
 
           <Link
             to={`/donate/${id}`}
-            className="group/btn relative w-full overflow-hidden bg-gray-900 hover:bg-blood-600 text-white font-bold py-4 px-6 rounded-xl text-center transition-all duration-300 shadow-md hover:shadow-blood-200"
+            className="block w-full bg-gray-900 hover:bg-blood-600 text-white font-bold py-4 px-6 rounded-xl text-center transition-all duration-300 shadow-md hover:shadow-blood-200"
           >
-            <span className="relative z-10 flex items-center justify-center">
-              Support this Campaign
-              <svg className="ml-2 w-5 h-5 transition-transform group-hover/btn:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <span className="flex items-center justify-center">
+              Donate Now
+              <svg className="ml-2 w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </span>
