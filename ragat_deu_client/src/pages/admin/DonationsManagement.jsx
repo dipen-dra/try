@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../../api/api';
 
 const PAGE_SIZE = 20;
 
@@ -17,7 +17,7 @@ export default function DonationsManagement() {
       const params = { page, limit: PAGE_SIZE };
       if (search) params.search = search;
       if (status) params.paymentStatus = status;
-      const res = await axios.get('/api/donations/admin/list', { params });
+      const res = await axios.get('/donations/admin/list', { params });
       setDonations(res.data.donations);
       setTotal(res.data.total);
     } catch (err) {
@@ -34,7 +34,7 @@ export default function DonationsManagement() {
     const params = [];
     if (search) params.push(`search=${encodeURIComponent(search)}`);
     if (status) params.push(`paymentStatus=${encodeURIComponent(status)}`);
-    const url = `/api/donations/admin/export${params.length ? '?' + params.join('&') : ''}`;
+    const url = `/donations/admin/export${params.length ? '?' + params.join('&') : ''}`;
     window.open(url, '_blank');
   };
 
@@ -106,5 +106,5 @@ export default function DonationsManagement() {
       </div>
     </div>
   );
-} 
+}
 
