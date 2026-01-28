@@ -39,13 +39,21 @@ export default function MyRequests() {
       case "pending":
         return "bg-gradient-to-r from-amber-50 to-yellow-50 text-amber-800 border-amber-200 shadow-amber-100"
       case "approved":
-        return "bg-gradient-to-r from-emerald-50 to-blood-50 text-emerald-800 border-emerald-200 shadow-emerald-100"
+        return "bg-gradient-to-r from-blood-50 to-red-50 text-blood-800 border-blood-200 shadow-blood-100"
       case "declined":
         return "bg-gradient-to-r from-red-50 to-rose-50 text-red-800 border-red-200 shadow-red-100"
       default:
         return "bg-gradient-to-r from-gray-50 to-slate-50 text-gray-800 border-gray-200 shadow-gray-100"
     }
   }
+
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+      minimumFractionDigits: 0,
+    }).format(amount || 0);
+  };
 
   if (isLoading) {
     return (
@@ -85,13 +93,13 @@ export default function MyRequests() {
         <div className="mb-12">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
             <div className="flex items-center space-x-6 mb-6 lg:mb-0">
-              <Link 
-                to="/user/dashboard" 
+              <Link
+                to="/user/dashboard"
                 className="group flex items-center justify-center w-12 h-12 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 hover:shadow-xl hover:scale-105 transition-all duration-300"
               >
                 <ArrowLeft className="w-6 h-6 text-gray-600 group-hover:text-gray-800 group-hover:-translate-x-1 transition-all duration-300" />
               </Link>
-              
+
               <div>
                 <div className="flex items-center space-x-4 mb-2">
                   <div className="w-14 h-14 bg-gradient-to-br from-blood-500 to-blood-600 rounded-2xl flex items-center justify-center shadow-lg">
@@ -175,7 +183,7 @@ export default function MyRequests() {
                             <Calendar className="w-4 h-4" />
                             <span>{new Date(request.createdAt).toLocaleDateString()}</span>
                           </div>
-                          
+
                           {isAmountModified ? (
                             <div className="flex items-center space-x-3 bg-gradient-to-r from-blood-50 to-blood-100 rounded-full px-3 py-1">
                               <DollarSign className="w-4 h-4 text-gray-500" />
@@ -199,7 +207,7 @@ export default function MyRequests() {
                       </div>
                     </div>
 
-                    <div className="flex items-center space-x-3">
+                    <div className="flex items-center space-x-2">
                       <span className={`px-4 py-2 rounded-full text-sm font-semibold border shadow-sm ${getStatusColor(request.status)}`}>
                         {request.status.charAt(0).toUpperCase() + request.status.slice(1)}
                       </span>
@@ -214,6 +222,44 @@ export default function MyRequests() {
                       )}
                     </div>
                   </div>
+
+                  {/* New: Donation Progress for Approved Requests */}
+                  {request.status === "approved" && (
+                    <div className="mb-8 p-6 bg-gradient-to-br from-blood-50/50 to-white border border-blood-100 rounded-2xl shadow-sm">
+                      <div className="flex justify-between items-end mb-4">
+                        <div>
+                          <p className="text-xs font-bold text-blood-600 uppercase tracking-widest mb-1">Fundraising Progress</p>
+                          <div className="flex items-baseline space-x-2">
+                            <span className="text-2xl font-black text-gray-900">{formatCurrency(request.raisedAmount)}</span>
+                            <span className="text-sm font-medium text-gray-500">raised of {formatCurrency(request.neededAmount)}</span>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <span className="text-lg font-bold text-blood-600">
+                            {Math.round((request.raisedAmount / request.neededAmount) * 100) || 0}%
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="w-full bg-gray-200 rounded-full h-3 mb-4 overflow-hidden shadow-inner">
+                        <div
+                          className="bg-gradient-to-r from-blood-500 to-blood-600 h-full rounded-full transition-all duration-1000 ease-out shadow-[0_0_10px_rgba(220,38,38,0.2)]"
+                          style={{ width: `${Math.min((request.raisedAmount / request.neededAmount) * 100, 100) || 0}%` }}
+                        ></div>
+                      </div>
+
+                      <div className="flex items-center space-x-3 text-sm font-medium text-gray-600">
+                        <div className="flex -space-x-2">
+                          {[1, 2, 3].map(i => (
+                            <div key={i} className="w-7 h-7 rounded-full border-2 border-white bg-blood-50 flex items-center justify-center">
+                              <Heart className="w-3 h-3 text-blood-400 fill-current" />
+                            </div>
+                          ))}
+                        </div>
+                        <span>{request.donorsCount || 0} supporters have donated</span>
+                      </div>
+                    </div>
+                  )}
 
                   {/* Amount Modified Alert */}
                   {isAmountModified && (
